@@ -7,9 +7,11 @@ namespace m3d {
 		aptInit();
 		cfguInit();
 		ptmuInit();
+		acuInit();
 	}
 
 	Applet::~Applet() {
+		acuExit();
 		ptmuExit();
 		cfguExit();
 		aptExit();
@@ -124,9 +126,59 @@ namespace m3d {
 		return true;
 	}
 
-	bool Applet::getNew3ds() {
+	bool Applet::isNew3ds() {
 		bool state;
 		APT_CheckNew3DS(&state);
 		return state;
+	}
+
+	bool Applet::is2ds() {
+		u8 state;
+		CFGU_GetModelNintendo2DS(&state);
+		return (state == 0);
+	}
+
+	bool Applet::wifiConnected() {
+		u32 state;
+		ACU_GetWifiStatus(&state);
+		return (state > 0);
+	}
+
+	m3d::ConsoleModel Applet::getConsoleModel() {
+		u8 state;
+		CFGU_GetSystemModel(&state);
+
+		switch(state) {
+			case 0:
+				return MODEL_O3DS;
+			case 1:
+				return MODEL_O3DSXL;
+			case 2:
+				return MODEL_N3DS;
+			case 3:
+				return MODEL_2DS;
+			case 4:
+				return MODEL_N3DSXL;
+			default:
+				return MODEL_UNKNOWN;
+		}
+	}
+
+	bool Applet::adapterPluggedIn() {
+		bool state;
+		PTMU_GetAdapterState(&state);
+		return state;
+	}
+
+	bool Applet::isCharging() {
+		u8 state;
+		PTMU_GetBatteryChargeState(&state);
+		return (state == 1);
+	}
+
+	int Applet::getBatteryLevel() {
+		u8 state;
+		PTMU_GetBatteryLevel(&state);
+		return (state <= 5 && state >= 0 ? state : 0);
 	}
 } /* m3d */

@@ -66,6 +66,18 @@ namespace m3d {
 	};
 
 	/**
+	 * @brief Defines the different 3DS models
+	 */
+	enum ConsoleModel {
+		MODEL_O3DS, 	///< Old 3DS
+		MODEL_O3DSXL, ///< Old 3DS XL
+		MODEL_N3DS, 	///< New 3DS
+		MODEL_N3DSXL, ///< New 3DS XL
+		MODEL_2DS, 		///< 2DS
+		MODEL_UNKNOWN
+	};
+
+	/**
 	 * @brief The applet class (used for running the app)
 	 */
 	class Applet {
@@ -124,10 +136,46 @@ namespace m3d {
 		bool launchLibApp(m3d::LibAppId t_id);
 
 		/**
-		 * Returns whether the system is a New3DS
+		 * @brief Returns whether the system is a New3DS
 		 * @return Whether the system is a New3DS or not
 		 */
-		bool getNew3ds();
+		bool isNew3ds();
+
+		/**
+		 * @brief Returns whether the system is a 2DS
+		 * @return Whether the system is a 2DS or not
+		 */
+		bool is2ds();
+
+		/**
+		 * @brief Returns the model of the system
+		 * @return The system model
+		 */
+		m3d::ConsoleModel getConsoleModel();
+
+		/**
+		 * @brief Returns whether the system is connected to a wifi network
+		 * @return The state of whether the system is connected to a wifi network or not
+		 */
+		bool wifiConnected();
+
+		/**
+		 * @brief Returns whether the power adapter is plugged in
+		 * @return The state whether the power adapter is plugged in or not
+		 */
+		bool adapterPluggedIn();
+
+		/**
+		 * @brief Returns whether the system is charging or not
+		 * @return The charging state of the console
+		 */
+		bool isCharging();
+
+		/**
+		 * @brief Returns the current battery level of the console
+		 * @return The battery level of the console (0-5, equals the amount of bars shown in the home-menu)
+		 */
+		int getBatteryLevel();
 
 	private:
 		/* data */
