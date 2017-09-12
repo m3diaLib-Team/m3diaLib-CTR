@@ -7,11 +7,11 @@ namespace m3d {
 		aptInit();
 		cfguInit();
 		ptmuInit();
-		acuInit();
+		acInit();
 	}
 
 	Applet::~Applet() {
-		acuExit();
+		acExit();
 		ptmuExit();
 		cfguExit();
 		aptExit();

@@ -173,7 +173,7 @@ namespace m3d {
 
 		/**
 		 * @brief Returns the current battery level of the console
-		 * @return The battery level of the console (0-5, equals the amount of bars shown in the home-menu)
+		 * @return The battery level of the console (0-5)
 		 */
 		int getBatteryLevel();
 
