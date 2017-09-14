@@ -22,71 +22,72 @@ namespace m3d {
 	class Error {
 	public:
 		/**
-		 * Initializes an Error object
+		 * @brief Initializes an Error object
 		 */
 		Error();
 
 		/**
-		 * Displays the error
+		 * @brief Displays the error
 		 */
 		void show();
 
 		/**
-		 * Sets the error type
+		 * @brief Sets the error type
 		 * @param t_type The error type to be set
 		 */
 		void setType(m3d::ErrorType t_type);
 
 		/**
-		 * Returns the error type
+		 * @brief Returns the error type
 		 * @return The error type currently set
 		 */
 		m3d::ErrorType getType();
 
 		/**
-		 * Sets the error code
+		 * @brief Sets the error code
 		 * @param t_code The error code to set
 		 */
 		void setErrorCode(int t_code);
 
 		/**
-		 * Returns the error code
+		 * @brief Returns the error code
 		 * @return The error code currently set
 		 */
 		int getErrorCode();
 
 		/**
-		 * Sets the text to be displayed
+		 * @brief Sets the text to be displayed
 		 * @param t_text The text to be set
 		 */
 		void setText(std::string t_text);
 
 		/**
-		 * Returns the text currently set to be displayed
+		 * @brief Returns the text currently set to be displayed
 		 * @return The current text
 		 */
 		std::string getText();
 
 		/**
-		 * Sets whether to allow the use of the home button
+		 * @brief Sets whether to allow the use of the home button
 		 * @param t_allowed Whether the use of the home button is allowed or not
 		 */
 		void setAllowHomebutton(bool t_allowed);
 
 		/**
-		 * Returns whether the use of the home button is allowed
+		 * @brief Returns whether the use of the home button is allowed
+		 * @return Whether the use of the home button is allowed or not
 		 */
 		bool getAllowHomeButton();
 
 		/**
-		 * Sets whether to show an error code
-		 * @param t_show Whether show an error code or not
+		 * @brief Sets whether to show an error code
+		 * @param t_show Whether to show an error code or not
 		 */
 		void setShowErrorCode(bool t_show);
 
 		/**
-		 * Returns whether to show an error code
-		 * @param t_allowed Whether show an error code or not
+		 * @brief Returns whether to show an error code
+		 * @return Whether to show an error code or not
 		 */
 		bool getShowErrorCode();
 
