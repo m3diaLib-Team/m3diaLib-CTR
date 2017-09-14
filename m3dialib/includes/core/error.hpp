@@ -75,7 +75,6 @@ namespace m3d {
 
 		/**
 		 * Returns whether the use of the home button is allowed
-		 * @param t_allowed Whether the use of the home button is allowed or not
 		 */
 		bool getAllowHomeButton();
 

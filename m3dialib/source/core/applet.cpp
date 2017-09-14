@@ -3,7 +3,8 @@
 #include "core/applet.hpp"
 
 namespace m3d {
-	Applet::Applet() {
+	Applet::Applet() :
+	 					m_running(true) {
 		aptInit();
 		cfguInit();
 		ptmuInit();
@@ -18,12 +19,11 @@ namespace m3d {
 	}
 
 	bool Applet::isRunning() {
-		return aptMainLoop();
+		return m_running;
 	}
 
 	void Applet::exit() {
-		aptExit();
-		APT_CloseApplication(nullptr, 0, 0);
+		m_running = false;
 	}
 
 	void Applet::reboot() {

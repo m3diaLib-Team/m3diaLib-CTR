@@ -179,7 +179,7 @@ namespace m3d {
 
 	private:
 		/* data */
-		bool m_sleepAllowed;
+		bool m_sleepAllowed, m_running;
 
 	};
 } /* m3d */
