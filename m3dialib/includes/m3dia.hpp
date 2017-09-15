@@ -6,6 +6,7 @@
 
 // 3ds libraries
 #include <3ds.h>
+#include <citro3d.h>
 
 // m3Dia includes
 #include "./core/core.hpp"
