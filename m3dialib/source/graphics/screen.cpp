@@ -39,6 +39,8 @@ namespace m3d {
 
 		// Get the location of the uniforms
 		m_projection = shaderInstanceGetUniformLocation(m_shader.vertexShader, "projection");
+		m_transform = shaderInstanceGetUniformLocation(shader.vertexShader, "transform");
+		m_useTransform = shaderInstanceGetUniformLocation(shader.vertexShader, "useTransform");
 	}
 
 	Screen::~Screen() {
@@ -61,6 +63,18 @@ namespace m3d {
 			memset(leftFrameBuffer, 0, 400 * 240 * 3);
 			memset(rightFrameBuffer, 0, 400 * 240 * 3);
 			memset(bottomFrameBuffer, 0, 320 * 240 * 3);
+	}
+
+	int Screen::getProjectionUniform() {
+		return m_projection;
+	}
+
+	int Screen::getTransformUniform() {
+		return m_transform;
+	}
+
+	int Screen::getUseTransformUniform() {
+		return m_useTransform;
 	}
 
 	void Screen::drawTop(m3d::Drawable& t_object, int t_layer) {

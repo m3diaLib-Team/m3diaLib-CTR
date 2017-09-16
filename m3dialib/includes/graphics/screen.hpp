@@ -59,6 +59,24 @@ namespace m3d {
 		void forceClear();
 
 		/**
+		 * @brief Returns the projection uniform of the shader
+		 * @return The uniform
+		 */
+		int getProjectionUniform();
+
+		/**
+		 * @brief Returns the transform uniform of the shader
+		 * @return The uniform
+		 */
+		int getTransformUniform();
+
+		/**
+		 * @brief Returns the useTransform uniform of the shader
+		 * @return The uniform
+		 */
+		int getUseTransformUniform();
+
+		/**
 		 * @brief Clears the screen
 		 */
 		void clear();
@@ -102,7 +120,7 @@ namespace m3d {
 		bool m_3dEnabled;
 		DVLB_s *m_dvlb;
 		shaderProgram_s m_shader;
-		int m_projection;
+		int m_projection, m_transform, m_useTransform;
 
 	};
 } /* m3d */
