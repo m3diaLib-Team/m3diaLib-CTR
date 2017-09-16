@@ -1,6 +1,6 @@
 /**
  * @file input.hpp
- * @brief Includes all core files of m3diaLib
+ * @brief Includes all files related to user input
  */
 #pragma once
 
