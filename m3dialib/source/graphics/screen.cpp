@@ -39,8 +39,8 @@ namespace m3d {
 
 		// Get the location of the uniforms
 		m_projection = shaderInstanceGetUniformLocation(m_shader.vertexShader, "projection");
-		m_transform = shaderInstanceGetUniformLocation(shader.vertexShader, "transform");
-		m_useTransform = shaderInstanceGetUniformLocation(shader.vertexShader, "useTransform");
+		m_transform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "transform");
+		m_useTransform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "useTransform");
 	}
 
 	Screen::~Screen() {
