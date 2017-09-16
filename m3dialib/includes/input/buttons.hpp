@@ -45,21 +45,21 @@ namespace m3d {
 
 		/**
 		 * Returns whether the given button is pressed this frame but wasn't pressed in the last frame
-		 * @param  t_buttom The button
+		 * @param  t_button The button
 		 * @return          Whether the button is pressed or not
 		 */
 		bool buttonPressed(m3d::buttons::Button t_button);
 
 		/**
 		 * @brief Returns whether the given button is pressed this frame regardless whether it was pressed in the last frame
-		 * @param  t_buttom The button
+		 * @param  t_button The button
 		 * @return          Whether the button is pressed or not
 		 */
 		bool buttonDown(m3d::buttons::Button t_button);
 
 		/**
 		 * @brief Returns whether the given button was released (i.e. isn't pressed this frame but was in the last frame)
-		 * @param  t_buttom The button
+		 * @param  t_button The button
 		 * @return          Whether the button was released or not
 		 */
 		bool buttonReleased(m3d::buttons::Button t_button);

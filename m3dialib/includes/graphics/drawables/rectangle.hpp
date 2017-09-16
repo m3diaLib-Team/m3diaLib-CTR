@@ -68,7 +68,7 @@ namespace m3d {
 
 		/**
 		 * @brief Sets the height of the rectangle
-		 * @param t_width The height
+		 * @param t_height The height
 		 */
 		void setHeight(int t_height);
 
