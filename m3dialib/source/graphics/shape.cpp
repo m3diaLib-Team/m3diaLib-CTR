@@ -25,7 +25,7 @@ namespace m3d {
 		m_changed = true;
 	}
 
-	void Shape::draw(int t_side) {
+	void Shape::draw(int t_side, int t_projection, int t_transform, int t_useTransform) {
 		if(m_changed) {
 			m_changed = false;
 			linearFree(m_internalVertices);

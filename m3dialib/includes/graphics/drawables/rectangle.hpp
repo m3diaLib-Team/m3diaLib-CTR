@@ -10,6 +10,7 @@ namespace m3d {
 	/**
 	 * @brief The rectangle shape
 	 * @todo Implement support for gradients
+	 * @todo Implement rotation
 	 */
 	class Rectangle: public m3d::Shape {
 	public:

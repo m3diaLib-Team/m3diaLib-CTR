@@ -51,8 +51,11 @@ namespace m3d {
 		/**
 		 * @brief Draws the shape
 		 * @param t_side The current 3D side (0 = left, 1 = right)
+		 * @param t_projection The projection uniform of the shader
+		 * @param t_transform The transform uniform of the shader
+		 * @param t_useTransform The useTransform uniform of the shader
 		 */
-		void draw(int t_side);
+		void draw(int t_side, int t_projection, int t_transform, int t_useTransform);
 
 	private:
 		/* data */
