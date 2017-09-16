@@ -107,7 +107,7 @@ namespace m3d {
 				for(const auto &entry : m_drawStackBottom) {
 					for(const auto &drawable : entry.second) {
 						C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projection, m_targetBottom->getProjectionMatrix());
-						drawable->draw(m3d::SIDE_LEFT);
+						drawable->draw(m3d::SIDE_LEFT, m_projection, m_transform, m_useTransform);
 					}
 				}
 			}
@@ -118,7 +118,7 @@ namespace m3d {
 				for(const auto &entry : m_drawStackTop) {
 					for(const auto &drawable : entry.second) {
 						C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projection, m_targetTopLeft->getProjectionMatrix());
-						drawable->draw(m3d::SIDE_LEFT);
+						drawable->draw(m3d::SIDE_LEFT, m_projection, m_transform, m_useTransform);
 					}
 				}
 
@@ -128,7 +128,7 @@ namespace m3d {
 					for(const auto &entry : m_drawStackTop) {
 						for(const auto &drawable : entry.second) {
 							C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projection, m_targetTopRight->getProjectionMatrix());
-							drawable->draw(m3d::SIDE_RIGHT);
+							drawable->draw(m3d::SIDE_RIGHT, m_projection, m_transform, m_useTransform);
 						}
 					}
 				}
