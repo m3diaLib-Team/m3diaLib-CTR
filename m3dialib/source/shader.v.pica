@@ -2,6 +2,8 @@
 
 ; Uniforms
 .fvec projection[4]
+.fvec transform
+.bool useTransform
 
 ; Constants
 .constf myconst(0.0, 1.0, -1.0, 0.1)
@@ -25,10 +27,21 @@
 	mov r0.w,   ones
 
 	; outpos = projectionMatrix * inpos
-	dp4 outpos.x, projection[0], r0
-	dp4 outpos.y, projection[1], r0
-	dp4 outpos.z, projection[2], r0
-	dp4 outpos.w, projection[3], r0
+	ifu useTransform
+		dp4 r15.x, transform[0], r0
+		dp4 r15.y, transform[1], r0
+		dp4 r15.z, transform[2], r0
+		dp4 r15.w, transform[3], r0
+		dp4 outpos.x, projection[0], r15
+		dp4 outpos.y, projection[1], r15
+		dp4 outpos.z, projection[2], r15
+		dp4 outpos.w, projection[3], r15
+	.else
+		dp4 outpos.x, projection[0], r0
+		dp4 outpos.y, projection[1], r0
+		dp4 outpos.z, projection[2], r0
+		dp4 outpos.w, projection[3], r0
+	.end
 
 	; outclr = inclr
 	mov outclr, inclr
