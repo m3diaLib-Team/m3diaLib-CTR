@@ -37,11 +37,11 @@ namespace m3d {
 				float x = m_vertices[i].position.x,
 							y = m_vertices[i].position.y,
 							red = (float) m_vertices[i].color.getRed() / 255,
-							blue = (float) m_vertices[i].color.getBlue() / 255,
 							green = (float) m_vertices[i].color.getGreen() / 255,
+							blue = (float) m_vertices[i].color.getBlue() / 255,
 							alpha = (float) m_vertices[i].color.getAlpha() / 255;
 
-				m_internalVertices[i] = (m3d::InternalVertex) { {x, y, 0.5f}, {red, blue, green, alpha} };
+				m_internalVertices[i] = (m3d::InternalVertex) { {x, y, 0.5f}, {red, green, blue, alpha} };
 			}
 		}
 
