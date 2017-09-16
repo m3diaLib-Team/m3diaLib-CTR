@@ -5,3 +5,4 @@
 #pragma once
 
 #include "./drawables/shape.hpp"
+#include "./drawables/rectangle.hpp"
