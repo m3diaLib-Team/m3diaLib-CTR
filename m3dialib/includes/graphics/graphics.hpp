@@ -6,7 +6,9 @@
 
 #include "./vertex.hpp"
 #include "./color.hpp"
+#include "./boundingBox.hpp"
 #include "./drawable.hpp"
+#include "./renderTarget.hpp"
 #include "./screen.hpp"
 
 // all pre-coded drawables
