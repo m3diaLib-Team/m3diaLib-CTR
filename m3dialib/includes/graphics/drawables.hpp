@@ -6,3 +6,4 @@
 
 #include "./drawables/shape.hpp"
 #include "./drawables/rectangle.hpp"
+#include "./drawables/triangle.hpp"
