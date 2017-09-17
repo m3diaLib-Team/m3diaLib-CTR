@@ -116,7 +116,7 @@ namespace m3d {
 	private:
 		/* data */
 		m3d::RenderTarget *m_targetTopLeft, *m_targetTopRight, *m_targetBottom;
-		std::map<int, std::vector<m3d::Drawable*>> m_drawStackTop, m_drawStackBottom;
+		std::map<int, std::vector<m3d::Drawable*>, std::greater<int>> m_drawStackTop, m_drawStackBottom;
 		bool m_3dEnabled;
 		DVLB_s *m_dvlb;
 		shaderProgram_s m_shader;

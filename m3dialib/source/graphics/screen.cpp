@@ -79,7 +79,7 @@ namespace m3d {
 
 	void Screen::drawTop(m3d::Drawable& t_object, int t_layer) {
 		if(m_drawStackTop.count(t_layer) > 0) {
-			m_drawStackTop[t_layer].push_back(&t_object);
+			m_drawStackTop[t_layer].insert(m_drawStackTop[t_layer].begin(), &t_object);
 		} else {
 			std::vector<m3d::Drawable*> newStack;
 			newStack.push_back(&t_object);
@@ -89,7 +89,7 @@ namespace m3d {
 
 	void Screen::drawBottom(m3d::Drawable& t_object, int t_layer) {
 		if(m_drawStackBottom.count(t_layer) > 0) {
-			m_drawStackBottom[t_layer].push_back(&t_object);
+			m_drawStackBottom[t_layer].insert(m_drawStackBottom[t_layer].begin(), &t_object);
 		} else {
 			std::vector<m3d::Drawable*> newStack;
 			newStack.push_back(&t_object);
