@@ -45,8 +45,6 @@ namespace m3d {
 			}
 		}
 
-		if(m_internalVertices == nullptr) return;
-
 		C3D_AttrInfo* attrInfo = C3D_GetAttrInfo();
 		AttrInfo_Init(attrInfo);
 		AttrInfo_AddLoader(attrInfo, 0, GPU_FLOAT, 3); // position
