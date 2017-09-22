@@ -9,9 +9,11 @@ namespace m3d {
 		cfguInit();
 		ptmuInit();
 		acInit();
+		romfsInit();
 	}
 
 	Applet::~Applet() {
+		romfsExit();
 		acExit();
 		ptmuExit();
 		cfguExit();
