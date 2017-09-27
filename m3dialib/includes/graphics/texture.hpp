@@ -25,9 +25,10 @@ namespace m3d {
 		~Texture();
 
 		/**
-		 * @brief Loads a texture from a file (png, jpeg or bmp)
+		 * @brief Loads a texture from a file (png or jpeg)
 		 * @param  t_filename The name of the file you want to load
 		 * @return            Whether the load was successful or not
+		 * @todo Implement bmp support
 		 */
 		bool loadFromFile(std::string t_filename);
 
