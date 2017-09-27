@@ -2,11 +2,11 @@
 
 namespace m3d {
 	Error::Error() :
-	 				m_type(ERROR_TYPE_TEXT),
-					m_errorCode(0),
-					m_text(""),
-					m_allowHomeButton(false),
-					m_showErrorCode(false) { /* Do nothing */ }
+	 	m_type(ERROR_TYPE_TEXT),
+		m_errorCode(0),
+		m_text(""),
+		m_allowHomeButton(false),
+		m_showErrorCode(false) { /* Do nothing */ }
 
 	void Error::show() {
 		errorType type;

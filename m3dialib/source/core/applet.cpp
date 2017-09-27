@@ -4,12 +4,12 @@
 
 namespace m3d {
 	Applet::Applet() :
-	 					m_running(true) {
-		aptInit();
-		cfguInit();
-		ptmuInit();
-		acInit();
-		romfsInit();
+	 	m_running(true) {
+			aptInit();
+			cfguInit();
+			ptmuInit();
+			acInit();
+			romfsInit();
 	}
 
 	Applet::~Applet() {

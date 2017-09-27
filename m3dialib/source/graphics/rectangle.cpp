@@ -2,12 +2,12 @@
 
 namespace m3d {
 	Rectangle::Rectangle(int t_x, int t_y, int t_width, int t_height, m3d::Color t_color) :
-							m_posX(t_x),
-							m_posY(t_y),
-							m_width(t_width),
-							m_height(t_height),
-							m_color(t_color) {
-		updateVertices();
+		m_posX(t_x),
+		m_posY(t_y),
+		m_width(t_width),
+		m_height(t_height),
+		m_color(t_color) {
+			updateVertices();
 	}
 
 	void Rectangle::setXPosition(int t_x) {

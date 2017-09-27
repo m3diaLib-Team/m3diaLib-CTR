@@ -2,10 +2,10 @@
 
 namespace m3d {
 	BoundingBox::BoundingBox(int t_x, int t_y, int t_width, int t_height) :
-	 							m_posX(t_x),
-								m_posY(t_y),
-								m_width(t_width),
-								m_height(t_height) { /* do nothing */	}
+	 	m_posX(t_x),
+		m_posY(t_y),
+		m_width(t_width),
+		m_height(t_height) { /* do nothing */	}
 
 	int BoundingBox::getX() {
 		return m_posX;

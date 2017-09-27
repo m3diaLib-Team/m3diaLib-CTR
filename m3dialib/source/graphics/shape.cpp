@@ -2,7 +2,7 @@
 #include <stdio.h>
 namespace m3d {
 	Shape::Shape() :
-	 				m_changed(true) { /* do nothing */ }
+	 	m_changed(true) { /* do nothing */ }
 
 	Shape::~Shape() {
 		linearFree(m_internalVertices);
