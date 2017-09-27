@@ -11,8 +11,8 @@ namespace m3d {
 	 * @brief Defines which type of error to display
 	 */
 	enum ErrorType {
-		ERROR_TYPE_TEXT, 			///< Displays text passed to this applet
-		ERROR_TYPE_EULA, 			///< Displays the EULA
+		ERROR_TYPE_TEXT,      ///< Displays text passed to this applet
+		ERROR_TYPE_EULA,      ///< Displays the EULA
 		ERROR_TYPE_WORD_WRAP, ///< Displays the custom error message passed to this applet with automatic line wrapping
 	};
 

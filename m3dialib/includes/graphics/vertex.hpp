@@ -29,7 +29,7 @@ namespace m3d {
 	 */
 	typedef struct {
 		Vector3f position;  ///< Position of the vertex
-		m3d::Color color;		///< Color of the vertex
+		m3d::Color color;   ///< Color of the vertex
 	} Vertex;
 
 	/**

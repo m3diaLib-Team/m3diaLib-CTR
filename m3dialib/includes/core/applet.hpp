@@ -43,37 +43,37 @@ namespace m3d {
 	 */
 	enum LibAppId {
 		LIBAPP_NONE,
-		LIBAPP_HOMEMENU, 						///< Home menu
-		LIBAPP_CAMERA, 							///< Camera applet
-		LIBAPP_FRIENDS_LIST, 				///< Friends list applet
-		LIBAPP_GAME_NOTES, 					///< Game notes applet
-		LIBAPP_WEB, 								///< Internet browser
-		LIBAPP_INSTRUCTION_MANUAL, 	///< Instruction manual applet
-		LIBAPP_NOTIFICATIONS, 			///< Notifications applet
-		LIBAPP_MIIVERSE, 						///< Miiverse applet
-		LIBAPP_MIIVERSE_POSTING, 		///< Miiverse posting applet
-		LIBAPP_AMIIBO_SETTINGS, 		///< Amiibo settings applet
-		LIBAPP_APPLICATION, 				///< Application (?)
-		LIBAPP_ESHOP, 							///< eShop (tiger)
-		LIBAPP_SOFTWARE_KEYBOARD, 	///< Software keyboard (do not use, use the m3d::SoftwareKeyboard class instead)
-		LIBAPP_APPLETED, 						///< AppletEd (Mii editor)
-		LIBAPP_PNOTE_AP, 						///< Photo selector
-		LIBAPP_SNOTE_AP, 						///< Sound selector
-		LIBAPP_ERROR, 							///< Error (do not use, use the m3d::Error class instead)
-		LIBAPP_MINT, 								///< Mint (eShop)
-		LIBAPP_EXTRAPAD, 						///< Extrapad
-		LIBAPP_MEMOLIB 							///< Memolib
+		LIBAPP_HOMEMENU,              ///< Home menu
+		LIBAPP_CAMERA,                ///< Camera applet
+		LIBAPP_FRIENDS_LIST,          ///< Friends list applet
+		LIBAPP_GAME_NOTES,            ///< Game notes applet
+		LIBAPP_WEB,                   ///< Internet browser
+		LIBAPP_INSTRUCTION_MANUAL,    ///< Instruction manual applet
+		LIBAPP_NOTIFICATIONS,         ///< Notifications applet
+		LIBAPP_MIIVERSE,              ///< Miiverse applet
+		LIBAPP_MIIVERSE_POSTING,      ///< Miiverse posting applet
+		LIBAPP_AMIIBO_SETTINGS,       ///< Amiibo settings applet
+		LIBAPP_APPLICATION,           ///< Application (?)
+		LIBAPP_ESHOP,                 ///< eShop (tiger)
+		LIBAPP_SOFTWARE_KEYBOARD,     ///< Software keyboard (do not use, use the m3d::SoftwareKeyboard class instead)
+		LIBAPP_APPLETED,              ///< AppletEd (Mii editor)
+		LIBAPP_PNOTE_AP,              ///< Photo selector
+		LIBAPP_SNOTE_AP,              ///< Sound selector
+		LIBAPP_ERROR,                 ///< Error (do not use, use the m3d::Error class instead)
+		LIBAPP_MINT,                  ///< Mint (eShop)
+		LIBAPP_EXTRAPAD,              ///< Extrapad
+		LIBAPP_MEMOLIB                ///< Memolib
 	};
 
 	/**
 	 * @brief Defines the different 3DS models
 	 */
 	enum ConsoleModel {
-		MODEL_O3DS, 	///< Old 3DS
-		MODEL_O3DSXL, ///< Old 3DS XL
-		MODEL_N3DS, 	///< New 3DS
-		MODEL_N3DSXL, ///< New 3DS XL
-		MODEL_2DS, 		///< 2DS
+		MODEL_O3DS,     ///< Old 3DS
+		MODEL_O3DSXL,   ///< Old 3DS XL
+		MODEL_N3DS,     ///< New 3DS
+		MODEL_N3DSXL,   ///< New 3DS XL
+		MODEL_2DS,      ///< 2DS
 		MODEL_UNKNOWN
 	};
 

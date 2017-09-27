@@ -19,8 +19,8 @@ namespace m3d {
 	 * @brief Defines the screen targets (top/bottom)
 	 */
 	enum ScreenTarget {
-		SCREEN_TOP,		///< Top screen
-		SCREEN_BOTTOM	///< Bottom/touch screen
+		SCREEN_TOP,     ///< Top screen
+		SCREEN_BOTTOM   ///< Bottom/touch screen
 	};
 
 	/**
