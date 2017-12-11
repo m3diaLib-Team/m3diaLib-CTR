@@ -44,132 +44,132 @@
 #define RGBA8_GET_A(c) (((c) >> 24) & 0xFF)
 
 namespace m3d {
-	/**
-	 * @brief Namespace used for pre-defined colors
-	 */
-	namespace colors {
-		/**
-		 * @brief Pre-defined colors
-		 */
-		enum Color {
-			RED = RGBA8(255, 0, 0, 255),        ///< FF0000
-			GREEN = RGBA8(0, 255, 0, 255),      ///< 00FF00
-			BLUE = RGBA8(0, 0, 255, 255),       ///< 0000FF
-			YELLOW = RGBA8(255, 255, 0, 255),   ///< FFFF00
-			MAGENTA = RGBA8(255, 0, 255, 255),	///< FF00FF
-			CYAN = RGBA8(0, 255, 255, 255),     ///< 00FFFF
-			WHITE = RGBA8(255, 255, 255, 255),  ///< FFFFFF
-			BLACK = RGBA8(0, 0, 0, 255)         ///< 000000
-		};
-	} /* colors */
+    /**
+     * @brief Namespace used for pre-defined colors
+     */
+    namespace colors {
+        /**
+         * @brief Pre-defined colors
+         */
+        enum Color {
+            RED = RGBA8(255, 0, 0, 255),        ///< FF0000
+            GREEN = RGBA8(0, 255, 0, 255),      ///< 00FF00
+            BLUE = RGBA8(0, 0, 255, 255),       ///< 0000FF
+            YELLOW = RGBA8(255, 255, 0, 255),   ///< FFFF00
+            MAGENTA = RGBA8(255, 0, 255, 255),    ///< FF00FF
+            CYAN = RGBA8(0, 255, 255, 255),     ///< 00FFFF
+            WHITE = RGBA8(255, 255, 255, 255),  ///< FFFFFF
+            BLACK = RGBA8(0, 0, 0, 255)         ///< 000000
+        };
+    } /* colors */
 
-	/**
-	 * @brief The color class
-	 */
-	class Color {
-	public:
-		/**
-		 * @brief Creates a color using an opaque black as the default color
-		 */
-		Color();
+    /**
+     * @brief The color class
+     */
+    class Color {
+    public:
+        /**
+         * @brief Creates a color using an opaque black as the default color
+         */
+        Color();
 
-		/**
-		 * @brief Creates a color from an m3d::colors::Color enum
-		 * @param t_color The color to use
-		 */
-		Color(m3d::colors::Color t_color);
+        /**
+         * @brief Creates a color from an m3d::colors::Color enum
+         * @param t_color The color to use
+         */
+        Color(m3d::colors::Color t_color);
 
-		/**
-		 * @brief Creates a color using a red, green and blue value
-		 * @param t_r The red value
-		 * @param t_g The green value
-		 * @param t_b The blue value
-		 */
-		Color(uint8_t t_r, uint8_t t_g, uint8_t t_b);
+        /**
+         * @brief Creates a color using a red, green and blue value
+         * @param t_r The red value
+         * @param t_g The green value
+         * @param t_b The blue value
+         */
+        Color(uint8_t t_r, uint8_t t_g, uint8_t t_b);
 
-		/**
-		 * @brief Creates a color using a red, green, blue and alpha value
-		 * @param t_r The red value
-		 * @param t_g The green value
-		 * @param t_b The blue value
-		 * @param t_a The alpha value
-		 */
-		Color(uint8_t t_r, uint8_t t_g, uint8_t t_b, uint8_t t_a);
+        /**
+         * @brief Creates a color using a red, green, blue and alpha value
+         * @param t_r The red value
+         * @param t_g The green value
+         * @param t_b The blue value
+         * @param t_a The alpha value
+         */
+        Color(uint8_t t_r, uint8_t t_g, uint8_t t_b, uint8_t t_a);
 
-		/**
-		 * @brief Sets the red, green and blue value of the color
-		 * @param t_r The red value
-		 * @param t_g The green value
-		 * @param t_b The blue value
-		 */
-		void setColor(uint8_t t_r, uint8_t t_g, uint8_t t_b);
+        /**
+         * @brief Sets the red, green and blue value of the color
+         * @param t_r The red value
+         * @param t_g The green value
+         * @param t_b The blue value
+         */
+        void setColor(uint8_t t_r, uint8_t t_g, uint8_t t_b);
 
-		/**
-		 * @brief Sets the red, green, blue and alpha value of the color
-		 * @param t_r The red value
-		 * @param t_g The green value
-		 * @param t_b The blue value
-		 * @param t_a The alpha value
-		 */
-		void setColor(uint8_t t_r, uint8_t t_g, uint8_t t_b, uint8_t t_a);
+        /**
+         * @brief Sets the red, green, blue and alpha value of the color
+         * @param t_r The red value
+         * @param t_g The green value
+         * @param t_b The blue value
+         * @param t_a The alpha value
+         */
+        void setColor(uint8_t t_r, uint8_t t_g, uint8_t t_b, uint8_t t_a);
 
-		/**
-		 * @brief Sets the red value of the color
-		 * @param t_r The red value
-		 */
-		void setRed(uint8_t t_r);
+        /**
+         * @brief Sets the red value of the color
+         * @param t_r The red value
+         */
+        void setRed(uint8_t t_r);
 
-		/**
-		 * @brief Returns the red value of the color
-		 * @return The red value
-		 */
-		uint8_t getRed();
+        /**
+         * @brief Returns the red value of the color
+         * @return The red value
+         */
+        uint8_t getRed();
 
-		/**
-		 * @brief Sets the green value of the color
-		 * @param t_g green red value
-		 */
-		void setGreen(uint8_t t_g);
+        /**
+         * @brief Sets the green value of the color
+         * @param t_g green red value
+         */
+        void setGreen(uint8_t t_g);
 
-		/**
-		 * @brief Returns the green value of the color
-		 * @return The green value
-		 */
-		uint8_t getGreen();
+        /**
+         * @brief Returns the green value of the color
+         * @return The green value
+         */
+        uint8_t getGreen();
 
-		/**
-		 * @brief Sets the blue value of the color
-		 * @param t_b The blue value
-		 */
-		void setBlue(uint8_t t_b);
+        /**
+         * @brief Sets the blue value of the color
+         * @param t_b The blue value
+         */
+        void setBlue(uint8_t t_b);
 
-		/**
-		 * @brief Returns the blue value of the color
-		 * @return The blue value
-		 */
-		uint8_t getBlue();
+        /**
+         * @brief Returns the blue value of the color
+         * @return The blue value
+         */
+        uint8_t getBlue();
 
-		/**
-		 * @brief Sets the alpha value of the color
-		 * @param t_a alpha red value
-		 */
-		void setAlpha(uint8_t t_a);
+        /**
+         * @brief Sets the alpha value of the color
+         * @param t_a alpha red value
+         */
+        void setAlpha(uint8_t t_a);
 
-		/**
-		 * @brief Returns the alpha value of the color
-		 * @return The alpha value
-		 */
-		uint8_t getAlpha();
+        /**
+         * @brief Returns the alpha value of the color
+         * @return The alpha value
+         */
+        uint8_t getAlpha();
 
-		/**
-		 * @brief Returns the color as an RGBA8 integer
-		 * @return The color in RGBA8 format
-		 */
-		u32 getRgba8();
+        /**
+         * @brief Returns the color as an RGBA8 integer
+         * @return The color in RGBA8 format
+         */
+        u32 getRgba8();
 
-	private:
-		/* data */
-		uint8_t m_red, m_green, m_blue, m_alpha;
+    private:
+        /* data */
+        uint8_t m_red, m_green, m_blue, m_alpha;
 
-	};
+    };
 } /* m3d */
