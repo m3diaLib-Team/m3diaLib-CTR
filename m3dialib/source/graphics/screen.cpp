@@ -24,23 +24,26 @@ namespace m3d {
         memset(rightFrameBuffer, 0, 400 * 240 * 3);
         memset(bottomFrameBuffer, 0, 320 * 240 * 3);
 
-        m_targetTopLeft     = new m3d::RenderTarget(400, 240);
-        m_targetTopRight     = new m3d::RenderTarget(400, 240);
-        m_targetBottom         = new m3d::RenderTarget(320, 240);
+        m_targetTopLeft  = new m3d::RenderTarget(400, 240);
+        m_targetTopRight = new m3d::RenderTarget(400, 240);
+        m_targetBottom   = new m3d::RenderTarget(320, 240);
         C3D_RenderTargetSetOutput(m_targetTopLeft->getRenderTarget(),  GFX_TOP,    GFX_LEFT,  DISPLAY_TRANSFER_FLAGS);
         C3D_RenderTargetSetOutput(m_targetTopRight->getRenderTarget(), GFX_TOP,    GFX_RIGHT, DISPLAY_TRANSFER_FLAGS);
-        C3D_RenderTargetSetOutput(m_targetBottom->getRenderTarget(), GFX_BOTTOM, GFX_LEFT, DISPLAY_TRANSFER_FLAGS);
+        C3D_RenderTargetSetOutput(m_targetBottom->getRenderTarget(),   GFX_BOTTOM, GFX_LEFT,  DISPLAY_TRANSFER_FLAGS);
 
-        // Load the vertex shader, create a shader program and bind it
+        // Load the vertex shader and create a shader program
         m_dvlb = DVLB_ParseFile((u32*) shader_shbin, shader_shbin_size);
         shaderProgramInit(&m_shader);
         shaderProgramSetVsh(&m_shader, &m_dvlb->DVLE[0]);
-        C3D_BindProgram(&m_shader);
 
         // Get the location of the uniforms
-        m_projection = shaderInstanceGetUniformLocation(m_shader.vertexShader, "projection");
-        m_transform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "transform");
+        m_projection   = shaderInstanceGetUniformLocation(m_shader.vertexShader, "projection");
+        m_transform    = shaderInstanceGetUniformLocation(m_shader.vertexShader, "transform");
         m_useTransform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "useTransform");
+
+        C3D_BindProgram(&m_shader);
+        C3D_DepthTest(true, GPU_GEQUAL, GPU_WRITE_ALL);
+        C3D_BoolUnifSet(GPU_VERTEX_SHADER, m_useTransform, false);
     }
 
     Screen::~Screen() {
@@ -56,9 +59,9 @@ namespace m3d {
     }
 
     void Screen::forceClear() {
-            u8* leftFrameBuffer = gfxGetFramebuffer(GFX_TOP, GFX_LEFT, nullptr, nullptr);
-            u8* rightFrameBuffer = gfxGetFramebuffer(GFX_TOP, GFX_RIGHT, nullptr, nullptr);
-            u8* bottomFrameBuffer = gfxGetFramebuffer(GFX_BOTTOM, GFX_LEFT, nullptr, nullptr);
+            u8* leftFrameBuffer   = gfxGetFramebuffer(GFX_TOP,    GFX_LEFT,  nullptr, nullptr);
+            u8* rightFrameBuffer  = gfxGetFramebuffer(GFX_TOP,    GFX_RIGHT, nullptr, nullptr);
+            u8* bottomFrameBuffer = gfxGetFramebuffer(GFX_BOTTOM, GFX_LEFT,  nullptr, nullptr);
 
             memset(leftFrameBuffer, 0, 400 * 240 * 3);
             memset(rightFrameBuffer, 0, 400 * 240 * 3);
