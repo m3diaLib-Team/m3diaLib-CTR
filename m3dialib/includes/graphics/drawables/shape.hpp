@@ -44,14 +44,22 @@ namespace m3d {
          */
         void addVertex(int t_x, int t_y, int t_z, m3d::Color t_color);
 
-        void setInterpolationMode(m3d::InterpolationMode t_interpolationMode);
-
-        m3d::InterpolationMode getInterpolationMode();
-
         /**
          * @brief Removes all vertices
          */
         void clearVertices();
+
+        /**
+         * @brief Sets the interpolation mode of the shape used when drawning
+         * @param t_interpolationMode The interpolation mode to use
+         */
+        void setInterpolationMode(m3d::InterpolationMode t_interpolationMode);
+
+        /**
+         * @brief Returns the current interpolation mode
+         * @return The current interpolation mode
+         */
+        m3d::InterpolationMode getInterpolationMode();
 
         /**
          * @brief Draws the shape

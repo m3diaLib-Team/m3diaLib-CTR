@@ -26,6 +26,14 @@ namespace m3d {
         m_changed = true;
     }
 
+    void setInterpolationMode(m3d::InterpolationMode t_interpolationMode) {
+        m_interpolationMode = t_interpolationMode;
+    }
+
+    m3d::InterpolationMode getInterpolationMode() {
+        return m_interpolationMode;
+    }
+
     void Shape::draw(int, int, int, int) {
         if(m_changed) {
             m_changed = false;
