@@ -44,6 +44,10 @@ namespace m3d {
          */
         void addVertex(int t_x, int t_y, int t_z, m3d::Color t_color);
 
+        void setInterpolationMode(m3d::InterpolationMode t_interpolationMode);
+
+        m3d::InterpolationMode getInterpolationMode();
+
         /**
          * @brief Removes all vertices
          */
@@ -63,5 +67,6 @@ namespace m3d {
         bool m_changed;
         std::vector<m3d::Vertex> m_vertices;
         m3d::InternalVertex* m_internalVertices;
+        m3d::InterpolationMode m_interpolationMode;
     };
 } /* m3d */

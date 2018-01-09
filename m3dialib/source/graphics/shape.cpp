@@ -2,7 +2,8 @@
 #include <stdio.h>
 namespace m3d {
     Shape::Shape() :
-        m_changed(true) { /* do nothing */ }
+        m_changed(true),
+        m_interpolationMode(m3d::GPU_INTERPOLATE) { /* do nothing */ }
 
     Shape::~Shape() {
         linearFree(m_internalVertices);
@@ -57,7 +58,7 @@ namespace m3d {
         C3D_TexEnv* env = C3D_GetTexEnv(0);
         C3D_TexEnvSrc(env, C3D_Both, GPU_PRIMARY_COLOR, 0, 0);
         C3D_TexEnvOp(env, C3D_Both, 0, 0, 0);
-        C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
+        C3D_TexEnvFunc(env, C3D_Both, m_interpolationMode);
 
         // Draw the VBO
         C3D_DrawArrays(GPU_TRIANGLE_FAN, 0, 4);
