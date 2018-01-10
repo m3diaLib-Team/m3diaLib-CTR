@@ -26,11 +26,11 @@ namespace m3d {
         m_changed = true;
     }
 
-    void setInterpolationMode(m3d::InterpolationMode t_interpolationMode) {
+    void Shape::setInterpolationMode(m3d::InterpolationMode t_interpolationMode) {
         m_interpolationMode = t_interpolationMode;
     }
 
-    m3d::InterpolationMode getInterpolationMode() {
+    m3d::InterpolationMode Shape::getInterpolationMode() {
         return m_interpolationMode;
     }
 
