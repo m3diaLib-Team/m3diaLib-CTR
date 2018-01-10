@@ -82,7 +82,7 @@ namespace m3d {
 
     void Screen::drawTop(m3d::Drawable& t_object, int t_layer) {
         if(m_drawStackTop.count(t_layer) > 0) {
-            m_drawStackTop[t_layer].insert(m_drawStackTop[t_layer].begin(), &t_object);
+            m_drawStackTop[t_layer].insert(m_drawStackTop[t_layer].end(), &t_object);
         } else {
             std::vector<m3d::Drawable*> newStack;
             newStack.push_back(&t_object);
@@ -92,7 +92,7 @@ namespace m3d {
 
     void Screen::drawBottom(m3d::Drawable& t_object, int t_layer) {
         if(m_drawStackBottom.count(t_layer) > 0) {
-            m_drawStackBottom[t_layer].insert(m_drawStackBottom[t_layer].begin(), &t_object);
+            m_drawStackBottom[t_layer].insert(m_drawStackBottom[t_layer].end(), &t_object);
         } else {
             std::vector<m3d::Drawable*> newStack;
             newStack.push_back(&t_object);
@@ -107,8 +107,8 @@ namespace m3d {
             if(m_drawStackBottom.size() > 0) {
                 C3D_FrameDrawOn(m_targetBottom->getRenderTarget());
 
-                for(const auto &entry : m_drawStackBottom) {
-                    for(const auto &drawable : entry.second) {
+                for(const auto &entry : m_drawStackBottom) { // for every layer
+                    for(const auto &drawable : entry.second) { // draw every object
                         C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projection, m_targetBottom->getProjectionMatrix());
                         drawable->draw(m3d::SIDE_LEFT, m_projection, m_transform, m_useTransform);
                     }
@@ -118,8 +118,8 @@ namespace m3d {
             if(m_drawStackTop.size() > 0) {
                 C3D_FrameDrawOn(m_targetTopLeft->getRenderTarget());
 
-                for(const auto &entry : m_drawStackTop) {
-                    for(const auto &drawable : entry.second) {
+                for(const auto &entry : m_drawStackTop) { // for every layer
+                    for(const auto &drawable : entry.second) { // draw every object
                         C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projection, m_targetTopLeft->getProjectionMatrix());
                         drawable->draw(m3d::SIDE_LEFT, m_projection, m_transform, m_useTransform);
                     }
@@ -128,8 +128,8 @@ namespace m3d {
                 if(m_3dEnabled) {
                     C3D_FrameDrawOn(m_targetTopRight->getRenderTarget());
 
-                    for(const auto &entry : m_drawStackTop) {
-                        for(const auto &drawable : entry.second) {
+                    for(const auto &entry : m_drawStackTop) { // for every layer
+                        for(const auto &drawable : entry.second) { // draw every object
                             C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projection, m_targetTopRight->getProjectionMatrix());
                             drawable->draw(m3d::SIDE_RIGHT, m_projection, m_transform, m_useTransform);
                         }
