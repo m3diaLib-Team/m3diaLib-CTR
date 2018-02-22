@@ -2,7 +2,7 @@
 A fast, extensive and powerful allround media and game library for the Nintendo 3DS, written in C++.
 
 ## Features
-The m3diaLib (spelled media-lib) is split into 4 big modules, which can then be split into smaller parts:
+The m3diaLib (spelled media-lib) is split into 5 big modules, which can then be split into smaller parts:
 
 ### Core
 The core module contains all functionality for interacting with the system. It's features range from running and handling the app itself to displaying errors and running system applets.
