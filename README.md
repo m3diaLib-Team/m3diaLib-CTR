@@ -57,6 +57,7 @@ The utils module contains all kind of useful utilities. Some of it's functionali
  * Secure random numbers
  * Basic encryption
  * Time measurement
+ * ZIP compression and decompression
 
 ---
 
