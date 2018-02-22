@@ -50,6 +50,16 @@ You want to interact with a game server? You want to download updates on the fly
  * A simple http and websocket client
  * **My LWMP protocol, for easily implementing a local multiplayer mode (see section below)**
 
+### Utils
+The utils module contains all kind of useful utilities. Some of it's functionalities are the following:
+
+ * JSON and XML parsing
+ * Secure random numbers
+ * Basic encryption
+ * Time measurement
+
+---
+
 All features are well documented and come with at least one example. If you still have questions, you can post an issue and I will be happy to help! :) In addition to that, a detailed tutorial will come soon.
 
 ## How to use it
