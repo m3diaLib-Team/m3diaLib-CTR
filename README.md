@@ -11,6 +11,7 @@ The core module contains all functionality for interacting with the system. It's
  * A class for running your homebrew app
  * Easy interaction with the system itself
  * Starting and running applets
+ * Time measurement
  * Support for the RomFS
 
 ### Input
@@ -56,7 +57,6 @@ The utils module contains all kind of useful utilities. Some of it's functionali
  * JSON and XML parsing
  * Secure random numbers
  * Basic encryption
- * Time measurement
  * ZIP compression and decompression
 
 ---
@@ -102,3 +102,6 @@ For more information, please refer to the documentation!
 ## Credits
  * Smealum and everyone who worked with him for the [ctrulib](https://github.com/smealum/ctrulib/)
  * fincs for [citro3d](https://github.com/fincs/citro3d)
+ * Everyone who helped working on [miniz](https://code.google.com/archive/p/miniz/)
+ * kuba-- for his [miniz wrapper](https://github.com/kuba--/zip)
+ * Quinn Tyler Jackson for his C++ implementation of [ISAAC](http://www.burtleburtle.net/bob/rand/isaacafa.html)
