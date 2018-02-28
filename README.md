@@ -5,9 +5,9 @@ A fast, extensive and powerful allround media and game library for the Nintendo 
 The m3diaLib (spelled media-lib) is split into 5 big modules, which can then be split into smaller parts:
 
 ### Core
-The core module contains all functionality for interacting with the system. It's features range from running and handling the app itself to displaying errors and running system applets.
+The core module contains all functionality for interacting with the system. Its features range from running and handling the app itself to displaying errors and running system applets.
 
-**It's main features are:**
+**Its main features are:**
  * A class for running your homebrew app
  * Easy interaction with the system itself
  * Starting and running applets
@@ -15,9 +15,9 @@ The core module contains all functionality for interacting with the system. It's
  * Support for the RomFS
 
 ### Input
-The input module does what it's name says: It handles each and every input for interacting with the user.
+The input module does what its name says: It handles each and every input for interacting with the user.
 
-**It's main features are:**
+**Its main features are:**
  * Handling button input
  * Handling touch input
  * Using the built-in software keyboard (no need to code one yourself anymore!)
@@ -25,7 +25,7 @@ The input module does what it's name says: It handles each and every input for i
 ### Graphics
 The graphics module is by far the biggest module. It handles anything graphic-wise, from rendering simple shapes to rendering and animating high-quality textures.
 
-**It's main features are:**
+**Its main features are:**
  * Support for the top and bottom screen
  * Support for stereoscopic 3D
  * Easy, yet advanced, interface for fast and powerful rendering on both screens
@@ -39,7 +39,7 @@ The graphics module is by far the biggest module. It handles anything graphic-wi
 ### Audio
 The audio module can be used for both music and sound effects.
 
-**It's main features are:**
+**Its main features are:**
  * Loading or streaming audio files directly from the file system
  * **Support for .ogg and .mp3 (more to come!)**
  * Two different classes, sound and music, which have features that can be helpful specific in their use case
@@ -47,12 +47,12 @@ The audio module can be used for both music and sound effects.
 ### Networking
 You want to interact with a game server? You want to download updates on the fly? Then this is the right module for you!
 
-**It's main features are:**
+**Its main features are:**
  * A simple http and websocket client
  * **My LWMP protocol, for easily implementing a local multiplayer mode (see section below)**
 
 ### Utils
-The utils module contains all kind of useful utilities. Some of it's functionalities are the following:
+The utils module contains all kind of useful utilities. Some of its functionalities are the following:
 
  * JSON and XML parsing
  * Secure random numbers
