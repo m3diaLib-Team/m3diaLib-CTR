@@ -6,3 +6,4 @@
 
 #include "./softwareKeyboard.hpp"
 #include "./buttons.hpp"
+#include "./touch.hpp"
