@@ -1,5 +1,5 @@
 #include "graphics/drawables/shape.hpp"
-#include <stdio.h>
+
 namespace m3d {
     Shape::Shape() :
         m_changed(true),
@@ -35,25 +35,26 @@ namespace m3d {
     }
 
     void Shape::draw(int, int, int, int) {
-        if(m_changed) {
+        if (m_changed) {
             m_changed = false;
             linearFree(m_internalVertices);
             m_internalVertices = static_cast<m3d::InternalVertex*>(linearAlloc(m_vertices.size() * sizeof(m3d::InternalVertex)));
 
-            if(m_internalVertices == nullptr) return;
+            if (m_internalVertices == nullptr) return;
 
-            for(unsigned int i = 0; i < m_vertices.size(); i++) {
+            for (unsigned int i = 0; i < m_vertices.size(); i++) {
                 float x = m_vertices[i].position.x,
-                            y = m_vertices[i].position.y,
-                            red = (float) m_vertices[i].color.getRed() / 255,
-                            green = (float) m_vertices[i].color.getGreen() / 255,
-                            blue = (float) m_vertices[i].color.getBlue() / 255,
-                            alpha = (float) m_vertices[i].color.getAlpha() / 255;
+                      y = m_vertices[i].position.y,
+                    red = (float) m_vertices[i].color.getRed() / 255,
+                  green = (float) m_vertices[i].color.getGreen() / 255,
+                   blue = (float) m_vertices[i].color.getBlue() / 255,
+                  alpha = (float) m_vertices[i].color.getAlpha() / 255;
 
                 m_internalVertices[i] = (m3d::InternalVertex) { {x, y, 0.5f}, {red, green, blue, alpha} };
             }
         }
 
+        // there be dragons
         C3D_AttrInfo* attrInfo = C3D_GetAttrInfo();
         AttrInfo_Init(attrInfo);
         AttrInfo_AddLoader(attrInfo, 0, GPU_FLOAT, 3); // position
@@ -69,6 +70,6 @@ namespace m3d {
         C3D_TexEnvFunc(env, C3D_Both, m_interpolationMode);
 
         // Draw the VBO
-        C3D_DrawArrays(GPU_TRIANGLE_FAN, 0, 4);
+        C3D_DrawArrays(GPU_TRIANGLE_FAN, 0, m_vertices.size()); 
     }
 } /* m3d */
