@@ -38,9 +38,11 @@ namespace m3d {
         if (m_changed) {
             m_changed = false;
             linearFree(m_internalVertices);
+            linearFree(m_elementData);
             m_internalVertices = static_cast<m3d::InternalVertex*>(linearAlloc(m_vertices.size() * sizeof(m3d::InternalVertex)));
 
             if (m_internalVertices == nullptr) return;
+
 
             for (unsigned int i = 0; i < m_vertices.size(); i++) {
                 float x = m_vertices[i].position.x,
@@ -51,6 +53,19 @@ namespace m3d {
                   alpha = (float) m_vertices[i].color.getAlpha() / 255;
 
                 m_internalVertices[i] = (m3d::InternalVertex) { {x, y, 0.5f}, {red, green, blue, alpha} };
+            }
+
+            // TODO: Improve this (a lot)
+            for (unsigned int i = 0; i < m_vertices.size(); i++) {
+                if (i % 3 == 0 && i != 0) m_indices.push_back(static_cast<s16>(i - 1));
+
+                m_indices.push_back(static_cast<s16>(i));
+            }
+
+            m_elementData = static_cast<s16*>(linearAlloc(m_indices.size() * sizeof(s16)));
+
+            for (unsigned int i = 0; i < m_indices.size(); i++) {
+                m_elementData[i] = m_indices[i];
             }
         }
 
@@ -70,6 +85,6 @@ namespace m3d {
         C3D_TexEnvFunc(env, C3D_Both, m_interpolationMode);
 
         // Draw the VBO
-        C3D_DrawArrays(GPU_TRIANGLE_FAN, 0, m_vertices.size()); 
+        C3D_DrawElements(GPU_TRIANGLE_FAN, m_indices.size(), GPU_UNSIGNED_BYTE, m_elementData);
     }
 } /* m3d */
