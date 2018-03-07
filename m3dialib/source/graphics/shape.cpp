@@ -57,8 +57,7 @@ namespace m3d {
 
             // TODO: Improve this (a lot)
             for (unsigned int i = 0; i < m_vertices.size(); i++) {
-                if (i % 3 == 0 && i != 0) m_indices.push_back(static_cast<s16>(i - 1));
-
+                // if (i % 3 == 0 && i != 0) m_indices.push_back(static_cast<s16>(i - 1)); // not sure if this is needed, since it works without it as well when using GPU_TRIANGLE_FAN
                 m_indices.push_back(static_cast<s16>(i));
             }
 
