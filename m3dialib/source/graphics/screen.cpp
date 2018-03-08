@@ -31,6 +31,8 @@ namespace m3d {
         C3D_RenderTargetSetOutput(m_targetTopRight->getRenderTarget(), GFX_TOP,    GFX_RIGHT, DISPLAY_TRANSFER_FLAGS);
         C3D_RenderTargetSetOutput(m_targetBottom->getRenderTarget(),   GFX_BOTTOM, GFX_LEFT,  DISPLAY_TRANSFER_FLAGS);
 
+        C3D_CullFace(GPU_CULL_NONE);
+
         // Load the vertex shader and create a shader program
         m_dvlb = DVLB_ParseFile((u32*) shader_shbin, shader_shbin_size);
         shaderProgramInit(&m_shader);
