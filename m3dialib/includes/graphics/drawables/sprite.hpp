@@ -14,7 +14,7 @@ namespace m3d {
         Sprite();
 
         /**
-         * @brief Destroys the sprite
+         * @brief Destroys the object
          */
         virtual ~Sprite();
 
@@ -121,9 +121,10 @@ namespace m3d {
 
         /**
          * @brief Sets the texture of the sprite
-         * @param t_texture The texture
+         * @param t_texture    The texture
+         * @param t_autoresize Whether the sprite should automatically resize it's dimensions to match the dimensions of the texture
          */
-        void setTexture(Texture t_texture);
+        void setTexture(Texture t_texture, bool t_autoresize = false);
 
         /**
          * @brief Returns a reference to the Texture of the sprite
@@ -144,5 +145,8 @@ namespace m3d {
         /* data */
         int m_posX, m_posY, m_width, m_height;
         Texture m_texture;
+        bool m_changed;
+        m3d::InternalVertex* m_internalVertices;
+        s16* m_elementData;
     };
 } /* m3d */
