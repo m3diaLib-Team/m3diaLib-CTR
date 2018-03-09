@@ -1,4 +1,5 @@
 #include "graphics/drawables/shape.hpp"
+#include "graphics/earcut.hpp"
 
 namespace m3d {
     Shape::Shape() :
@@ -43,6 +44,8 @@ namespace m3d {
 
             if (m_internalVertices == nullptr) return;
 
+            std::vector<std::vector<std::array<double, 2>>> polygon;
+            std::vector<std::array<double, 2>> polyline;
 
             for (unsigned int i = 0; i < m_vertices.size(); i++) {
                 float x = m_vertices[i].position.x,
@@ -53,13 +56,11 @@ namespace m3d {
                   alpha = (float) m_vertices[i].color.getAlpha() / 255;
 
                 m_internalVertices[i] = (m3d::InternalVertex) { {x, y, 0.5f}, {red, green, blue, alpha} };
+                polyline.push_back({ x, y });
             }
 
-            // TODO: Improve this (a lot)
-            for (unsigned int i = 0; i < m_vertices.size(); i++) {
-                // if (i % 3 == 0 && i != 0) m_indices.push_back(static_cast<s16>(i - 1)); // not sure if this is needed, since it works without it as well when using GPU_TRIANGLE_FAN
-                m_indices.push_back(static_cast<s16>(i));
-            }
+            polygon.push_back(polyline);
+            m_indices = mapbox::earcut<uint16_t>(polygon);
 
             m_elementData = static_cast<s16*>(linearAlloc(m_indices.size() * sizeof(s16)));
 
@@ -84,6 +85,6 @@ namespace m3d {
         C3D_TexEnvFunc(env, C3D_Both, m_interpolationMode);
 
         // Draw the VBO
-        C3D_DrawElements(GPU_TRIANGLE_FAN, m_indices.size(), GPU_UNSIGNED_BYTE, m_elementData);
+        C3D_DrawElements(GPU_TRIANGLES, m_indices.size(), GPU_UNSIGNED_BYTE, m_elementData);
     }
 } /* m3d */

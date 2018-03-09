@@ -74,7 +74,7 @@ namespace m3d {
         /* data */
         bool m_changed;
         std::vector<m3d::Vertex> m_vertices;
-        std::vector<s16> m_indices;
+        std::vector<uint16_t> m_indices;
         m3d::InternalVertex* m_internalVertices;
         s16* m_elementData;
         m3d::InterpolationMode m_interpolationMode;
