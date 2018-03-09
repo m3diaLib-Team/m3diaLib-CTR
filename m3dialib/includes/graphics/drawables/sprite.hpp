@@ -4,6 +4,9 @@
  */
 #pragma once
 #include "graphics/drawable.hpp"
+#include "graphics/vertex.hpp"
+#include "graphics/boundingBox.hpp"
+#include "graphics/texture.hpp"
 
 namespace m3d {
     class Sprite: public Drawable {
@@ -146,7 +149,7 @@ namespace m3d {
         int m_posX, m_posY, m_width, m_height;
         Texture m_texture;
         bool m_changed;
-        m3d::InternalVertex* m_internalVertices;
+        m3d::InternalColoredVertex* m_internalVertices;
         s16* m_elementData;
     };
 } /* m3d */
