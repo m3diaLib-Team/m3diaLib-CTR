@@ -101,7 +101,6 @@ namespace m3d {
         /* data */
         int m_posX, m_posY, m_width, m_height;
         m3d::Color m_color;
-        m3d::InternalVertex* m_vertices;
         void updateVertices();
 
     };

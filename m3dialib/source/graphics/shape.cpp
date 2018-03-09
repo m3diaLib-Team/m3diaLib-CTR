@@ -10,7 +10,7 @@ namespace m3d {
         linearFree(m_internalVertices);
     }
 
-    void Shape::addVertex(m3d::Vertex t_vertex) {
+    void Shape::addVertex(m3d::ColoredVertex t_vertex) {
         m_vertices.push_back(t_vertex);
         m_changed = true;
     }
@@ -40,7 +40,7 @@ namespace m3d {
             m_changed = false;
             linearFree(m_internalVertices);
             linearFree(m_elementData);
-            m_internalVertices = static_cast<m3d::InternalVertex*>(linearAlloc(m_vertices.size() * sizeof(m3d::InternalVertex)));
+            m_internalVertices = static_cast<m3d::InternalColoredVertex*>(linearAlloc(m_vertices.size() * sizeof(m3d::InternalColoredVertex)));
 
             if (m_internalVertices == nullptr) return;
 
@@ -55,7 +55,7 @@ namespace m3d {
                    blue = (float) m_vertices[i].color.getBlue() / 255,
                   alpha = (float) m_vertices[i].color.getAlpha() / 255;
 
-                m_internalVertices[i] = (m3d::InternalVertex) { {x, y, 0.5f}, {red, green, blue, alpha} };
+                m_internalVertices[i] = (m3d::InternalColoredVertex) { {x, y, 0.5f}, {red, green, blue, alpha} };
                 polyline.push_back({ x, y });
             }
 
@@ -77,7 +77,7 @@ namespace m3d {
 
         C3D_BufInfo* bufInfo = C3D_GetBufInfo();
         BufInfo_Init(bufInfo);
-        BufInfo_Add(bufInfo, m_internalVertices, sizeof(m3d::InternalVertex), 2, 0x10);
+        BufInfo_Add(bufInfo, m_internalVertices, sizeof(m3d::InternalColoredVertex), 2, 0x10);
 
         C3D_TexEnv* env = C3D_GetTexEnv(0);
         C3D_TexEnvSrc(env, C3D_Both, GPU_PRIMARY_COLOR, 0, 0);
