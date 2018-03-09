@@ -16,7 +16,7 @@ namespace m3d {
     }
 
     void Shape::addVertex(int t_x, int t_y, int t_z, m3d::Color t_color) {
-        m3d::Vertex vertex = { { (float) t_x, (float) t_y, (float) t_z }, t_color };
+        m3d::ColoredVertex vertex = { { (float) t_x, (float) t_y, (float) t_z }, t_color };
         m_vertices.push_back(vertex);
         m_changed = true;
     }
