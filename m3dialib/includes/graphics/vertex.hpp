@@ -56,6 +56,6 @@ namespace m3d {
      */
     struct InternalTexturedVertex {
         float position[3];    ///< The x, y and z position, represented as an array of floats
-        float color[2];       ///< The red, green, blue and alpha values, represented as an array of floats
+        float texcoord[2];    ///< The texture coordinates, represented as an array of floats
     };
 } /* m3d */
