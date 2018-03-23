@@ -136,6 +136,18 @@ namespace m3d {
         Texture& getTexture();
 
         /**
+         * @brief Sets whether or not to stretch the texture to fit the sprite dimensions
+         * @param t_stretch Whether or not to stretch the texture
+         */
+        void setTextureStretching(bool t_stretch);
+
+        /**
+         * @brief Returns whether or not the texture will get stretched to fit the sprite dimensions
+         * @return Whether or not the texture will get stretched
+         */
+        bool getTextureStretching();
+
+        /**
          * @brief Draws the shape
          * @param t_side The current 3D side (0 = left, 1 = right)
          * @param t_projection The projection uniform of the shader
@@ -148,8 +160,8 @@ namespace m3d {
         /* data */
         int m_posX, m_posY, m_width, m_height;
         Texture m_texture;
-        bool m_changed;
-        m3d::InternalColoredVertex* m_internalVertices;
+        bool m_changed, m_stretch;
+        m3d::InternalTexturedVertex* m_internalVertices;
         s16* m_elementData;
     };
 } /* m3d */
