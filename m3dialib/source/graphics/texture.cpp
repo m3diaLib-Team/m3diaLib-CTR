@@ -227,6 +227,78 @@ namespace m3d {
     }
 
     bool Texture::loadJpgFile(const std::string& t_filename) {
-        
+        FILE* fp;
+        if ((fp = fopen(t_filename.c_str(), "rb")) < 0) {
+            return NULL;
+        }
+
+        struct jpeg_decompress_struct jinfo;
+        struct jpeg_error_mgr jerr;
+
+        jinfo.err = jpeg_std_error(&jerr);
+        jpeg_create_decompress(&jinfo);
+        jpeg_stdio_src(&jinfo, fp);
+        jpeg_read_header(&jinfo, 1);
+
+        int row_bytes;
+        switch (jinfo.jpeg_color_space) {
+            case JCS_RGB:
+                row_bytes = jinfo.image_width * 3;
+                break;
+            case JCS_YCbCr:
+                jinfo.out_color_space = JCS_RGB;
+                row_bytes = jinfo.image_width * 3;
+                break;
+            default:
+                jpeg_abort_decompress(&jinfo);
+                return false;
+        }
+
+        // TODO: Support JCS_GRAYSCALE, JCS_CMYK, and JCS_YCCK?
+        jpeg_start_decompress(&jinfo);
+
+        int width = jinfo.image_width, height = jinfo.image_height;
+
+        m_width = width;
+        m_height = height;
+
+        bool success;
+        C3D_Tex tex;
+        success = C3D_TexInit(&tex, next_pow2(width), next_pow2(height), GPU_RGBA8);
+
+        if (!success)
+            return false;
+
+        JSAMPARRAY buffer = (JSAMPARRAY) malloc(sizeof(JSAMPROW));
+        buffer[0] = (JSAMPROW) malloc(sizeof(JSAMPLE) * row_bytes);
+
+        unsigned int color;
+        const unsigned char* jpeg_ptr;
+        unsigned int* row_ptr = (unsigned int*) tex.data;
+
+        while (jinfo.output_scanline < jinfo.output_height) {
+            jpeg_read_scanlines(&jinfo, buffer, 1);
+            unsigned int* tex_ptr = row_ptr;
+            for (int i = 0, jpeg_ptr = (int) buffer[0]; i < jinfo.output_width; i++, jpeg_ptr += 3) {
+                color  = (int) jpeg_ptr[(JSAMPROW) 0];
+                color |= (int) jpeg_ptr[(JSAMPROW) 1] << 8;
+                color |= (int) jpeg_ptr[(JSAMPROW) 2] << 16;
+                *(tex_ptr++) = color | 0xFF000000;
+            }
+
+            row_ptr += tex.width;
+        }
+
+        jpeg_finish_decompress(&jinfo);
+
+        free(buffer[0]);
+        free(buffer);
+
+        tileTexture32(tex);
+
+        jpeg_destroy_decompress(&jinfo);
+        m_texture = tex;
+        fclose(fp);
+        return true;
     }
 } /* m3d */
