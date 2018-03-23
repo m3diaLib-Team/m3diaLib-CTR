@@ -18,7 +18,7 @@ namespace m3d {
 
         // this was shamelessly stolen from xerpi's sfillib
         png_byte pngsig[PNG_SIGSIZE];
-        FILE *fp;
+        FILE* fp;
 
         if ((fp = fopen(t_filename.c_str(), "rb")) == NULL) {
             return false;
@@ -34,12 +34,6 @@ namespace m3d {
             return false;
         }
 
-        /////////////////////////
-        //////// SFILLIB FUNCTION
-        /////////////////////////
-
-        // sf2d_texture *texture = _sfil_load_PNG_generic((void *)fp, _sfil_read_png_file_fn, place);
-        // static sf2d_texture *_sfil_load_PNG_generic(const void *io_ptr, png_rw_ptr read_data_fn, sf2d_place place)
 
         png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
         if (png_ptr == NULL) {
@@ -48,13 +42,13 @@ namespace m3d {
 
         png_infop info_ptr = png_create_info_struct(png_ptr);
         if (info_ptr == NULL) {
-            png_destroy_read_struct(&png_ptr, (png_infopp)0, (png_infopp)0);
+            png_destroy_read_struct(&png_ptr, (png_infopp) 0, (png_infopp) 0);
         }
 
-        png_bytep *row_ptrs = NULL;
+        png_bytep* row_ptrs = NULL;
 
         if (setjmp(png_jmpbuf(png_ptr))) {
-            png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)0);
+            png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp) 0);
 
             if (row_ptrs != NULL)
                 delete row_ptrs;
@@ -105,11 +99,10 @@ namespace m3d {
 
         png_read_update_info(png_ptr, info_ptr);
 
-        row_ptrs = (png_bytep *)malloc(sizeof(png_bytep) * height);
+        row_ptrs = (png_bytep*) malloc(sizeof(png_bytep) * height);
         if (!row_ptrs)
             png_destroy_info_struct(png_ptr, &info_ptr);
 
-        // sf2d_texture *texture = sf2d_create_texture(width, height, GPU_RGBA8, place);
         m_width = width;
         m_height = height;
 
@@ -120,7 +113,6 @@ namespace m3d {
         if (!success)
             return false;
 
-        /////////////////////////////////////////// FINISHED FUNCTION
         int stride = tex.width * 4;
 
         for (unsigned int i = 0; i < height; i++) {
@@ -129,7 +121,7 @@ namespace m3d {
 
         png_read_image(png_ptr, row_ptrs);
 
-        png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp)0);
+        png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp) 0);
         free(row_ptrs);
 
         tileTexture32(tex);
