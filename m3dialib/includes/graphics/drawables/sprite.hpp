@@ -160,6 +160,18 @@ namespace m3d {
         bool getTextureStretching();
 
         /**
+         * @brief Sets whether or not to repeat the texture if the sprite is larger (get's overriden by texture stretching)
+         * @param t_stretch Whether or not to repeat the texture
+         */
+        void setTextureRepeat(bool t_repeat);
+
+        /**
+         * @brief Returns whether or not the texture will get repeated if the sprite is larger
+         * @return Whether or not the texture will get repeated
+         */
+        bool getTextureRepeat();
+
+        /**
          * @brief Draws the shape
          * @param t_side The current 3D side (0 = left, 1 = right)
          * @param t_projection The projection uniform of the shader
@@ -172,7 +184,7 @@ namespace m3d {
         /* data */
         int m_posX, m_posY, m_width, m_height;
         Texture m_texture;
-        bool m_changed, m_stretch;
+        bool m_changed, m_stretch, m_repeat;
         float m_opacity;
         m3d::InternalTexturedVertex* m_internalVertices;
         s16* m_elementData;

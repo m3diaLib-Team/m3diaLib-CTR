@@ -9,6 +9,7 @@ namespace m3d {
             m_height(0),
             m_changed(true),
             m_stretch(false),
+            m_repeat(false),
             m_opacity(1.0f) { /* do nothing */ }
 
     Sprite::~Sprite() {
@@ -129,6 +130,14 @@ namespace m3d {
         return m_stretch;
     }
 
+    void Sprite::setTextureRepeat(bool t_repeat) {
+        m_repeat = t_repeat;
+    }
+
+    bool Sprite::getTextureRepeat() {
+        return m_repeat;
+    }
+
     void Sprite::draw(int, int, int, int) {
         if (m_changed) {
             m_changed = false;
@@ -177,6 +186,8 @@ namespace m3d {
         C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, 0, 0);
         C3D_TexEnvOp(env, C3D_Both, 0, 0, 0);
         C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
+
+        if (m_repeat) C3D_TexSetWrap(&m_texture.getTexture(), GPU_REPEAT, GPU_REPEAT);
 
         // Draw the VBO
         C3D_DrawElements(GPU_TRIANGLES, 6, GPU_UNSIGNED_BYTE, m_elementData);
