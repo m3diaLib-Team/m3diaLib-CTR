@@ -8,7 +8,8 @@ namespace m3d {
             m_width(0),
             m_height(0),
             m_changed(true),
-            m_stretch(false) { /* do nothing */ }
+            m_stretch(false),
+            m_opacity(1.0f) { /* do nothing */ }
 
     Sprite::~Sprite() {
         linearFree(m_internalVertices);
@@ -93,6 +94,15 @@ namespace m3d {
 
     BoundingBox Sprite::getBoundingBox() {
         return m3d::BoundingBox(m_posX, m_posY, m_width, m_height);
+    }
+
+    void Sprite::setOpacity(float t_opacity) {
+        m_opacity = t_opacity;
+        m_changed = true;
+    }
+
+    float Sprite::getOpacity() {
+        return m_opacity;
     }
 
     void Sprite::setTexture(Texture t_texture, bool t_autoresize) {

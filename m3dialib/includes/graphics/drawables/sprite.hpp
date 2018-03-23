@@ -123,6 +123,18 @@ namespace m3d {
         BoundingBox getBoundingBox();
 
         /**
+        * @brief Sets the opacity of the sprite
+        * @param t_opacity The opacity
+        */
+        void setOpacity(float t_opacity);
+
+        /**
+        * @brief Returns the opacity of the sprite
+        * @return The opacity
+        */
+        float getOpacity();
+
+        /**
          * @brief Sets the texture of the sprite
          * @param t_texture    The texture
          * @param t_autoresize Whether the sprite should automatically resize it's dimensions to match the dimensions of the texture
@@ -161,6 +173,7 @@ namespace m3d {
         int m_posX, m_posY, m_width, m_height;
         Texture m_texture;
         bool m_changed, m_stretch;
+        float m_opacity;
         m3d::InternalTexturedVertex* m_internalVertices;
         s16* m_elementData;
     };
