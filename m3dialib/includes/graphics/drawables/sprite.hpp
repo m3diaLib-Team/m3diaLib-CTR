@@ -127,7 +127,7 @@ namespace m3d {
          * @param t_texture    The texture
          * @param t_autoresize Whether the sprite should automatically resize it's dimensions to match the dimensions of the texture
          */
-        void setTexture(Texture t_texture, bool t_autoresize = false);
+        void setTexture(Texture t_texture, bool t_autoresize = true);
 
         /**
          * @brief Returns a reference to the Texture of the sprite
