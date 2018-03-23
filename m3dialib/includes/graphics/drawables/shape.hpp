@@ -32,7 +32,7 @@ namespace m3d {
          * @brief Adds a vertex by a m3d::Vertex struct
          * @param t_vertex The vertex to add
          */
-        void addVertex(m3d::Vertex t_vertex);
+        void addVertex(m3d::ColoredVertex t_vertex);
 
         /**
          * @brief Adds a vertex given it's position and color
@@ -73,9 +73,9 @@ namespace m3d {
     private:
         /* data */
         bool m_changed;
-        std::vector<m3d::Vertex> m_vertices;
+        std::vector<m3d::ColoredVertex> m_vertices;
         std::vector<uint16_t> m_indices;
-        m3d::InternalVertex* m_internalVertices;
+        m3d::InternalColoredVertex* m_internalVertices;
         s16* m_elementData;
         m3d::InterpolationMode m_interpolationMode;
     };

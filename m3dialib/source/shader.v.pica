@@ -13,11 +13,13 @@
 
 ; Outputs
 .out outpos position
+.out outtc0 texcoord0
 .out outclr color
 
 ; Inputs (defined as aliases for convenience)
 .alias inpos v0
 .alias inclr v1
+.alias inarg v1
 
 .bool test
 
@@ -42,6 +44,9 @@
 		dp4 outpos.z, projection[2], r0
 		dp4 outpos.w, projection[3], r0
 	.end
+
+	; outtc0 = in.texcoord
+	mov outtc0, inarg
 
 	; outclr = inclr
 	mov outclr, inclr

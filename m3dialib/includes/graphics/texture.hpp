@@ -6,6 +6,7 @@
 #include <3ds.h>
 #include <citro3d.h>
 #include <string>
+#include <png.h>
 
 namespace m3d {
     /**
@@ -29,8 +30,10 @@ namespace m3d {
          * @param  t_filename The name of the file you want to load
          * @return            Whether the load was successful or not
          * @todo Implement bmp support
+         * @todo Add VRAM support
+         * @todo Implement hardware tiling
          */
-        bool loadFromFile(std::string t_filename);
+        bool loadFromFile(const std::string& t_filename);
 
         /**
          * @brief Returns the width of the texture
@@ -62,8 +65,19 @@ namespace m3d {
         m3d::Texture& operator=(m3d::Texture& rhs);
 
     private:
+        static void readPngFileFn(png_structp t_png_ptr, png_bytep t_data, png_size_t t_length);
+        static unsigned int next_pow2(unsigned int t_v);
+        static inline u32 morton_interleave(u32 t_x, u32 t_y);
+        static inline u32 get_morton_offset(u32 t_x, u32 t_y, u32 t_bytes_per_pixel);
+        void tileTexture32(C3D_Tex& t_tex);
+
+        // loading methods
+        bool loadPngFile(const std::string& t_filename);
+        bool loadJpgFile(const std::string& t_filename);
+
         /* data */
         int m_width, m_height;
+        bool m_tiled;
         std::string m_path;
         C3D_Tex m_texture;
     };
