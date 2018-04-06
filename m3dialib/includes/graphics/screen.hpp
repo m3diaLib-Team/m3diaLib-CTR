@@ -1,4 +1,4 @@
-/**
+@brief /**
  * @file screen.hpp
  * @brief The master class for drawing on screens
  */
@@ -82,14 +82,14 @@ namespace m3d {
         void clear();
 
         /**
-         * Draws something on the top screen
+         * @brief Draws something on the top screen
          * @param t_object The object that should be drawn
          * @param t_layer The z-inex the object should be drawn at
          */
         void drawTop(m3d::Drawable& t_object, int t_layer = 0);
 
         /**
-         * Draws something on the bottom screen
+         * @brief Draws something on the bottom screen
          * @param t_object The object that should be drawn
          * @param t_layer The z-inex the object should be drawn at
          */
