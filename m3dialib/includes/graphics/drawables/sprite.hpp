@@ -9,6 +9,9 @@
 #include "graphics/texture.hpp"
 
 namespace m3d {
+    /**
+     * @brief A sprite, which can be used to draw textures
+     */
     class Sprite: public Drawable {
     public:
         /**
