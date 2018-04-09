@@ -1,4 +1,4 @@
-@brief /**
+/**
  * @file screen.hpp
  * @brief The master class for drawing on screens
  */
