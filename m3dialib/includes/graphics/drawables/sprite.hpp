@@ -164,7 +164,7 @@ namespace m3d {
 
         /**
          * @brief Sets whether or not to repeat the texture if the sprite is larger (get's overriden by texture stretching)
-         * @param t_stretch Whether or not to repeat the texture
+         * @param t_repeat Whether or not to repeat the texture
          */
         void setTextureRepeat(bool t_repeat);
 
