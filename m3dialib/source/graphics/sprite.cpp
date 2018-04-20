@@ -146,21 +146,22 @@ namespace m3d {
             m_internalVertices = static_cast<m3d::InternalTexturedVertex*>(linearAlloc(4 * sizeof(m3d::InternalTexturedVertex)));
             m_elementData = static_cast<s16*>(linearAlloc(6 * sizeof(s16)));
 
+            float u, v;
+
             // since sprites are always rectangular, we can hardcode the vertices
             if (m_stretch) {
-                m_internalVertices[0] = (m3d::InternalTexturedVertex) { {m_posX, m_posY, 0.5f}, {0.0f, 0.0f} };
-                m_internalVertices[1] = (m3d::InternalTexturedVertex) { {m_posX, m_posY + m_height, 0.5f}, {0.0f, 1.0f} };
-                m_internalVertices[2] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY + m_height, 0.5f}, {1.0f, 1.0f} };
-                m_internalVertices[3] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY, 0.5f}, {1.0f, 0.0f} };
+                v = (float) m_texture.getWidth() / (float) m_texture.getTexture().width;
+                u = (float) m_texture.getHeight() / (float) m_texture.getTexture().height;
             } else {
-                float v = (float) m_width  / (float) m_texture.getWidth();
-                float u = (float) m_height / (float) m_texture.getHeight();
+                v = (float) m_width  / (float) m_texture.getTexture().width;
+                u = (float) m_height / (float) m_texture.getTexture().height;
 
-                m_internalVertices[0] = (m3d::InternalTexturedVertex) { {m_posX, m_posY, 0.5f}, {0.0f, 0.0f} };
-                m_internalVertices[1] = (m3d::InternalTexturedVertex) { {m_posX, m_posY + m_height, 0.5f}, {0.0f, u} };
-                m_internalVertices[2] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY + m_height, 0.5f}, {v, u} };
-                m_internalVertices[3] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY, 0.5f}, {v, 0.0f} };
             }
+
+            m_internalVertices[0] = (m3d::InternalTexturedVertex) { {m_posX, m_posY, 0.5f}, {0.0f, 0.0f} };
+            m_internalVertices[1] = (m3d::InternalTexturedVertex) { {m_posX, m_posY + m_height, 0.5f}, {0.0f, u} };
+            m_internalVertices[2] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY + m_height, 0.5f}, {v, u} };
+            m_internalVertices[3] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY, 0.5f}, {v, 0.0f} };
 
             m_elementData[0] = 0;
             m_elementData[1] = 1;
