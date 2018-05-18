@@ -177,9 +177,16 @@ namespace m3d {
          */
         int getBatteryLevel();
 
+        /**
+         * @brief Returns the current frame
+         * @return The currently drawn frame (ranging from 0 to 59)
+         */
+        int getCurrentFrame();
+
     private:
         /* data */
         bool m_sleepAllowed, m_running;
+        int m_currentFrame;
 
     };
 } /* m3d */

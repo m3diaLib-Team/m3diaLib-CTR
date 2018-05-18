@@ -4,7 +4,8 @@
 
 namespace m3d {
     Applet::Applet() :
-         m_running(true) {
+         m_running(true),
+         m_currentFrame(0) {
             aptInit();
             cfguInit();
             ptmuInit();
@@ -183,5 +184,10 @@ namespace m3d {
         u8 state;
         PTMU_GetBatteryLevel(&state);
         return (state <= 5 && state >= 0 ? state : 0);
+    }
+
+    int Applet::getCurrentFrame() {
+        m_currentFrame = m_currentFrame % 60;
+        return m_currentFrame;
     }
 } /* m3d */
