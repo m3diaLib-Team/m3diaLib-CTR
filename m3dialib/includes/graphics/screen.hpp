@@ -6,8 +6,7 @@
 #include <vector>
 #include <map>
 #include <cstring>
-#include <3ds.h>
-#include <citro3d.h>
+#include <citro2d.h>
 #include "./renderTarget.hpp"
 #include "./drawable.hpp"
 
@@ -52,29 +51,6 @@ namespace m3d {
          * @param t_enabled Whether to enable or disable it
          */
         void set3d(bool t_enabled);
-
-        /**
-         * @brief Force-clears the screen by resetting all framebuffers of the screen
-         */
-        void forceClear();
-
-        /**
-         * @brief Returns the projection uniform of the shader
-         * @return The uniform
-         */
-        int getProjectionUniform();
-
-        /**
-         * @brief Returns the transform uniform of the shader
-         * @return The uniform
-         */
-        int getTransformUniform();
-
-        /**
-         * @brief Returns the useTransform uniform of the shader
-         * @return The uniform
-         */
-        int getUseTransformUniform();
 
         /**
          * @brief Clears the screen
