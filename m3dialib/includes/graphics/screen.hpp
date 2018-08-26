@@ -9,6 +9,7 @@
 #include <citro2d.h>
 #include "./renderTarget.hpp"
 #include "./drawable.hpp"
+#include "./color.hpp"
 
 /**
  * @brief The general m3d-namespace
@@ -53,9 +54,24 @@ namespace m3d {
         void set3d(bool t_enabled);
 
         /**
-         * @brief Clears the screen
+         * @brief Sets the clear color for both screens
+         * @param t_color The color to clear the screen with
          */
-        void clear();
+        void setClearColor(m3d::Color t_color);
+
+        /**
+         * @brief Sets the clear color for one specific screen
+         * @param t_color  The color to clear the screen with
+         * @param t_target The screen to clear set the color for
+         */
+        void setClearColor(m3d::Color t_color, m3d::ScreenTarget t_target);
+
+        /**
+         * @brief Returns the clear color for the given screen
+         * @param  t_target The screen to get the color from
+         * @return          The set clear color for the screen
+         */
+        m3d::Color getClearColor(m3d::ScreenTarget t_target);
 
         /**
          * @brief Draws something on the top screen
@@ -73,8 +89,9 @@ namespace m3d {
 
         /**
          * @brief Renders the current screen
+         * @param t_clear Whether or not to clear the screens in between frames
          */
-        void render();
+        void render(bool t_clear = true);
 
         /**
          * @brief Returns the width of the screen
@@ -90,13 +107,16 @@ namespace m3d {
         int getScreenHeight();
 
     private:
+        void clear();
+
         /* data */
+        int m_projection, m_transform, m_useTransform;
+        bool m_3dEnabled;
+        m3d::Color m_clearColorTop, m_clearColorBottom;
         m3d::RenderTarget *m_targetTopLeft, *m_targetTopRight, *m_targetBottom;
         std::map<int, std::vector<m3d::Drawable*>, std::less<int>> m_drawStackTop, m_drawStackBottom;
-        bool m_3dEnabled;
         DVLB_s *m_dvlb;
         shaderProgram_s m_shader;
-        int m_projection, m_transform, m_useTransform;
 
     };
 } /* m3d */
