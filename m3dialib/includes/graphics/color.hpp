@@ -114,6 +114,15 @@ namespace m3d {
         void setColor(uint8_t t_r, uint8_t t_g, uint8_t t_b, uint8_t t_a);
 
         /**
+         * @brief Sets the red, green, blue and alpha value of the color
+         * @param t_r The red value
+         * @param t_g The green value
+         * @param t_b The blue value
+         * @param t_a The alpha value (0.0-1.0)
+         */
+        void setColor(uint8_t t_r, uint8_t t_g, uint8_t t_b, float t_a);
+
+        /**
          * @brief Sets the red value of the color
          * @param t_r The red value
          */
