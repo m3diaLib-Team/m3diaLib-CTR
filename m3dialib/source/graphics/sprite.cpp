@@ -176,7 +176,7 @@ namespace m3d {
         return m_blendStrength;
     }
 
-    void Sprite::setOpacity(float t_opacity) {
+    void Sprite::setOpacity(unsigned int t_opacity) {
         m_opacity = t_opacity;
         updateTint();
     }

@@ -223,9 +223,9 @@ namespace m3d {
 
         /**
          * @brief Sets the opacity of the sprite
-         * @param t_opacity The new opacity (0.0-1.0)
+         * @param t_opacity The new opacity (0-255)
          */
-        void setOpacity(float t_opacity);
+        void setOpacity(unsigned int t_opacity);
 
         /**
          * @brief Returns the current opacity of the sprite
