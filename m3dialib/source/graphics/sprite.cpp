@@ -1,5 +1,4 @@
 #include "graphics/drawables/sprite.hpp"
-#include <iostream>
 
 namespace m3d {
     Sprite::Sprite() :
