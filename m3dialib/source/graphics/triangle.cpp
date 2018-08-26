@@ -75,9 +75,11 @@ namespace m3d {
         return m_color;
     }
 
+    // private methods
     void Triangle::updateVertices() {
-        addVertex(m_posX1, m_posY1, 0.5f, m_color);
-        addVertex(m_posX2, m_posY2, 0.5f, m_color);
-        addVertex(m_posX3, m_posY3, 0.5f, m_color);
+        clearVertices();
+        addVertex(m_posX1, m_posY1, m_color);
+        addVertex(m_posX2, m_posY2, m_color);
+        addVertex(m_posX3, m_posY3, m_color);
     }
 } /* m3d */

@@ -21,6 +21,15 @@ namespace m3d {
         RenderTarget(int t_width, int t_height);
 
         /**
+         * @brief Creates a render target
+         * @param t_width  The width of the target
+         * @param t_height The height of the target
+         * @param t_screen The screen (GFX_TOP or GFX_BOTTOM)
+         * @param t_side   The side (GFX_LEFT or GFX_RIGHT)
+         */
+        RenderTarget(int t_width, int t_height, gfxScreen_t t_screen, gfx3dSide_t t_side);
+
+        /**
          * @brief Returns the render target
          * @return The render target
          */

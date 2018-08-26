@@ -38,24 +38,4 @@ namespace m3d {
         Vector3f position;       ///< Position of the vertex
         Vector2f textureCoords;  ///< Texture coordinates of the vertex
     };
-
-    /**
-     * @brief Represents a vertex containing it's position and color as arrays
-     * @deprecated Do not use this, it's only for internal use and will soon be removed completely
-     * @todo Get rid of this
-     */
-    struct InternalColoredVertex {
-        float position[3];    ///< The x, y and z position, represented as an array of floats
-        float color[4];       ///< The red, green, blue and alpha values, represented as an array of floats
-    };
-
-    /**
-     * @brief Represents a vertex containing it's position and texture coordinates as arrays
-     * @deprecated Do not use this, it's only for internal use and will soon be removed completely
-     * @todo Get rid of this
-     */
-    struct InternalTexturedVertex {
-        float position[3];    ///< The x, y and z position, represented as an array of floats
-        float texcoord[2];    ///< The texture coordinates, represented as an array of floats
-    };
 } /* m3d */

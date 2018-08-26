@@ -65,11 +65,12 @@ namespace m3d {
         return m_color;
     }
 
+    // private methods
     void Rectangle::updateVertices() {
         clearVertices();
-        addVertex(m_posX, m_posY, 0.5f, m_color);
-        addVertex(m_posX, m_posY + m_height, 0.5f, m_color);
-        addVertex(m_posX + m_width, m_posY + m_height, 0.5f, m_color);
-        addVertex(m_posX + m_width, m_posY, 0.5f, m_color);
+        addVertex(m_posX, m_posY, m_color);
+        addVertex(m_posX, m_posY + m_height, m_color);
+        addVertex(m_posX + m_width, m_posY + m_height, m_color);
+        addVertex(m_posX + m_width, m_posY, m_color);
     }
 } /* m3d */
