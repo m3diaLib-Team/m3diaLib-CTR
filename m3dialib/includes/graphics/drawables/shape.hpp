@@ -44,9 +44,10 @@ namespace m3d {
 
         /**
          * @brief Draws the shape
-         * @param t_side The current 3D side (0 = left, 1 = right)
+         * @param t_3dEnabled Whether stereoscopic 3D is enabled or not
+         * @param t_side      The current 3D side (0 = left, 1 = right)
          */
-        void draw(int t_side);
+        void draw(bool t_3dEnabled = false, int t_side = 0);
 
     private:
         /* data */

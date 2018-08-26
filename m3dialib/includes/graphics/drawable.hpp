@@ -16,10 +16,11 @@ namespace m3d {
     public:
         /**
          * @brief Draws the drawable object
-         * @param t_side The current 3D side (0 = left, 1 = right)
+         * @param t_3dEnabled Whether stereoscopic 3D is enabled or not
+         * @param t_side      The current 3D side (0 = left, 1 = right)
          *
          * Implement this function in your own class to draw stuff on the screen using Citro2D-functions.
          */
-        virtual void draw(int t_side) = 0;
+        virtual void draw(bool t_3dEnabled = false, int t_side = 0) = 0;
     };
 } /* m3d */

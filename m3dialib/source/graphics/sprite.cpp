@@ -204,7 +204,7 @@ namespace m3d {
         return m_texture;
     }
 
-    void Sprite::draw(int) {
+    void Sprite::draw(bool t_3dEnabled, int t_side) {
         C2D_DrawSpriteTinted(&m_sprite, &m_imageTint);
     }
 

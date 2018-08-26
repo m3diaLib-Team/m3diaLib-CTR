@@ -21,7 +21,7 @@ namespace m3d {
         m_changed = true;
     }
 
-    void Shape::draw(int) {
+    void Shape::draw(bool, int) {
         if (m_changed) {
             m_changed = false;
 

@@ -79,7 +79,7 @@ namespace m3d {
 
                 for(const auto &entry : m_drawStackBottom) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
-                        drawable->draw(m3d::SIDE_LEFT);
+                        drawable->draw(m_3dEnabled, m3d::SIDE_LEFT);
                     }
                 }
             }
@@ -89,7 +89,7 @@ namespace m3d {
 
                 for(const auto &entry : m_drawStackTop) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
-                        drawable->draw(m3d::SIDE_LEFT);
+                        drawable->draw(m_3dEnabled, m3d::SIDE_LEFT);
                     }
                 }
 
@@ -98,7 +98,7 @@ namespace m3d {
 
                     for(const auto &entry : m_drawStackTop) { // for every layer
                         for(const auto &drawable : entry.second) { // draw every object
-                            drawable->draw(m3d::SIDE_RIGHT);
+                            drawable->draw(m_3dEnabled, m3d::SIDE_RIGHT);
                         }
                     }
                 }
