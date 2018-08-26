@@ -11,6 +11,7 @@ namespace m3d {
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
         C2D_Prepare();
         gfxSet3D(t_enable3d);
+        C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
         m_3dEnabled = t_enable3d;
         m_targetTopLeft  = new m3d::RenderTarget(400, 240, GFX_TOP, GFX_LEFT);
         m_targetTopRight = new m3d::RenderTarget(400, 240, GFX_TOP, GFX_RIGHT);
