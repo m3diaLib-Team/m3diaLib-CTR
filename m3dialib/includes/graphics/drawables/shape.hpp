@@ -11,10 +11,8 @@
 namespace m3d {
     /**
      * @brief The base class for all shapes
-     * @todo Add support for direct editing of the vertices
      * @todo Add support for stereoscopic 3D
      * @todo Implement support for textures
-     * @todo Implement support for texture-combining
      */
     class Shape: public m3d::Drawable {
     public:
