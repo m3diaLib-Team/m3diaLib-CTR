@@ -90,14 +90,13 @@ namespace m3d {
         static const int num_segments = 100;
         float xx = m_radius;
         float yy = 0;
-        int i;
 
-        float theta = 2 * M_PI / (float)num_segments;
+        float theta = 2 * M_PI / (float) num_segments;
         float c = cosf(theta);
         float s = sinf(theta);
         float t;
 
-        for (i = 1; i <= num_segments; i++) {
+        for (int i = 1; i <= num_segments; i++) {
             addVertex((float) (m_posX + xx + m_radius - m_originX), (float) (m_posY + yy + m_radius - m_originY), m_color);
 
             t = xx;
