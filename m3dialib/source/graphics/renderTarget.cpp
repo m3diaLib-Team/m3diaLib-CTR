@@ -1,5 +1,6 @@
 #include "graphics/renderTarget.hpp"
 #include "graphics/color.hpp"
+#include <citro2d.h>
 
 namespace m3d {
     RenderTarget::RenderTarget(int t_width, int t_height) :
@@ -11,6 +12,13 @@ namespace m3d {
 
             u32 color = ((m_clearColor>>24)&0x000000FF) | ((m_clearColor>>8)&0x0000FF00) | ((m_clearColor<<8)&0x00FF0000) | ((m_clearColor<<24)&0xFF000000); // reverse byte order
             C3D_RenderTargetSetClear(m_target, C3D_CLEAR_ALL, color, 0);
+    }
+
+    RenderTarget::RenderTarget(int t_width, int t_height, gfxScreen_t t_screen, gfx3dSide_t t_side = GFX_LEFT) :
+        m_width(t_width),
+        m_height(t_height),
+        m_clearColor(RGBA8(0, 0, 0, 255)) {
+            m_target = C2D_CreateScreenTarget(t_screen, t_side);
     }
 
     C3D_RenderTarget* RenderTarget::getRenderTarget() {
