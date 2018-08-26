@@ -13,6 +13,7 @@ namespace m3d {
      * @brief The base class for all shapes
      * @todo Add support for stereoscopic 3D
      * @todo Implement support for textures
+     * @todo Add support for holes
      */
     class Shape: public m3d::Drawable {
     public:
