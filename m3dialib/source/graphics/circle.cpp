@@ -82,6 +82,7 @@ namespace m3d {
         return m_color;
     }
 
+    // private methods
     void Circle::updateVertices() {
         clearVertices();
 
@@ -97,7 +98,7 @@ namespace m3d {
         float t;
 
         for (i = 1; i <= num_segments; i++) {
-            addVertex((float) (m_posX + xx + m_radius - m_originX), (float) (m_posY + yy + m_radius - m_originY), 0.5f, m_color);
+            addVertex((float) (m_posX + xx + m_radius - m_originX), (float) (m_posY + yy + m_radius - m_originY), m_color);
 
             t = xx;
             xx = c * xx - s * yy;

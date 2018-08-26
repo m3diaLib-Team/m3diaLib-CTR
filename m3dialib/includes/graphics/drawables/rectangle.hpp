@@ -98,10 +98,10 @@ namespace m3d {
         m3d::Color getColor();
 
     private:
+        void updateVertices();
+
         /* data */
         int m_posX, m_posY, m_width, m_height;
         m3d::Color m_color;
-        void updateVertices();
-
     };
 } /* m3d */

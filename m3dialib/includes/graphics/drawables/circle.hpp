@@ -120,10 +120,10 @@ namespace m3d {
         m3d::Color getColor();
 
     private:
+        void updateVertices();
+
         /* data */
         int m_posX, m_posY, m_radius, m_originX, m_originY;
         m3d::Color m_color;
-        void updateVertices();
-
     };
 } /* m3d */
