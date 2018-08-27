@@ -23,6 +23,7 @@ namespace m3d {
 
     bool Applet::isRunning() {
         hidScanInput(); // scan input since this gets called every frame
+        m_currentFrame++;
         return m_running;
     }
 
