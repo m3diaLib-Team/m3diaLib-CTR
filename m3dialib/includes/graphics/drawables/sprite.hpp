@@ -55,9 +55,9 @@ namespace m3d {
         /**
          * @brief Sets the position of the sprite
          * @param t_vector The vector representing the position
-         * @note The first component of the vector is the x position, the seconf component is the y position
+         * @note The first component of the vector is the x position, the second component is the y position
          */
-        void setPosition(Vector2f t_vector);
+        void setPosition(m3d::Vector2f t_vector);
 
         /**
          * @brief Moves the sprite a certain offset on the x-axis
