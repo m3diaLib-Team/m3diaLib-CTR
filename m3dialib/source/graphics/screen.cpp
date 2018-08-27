@@ -21,8 +21,6 @@ namespace m3d {
     }
 
     Screen::~Screen() {
-        shaderProgramFree(&m_shader);
-        DVLB_Free(m_dvlb);
         C2D_Fini();
         C3D_Fini();
         gfxExit();
