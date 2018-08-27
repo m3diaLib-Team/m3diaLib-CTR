@@ -22,4 +22,15 @@ namespace m3d {
     int BoundingBox::getHeight() {
         return m_height;
     }
+
+    bool BoundingBox::intersects(m3d::BoundingBox t_box) {
+        if (m_posX < (t_box.getX() + t_box.getWidth())
+            && (m_posX + m_width) > t_box.getX()
+            && m_posY < (t_box.getY() + t_box.getHeight())
+            && (m_posY + m_height) > t_box.getY()) {
+                return true;
+            }
+
+        return false;
+    }
 } /* m3d */

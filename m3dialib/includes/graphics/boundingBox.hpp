@@ -43,6 +43,13 @@ namespace m3d {
          */
         int getHeight();
 
+        /**
+         * @brief Checks whether two BoundingBoxes intersect
+         * @param  t_box The BoundingBox to compare with
+         * @return       Whether or not the two boxes interect
+         */
+        bool intersects(m3d::BoundingBox t_box);
+
     private:
         /* data */
         int m_posX, m_posY, m_width, m_height;
