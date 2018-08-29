@@ -6,3 +6,4 @@
 
 #include "./applet.hpp"
 #include "./error.hpp"
+#include "./thread.hpp"

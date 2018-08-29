@@ -27,7 +27,7 @@ namespace m3d {
         };
 
         /**
-         * @brief Initzializes the thread
+         * @brief Constructs the thread
          * @param t_function  The thread function
          * @param t_parameter The parameter to pass to the function
          * @param t_priority  The priority of the thread
@@ -40,7 +40,7 @@ namespace m3d {
         Thread(void t_function(m3d::ThreadParameter), m3d::ThreadParameter t_parameter = nullptr, m3d::Thread::Priority t_priority = m3d::Thread::Priority::Default, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
 
         /**
-         * @brief Initzializes the thread with a specific priority
+         * @brief Constructs the thread with a specific priority
          * @param t_function  The thread function
          * @param t_priority  The priority of the thread (Ranging from 0 to 39)
          * @param t_parameter The parameter to pass to the function
@@ -55,15 +55,15 @@ namespace m3d {
         Thread(void t_function(m3d::ThreadParameter), int t_priority, m3d::ThreadParameter t_parameter = nullptr, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
 
         /**
+         * @brief Destructs the thread
+         */
+        virtual ~Thread();
+
+        /**
          * @brief Sets the size of the stack that gets allocated for the next thread that get's started
          * @param t_stackSize The allocated space in bytes (rounded to multiples of 8 bytes)
          */
         void setStackSize(unsigned long long int t_stackSize);
-
-        /**
-         * @brief Destructs the thread
-         */
-        virtual ~Thread();
 
         /**
          * @brief Starts the thread
@@ -73,23 +73,14 @@ namespace m3d {
 
         /**
          * @brief Detaches the thread
-         *
-         * After a thread is detatched, the Thread-object can be used to create a new thread.
          */
         void detach();
 
         /**
          * @brief Waits for the thread to finish
          * @param t_timeout The timeout in nanoseconds. Leave it for no timeout
-         * @return The exit code of the thread (-1 if the thread wasn't started)
          */
-        int join(long long unsigned int t_timeout = U64_MAX);
-
-        /**
-         * @brief Returns the exit code of the finished thread function
-         * @return The exit code
-         */
-        int getExitCode();
+        void join(long long unsigned int t_timeout = U64_MAX);
 
         /**
          * @brief Returns the priority of the calling thread
