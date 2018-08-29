@@ -1,7 +1,7 @@
 #include "core/thread.hpp"
 
 namespace m3d {
-    Thread::Thread(void t_function(m3d::ThreadParameter), m3d::ThreadParameter t_parameter, m3d::Thread::Priority t_priority, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
+    Thread::Thread(void t_function(m3d::Parameter), m3d::Parameter t_parameter, m3d::Thread::Priority t_priority, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
                 m_stackSize(t_stackSize),
                 m_running(false),
                 m_started(false),
@@ -20,7 +20,7 @@ namespace m3d {
         }
     }
 
-    Thread::Thread(void t_function(m3d::ThreadParameter), int t_priority, m3d::ThreadParameter t_parameter, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
+    Thread::Thread(void t_function(m3d::Parameter), int t_priority, m3d::Parameter t_parameter, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
                 m_stackSize(t_stackSize),
                 m_running(false),
                 m_started(false),

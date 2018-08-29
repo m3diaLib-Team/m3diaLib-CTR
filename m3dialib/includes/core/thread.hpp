@@ -5,7 +5,7 @@
 #pragma once
 #include <3ds.h>
 #include <string>
-#include "./threadParameter.hpp"
+#include "./parameter.hpp"
 
 using CTRU_Thread = Thread;
 
@@ -37,7 +37,7 @@ namespace m3d {
          * @note t_function needs to be of type `void` and take one (and only one) parameter of type m3d::ThreadParmater
          * @warning If the thread priority is lower than the priority of the calling thread, the thread will never get executed. Use m3d::Thread::getCurrentPriority() to get the priority of the current thread
          */
-        Thread(void t_function(m3d::ThreadParameter), m3d::ThreadParameter t_parameter = nullptr, m3d::Thread::Priority t_priority = m3d::Thread::Priority::Default, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
+        Thread(void t_function(m3d::Parameter), m3d::Parameter t_parameter = nullptr, m3d::Thread::Priority t_priority = m3d::Thread::Priority::Default, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
 
         /**
          * @brief Constructs the thread with a specific priority
@@ -52,7 +52,7 @@ namespace m3d {
          * @warning If the priority exceeds this range, it will be clamped
          * @warning If the thread priority is higher or equal than the priority of the calling thread, calling thread will get paused. Use m3d::Thread::getCurrentPriority() to get the priority of the current thread
          */
-        Thread(void t_function(m3d::ThreadParameter), int t_priority, m3d::ThreadParameter t_parameter = nullptr, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
+        Thread(void t_function(m3d::Parameter), int t_priority, m3d::Parameter t_parameter = nullptr, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
 
         /**
          * @brief Destructs the thread
@@ -90,8 +90,8 @@ namespace m3d {
 
     private:
         struct ThreadData {
-            m3d::ThreadParameter m_parameter;
-            void (*m_function)(m3d::ThreadParameter t_param);
+            m3d::Parameter m_parameter;
+            void (*m_function)(m3d::Parameter t_param);
         };
 
         static void threadFunction(void* t_arg);

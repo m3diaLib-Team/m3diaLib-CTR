@@ -1,15 +1,15 @@
 /**
- * @file threadParameter.hpp
- * @brief Defines the ThreadParameter class
+ * @file parameter.hpp
+ * @brief Defines the Parameter class
  */
 #pragma once
 #include <tuple>
 
 namespace m3d {
     /**
-     * @brief A thread parameter that can take any type
+     * @brief A parameter that can take any type
      */
-	class ThreadParameter
+	class Parameter
     {
     private:
         using id = size_t;
@@ -24,7 +24,7 @@ namespace m3d {
         using decay = typename std::decay<T>::type;
 
         template<typename T>
-        using none = typename std::enable_if<!std::is_same<ThreadParameter, T>::value>::type;
+        using none = typename std::enable_if<!std::is_same<Parameter, T>::value>::type;
 
         struct base
         {
@@ -61,58 +61,58 @@ namespace m3d {
         /**
          * @brief Default constructor
          */
-         ThreadParameter() { }
+         Parameter() { }
 
          /**
-          * @brief Destructs the ThreadParameter
+          * @brief Destructs the Parameter
           */
-        ~ThreadParameter() { delete p; }
+        ~Parameter() { delete p; }
 
         /**
          * @brief Copy constructor
-         * @param s The ThreadParameter to copy
+         * @param s The Parameter to copy
          */
-        ThreadParameter(ThreadParameter &&s) : p{s.p} { s.p = nullptr; }
+        Parameter(Parameter &&s) : p{s.p} { s.p = nullptr; }
 
         /**
          * @brief Const copy constructor
-         * @param s The ThreadParameter to copy
+         * @param s The Parameter to copy
          */
-        ThreadParameter(ThreadParameter const &s) : p{s.p->copy()} { }
+        Parameter(Parameter const &s) : p{s.p->copy()} { }
 
         /**
-         * @brief Initializes the ThreadParameter with the given value
-         * @param x The value to initialize the ThreadParameter with
+         * @brief Initializes the Parameter with the given value
+         * @param x The value to initialize the Parameter with
          */
         template<typename T, typename U = decay<T>, typename = none<U>>
-        ThreadParameter(T &&x) : p{new data<U>{std::forward<T>(x)}} { }
+        Parameter(T &&x) : p{new data<U>{std::forward<T>(x)}} { }
 
         /**
          * @brief Overloads the assignment operator
-         * @param s The value to set the ThreadParameter to
+         * @param s The value to set the Parameter to
          */
-        ThreadParameter &operator=(ThreadParameter s) { swap(*this, s); return *this; }
+        Parameter &operator=(Parameter s) { swap(*this, s); return *this; }
 
-        friend void swap(ThreadParameter &s, ThreadParameter &r) { std::swap(s.p, r.p); }
+        friend void swap(Parameter &s, Parameter &r) { std::swap(s.p, r.p); }
 
         /**
-         * @brief Clears the ThreadParameter
+         * @brief Clears the Parameter
          */
         void clear() { delete p; p = nullptr; }
 
         /**
-         * @brief Checks whether the ThreadParameter is the given type
+         * @brief Checks whether the Parameter is the given type
          * @tparam T The type to check
-         * @return   Whether the ThreadParameter has the given type or not
+         * @return   Whether the Parameter has the given type or not
          */
         template<typename T>
         bool is() const { return p ? p->is(type_id<T>()) : false; }
 
         /**
-         * @brief Returns the value of the ThreadParameter
-         * @tparam T The type of the parameter
-         * @return The value of the parameter
-         * @warning If the type of the parameter doesn't match the type of it's stored value, it will result in undefined behaviour.
+         * @brief Returns the value of the Parameter
+         * @tparam T The type of the Parameter
+         * @return The value of the Parameter
+         * @warning If the type of the Parameter doesn't match the type of it's stored value, it will result in undefined behaviour.
          */
         template<typename T> T &get() & { return stat<T>(); }
     };
