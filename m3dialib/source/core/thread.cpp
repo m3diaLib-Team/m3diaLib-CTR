@@ -1,34 +1,28 @@
 #include "core/thread.hpp"
 
 namespace m3d {
-    Thread::Thread(void t_function(m3d::Parameter), m3d::Parameter t_parameter, m3d::Thread::Priority t_priority, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
+    Thread::Thread(std::function<void(m3d::Parameter)> t_function, m3d::Parameter t_parameter, m3d::Thread::Priority t_priority, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
                 m_stackSize(t_stackSize),
                 m_running(false),
-                m_started(false),
-                m_data({ t_parameter, t_function }) {
-        if (t_priority == m3d::Thread::Priority::Default) {
-            m_priority = 0x3F - getCurrentPriority() + 1;
-        } else {
-            int priority = static_cast<int>(t_priority);
-            if (priority < 0) priority = 0;
-            if (priority > 39) priority = 39;
-            m_priority = 0x3F - priority;
-        }
+                m_started(false) {
+        m_data.m_parameter = t_parameter;
+        m_data.m_function = t_function;
+
+        setPriority(t_priority);
 
         if (t_autostart) {
             start(t_detached);
         }
     }
 
-    Thread::Thread(void t_function(m3d::Parameter), int t_priority, m3d::Parameter t_parameter, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
+    Thread::Thread(std::function<void(m3d::Parameter)> t_function, int t_priority, m3d::Parameter t_parameter, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
                 m_stackSize(t_stackSize),
                 m_running(false),
-                m_started(false),
-                m_data({ t_parameter, t_function }) {
-        int priority = static_cast<int>(t_priority);
-        if (priority < 0) priority = 0;
-        if (priority > 39) priority = 39;
-        m_priority = 0x3F - priority;
+                m_started(false) {
+        m_data.m_parameter = t_parameter;
+        m_data.m_function = t_function;
+
+        setPriority(t_priority);
 
         if (t_autostart) {
             start(t_detached);
@@ -38,6 +32,24 @@ namespace m3d {
     Thread::~Thread() {
         threadJoin(m_thread, U64_MAX);
         threadFree(m_thread);
+    }
+
+    void Thread::setPriority(m3d::Thread::Priority t_priority) {
+        if (t_priority == m3d::Thread::Priority::Default) {
+            m_priority = 0x3F - getCurrentPriority() + 1;
+        } else {
+            int priority = static_cast<int>(t_priority);
+            if (priority < 0) priority = 0;
+            if (priority > 39) priority = 39;
+            m_priority = 0x3F - priority;
+        }
+    }
+
+    void Thread::setPriority(int t_priority) {
+        int priority = static_cast<int>(t_priority);
+        if (priority < 0) priority = 0;
+        if (priority > 39) priority = 39;
+        m_priority = 0x3F - priority;
     }
 
     void Thread::setStackSize(unsigned long long int t_stackSize) {
@@ -75,7 +87,7 @@ namespace m3d {
 
    // private methods
    void Thread::threadFunction(void* arg) {
-       m3d::Thread::ThreadData data = *(m3d::Thread::ThreadData*) arg;
+       m3d::Thread::ThreadData data = *static_cast<m3d::Thread::ThreadData*>(arg);
        data.m_function(data.m_parameter);
    }
 } /* m3d */
