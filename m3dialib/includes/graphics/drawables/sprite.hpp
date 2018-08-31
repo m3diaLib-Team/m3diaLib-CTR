@@ -262,6 +262,7 @@ namespace m3d {
         float m_scaleX, m_scaleY, m_rotation, m_blendStrength;
         m3d::Color m_tintColor;
         Texture m_texture;
+        Tex3DS_SubTexture m_subtex;
         C2D_Image m_image;
         C2D_Sprite m_sprite;
         C2D_ImageTint m_imageTint;

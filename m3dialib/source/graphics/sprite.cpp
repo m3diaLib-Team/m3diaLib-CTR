@@ -187,15 +187,15 @@ namespace m3d {
 
     void Sprite::setTexture(Texture t_texture, bool t_autoresize) {
         m_texture = t_texture;
-        static Tex3DS_SubTexture subtex = {
-                                        m_texture.getWidth(),
-                                        m_texture.getHeight(),
-                                        0.0f, // left u coordinate
-                                        1,    // top v coordinate
-                                        1,    // right u coordinate
-                                        0.0f,  // bottom v coordinate
-                                    };
-        m_image = (C2D_Image) { &m_texture.getTexture(), &subtex };
+        m_subtex = {
+                    m_texture.getWidth(),
+                    m_texture.getHeight(),
+                    0.0f, // left u coordinate
+                    1,    // top v coordinate
+                    1,    // right u coordinate
+                    0.0f,  // bottom v coordinate
+                };
+        m_image = (C2D_Image) { &m_texture.getTexture(), &m_subtex };
 
         update();
     }
