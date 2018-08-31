@@ -22,9 +22,9 @@ namespace m3d {
             High     = 28, ///< High priority
             Normal   = 20, ///< Normal priority (one higher than main thread)
             Low      = 13, ///< Low priority
-            VeryLow  = 5, ///< Very low priority
-            Lowest   = 0, ///< Lowest possible priority
-            Default          ///< One lower than current thread
+            VeryLow  = 5,  ///< Very low priority
+            Lowest   = 0,  ///< Lowest possible priority
+            Default        ///< One lower than current thread
         };
 
         /**
@@ -43,8 +43,8 @@ namespace m3d {
         /**
          * @brief Constructs the thread with a specific priority
          * @param t_function  The thread function
-         * @param t_priority  The priority of the thread (Ranging from 0 to 39)
          * @param t_parameter The parameter to pass to the function
+         * @param t_priority  The priority of the thread (Ranging from 0 to 39)
          * @param t_autostart Whether the thread should start instantly
          * @param t_detached  Whether the thread starts detached or not
          * @param t_stackSize The stacksize allocated for the thread in bytes (rounded to multiples of 8 bytes)
@@ -53,7 +53,7 @@ namespace m3d {
          * @warning If the priority exceeds this range, it will be clamped
          * @warning If the thread priority is higher or equal than the priority of the calling thread, calling thread will get paused. Use m3d::Thread::getCurrentPriority() to get the priority of the current thread
          */
-        Thread(std::function<void(m3d::Parameter)> t_function, int t_priority, m3d::Parameter t_parameter = nullptr, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
+        Thread(std::function<void(m3d::Parameter)> t_function, m3d::Parameter t_parameter, int t_priority, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
 
         /**
          * @brief Destructs the thread

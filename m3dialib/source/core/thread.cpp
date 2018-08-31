@@ -15,7 +15,7 @@ namespace m3d {
         }
     }
 
-    Thread::Thread(std::function<void(m3d::Parameter)> t_function, int t_priority, m3d::Parameter t_parameter, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
+    Thread::Thread(std::function<void(m3d::Parameter)> t_function, m3d::Parameter t_parameter, int t_priority, bool t_autostart, bool t_detached, unsigned long long int t_stackSize) :
                 m_stackSize(t_stackSize),
                 m_running(false),
                 m_started(false) {
