@@ -7,8 +7,8 @@
 #include "graphics/boundingBox.hpp"
 #include "graphics/color.hpp"
 #include "graphics/drawable.hpp"
-#include "graphics/texture.hpp"
 #include "graphics/vertex.hpp"
+#include <string>
 
 namespace m3d {
     /**
@@ -20,6 +20,13 @@ namespace m3d {
          * @brief Initializes the sprite
          */
         Sprite();
+
+        /**
+         * @brief Initializes the sprite with a spritesheet
+         * @param t_spriteSheet The path to the spritesheet
+         * @param t_imageId The index of the image from the spritesheet to use
+         */
+        Sprite(const std::string& t_spriteSheet, int t_imageId = 0);
 
         /**
          * @brief Sets the x position of the sprite
@@ -84,12 +91,6 @@ namespace m3d {
          * @note The first component of the vector is the offset to move on the x-axis, the second component is the offset on the y-axis
          */
         void move(Vector2f t_vector);
-
-        /**
-         * @brief Returns the current bounding box of the sprite
-         * @return The bounding box
-         */
-        BoundingBox getBoundingBox();
 
         /**
          * @brief Sets the center of the sprite on the x-axis
@@ -234,17 +235,17 @@ namespace m3d {
         float getOpacity();
 
         /**
-         * @brief Sets the texture of the sprite
-         * @param t_texture    The texture
-         * @param t_autoresize Whether the sprite should automatically resize it's dimensions to match the dimensions of the texture
+         * @brief Sets the spritesheet of the sprite
+         * @param t_spriteSheet The path to the spritesheet
+         * @param t_imageId The index of the image from the spritesheet to use
          */
-        void setTexture(Texture t_texture, bool t_autoresize = true);
+        void setSpriteSheet(const std::string& t_spriteSheet, int t_imageId = 0);
 
         /**
-         * @brief Returns a reference to the Texture of the sprite
-         * @return The texture
+         * @brief Returns the path to the spritesheet assigned to the sprite
+         * @return The path to the spritesheet
          */
-        Texture& getTexture();
+        const std::string& getSpriteSheet();
 
         /**
          * @brief Draws the shape
@@ -258,13 +259,12 @@ namespace m3d {
         void updateTint();
 
         /* data */
-        int m_posX, m_posY, m_centerX, m_centerY, m_opacity;
+        int m_posX, m_posY, m_centerX, m_centerY, m_opacity, m_index;
         float m_scaleX, m_scaleY, m_rotation, m_blendStrength;
+        std::string m_spriteSheetPath;
         m3d::Color m_tintColor;
-        Texture m_texture;
-        Tex3DS_SubTexture m_subtex;
-        C2D_Image m_image;
         C2D_Sprite m_sprite;
         C2D_ImageTint m_imageTint;
+        C2D_SpriteSheet m_spriteSheet;
     };
 } /* m3d */

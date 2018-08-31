@@ -7,12 +7,30 @@ namespace m3d {
             m_centerX(0),
             m_centerY(0),
             m_opacity(255),
+            m_index(0),
+            m_scaleX(1.0f),
+            m_scaleY(1.0f),
+            m_rotation(0.f),
+            m_blendStrength(0.f),
+            m_spriteSheetPath(""),
+            m_tintColor(m3d::Color(255, 255, 255, 255)) {
+                updateTint();
+                m_spriteSheet = nullptr;
+            }
+
+    Sprite::Sprite(const std::string& t_spriteSheet, int t_imageId) :
+            m_posX(0),
+            m_posY(0),
+            m_centerX(0),
+            m_centerY(0),
+            m_opacity(255),
             m_scaleX(1.0f),
             m_scaleY(1.0f),
             m_rotation(0),
             m_blendStrength(0.f),
             m_tintColor(m3d::Color(255, 255, 255, 255)) {
                 updateTint();
+                setSpriteSheet(t_spriteSheet, t_imageId);
             }
 
     void Sprite::setXPosition(int t_x) {
@@ -65,10 +83,6 @@ namespace m3d {
         m_posX += static_cast<int>(t_vector.u);
         m_posY += static_cast<int>(t_vector.v);
         update();
-    }
-
-    BoundingBox Sprite::getBoundingBox() {
-        return m3d::BoundingBox(m_posX, m_posY, m_texture.getWidth(), m_texture.getHeight());
     }
 
     void Sprite::setCenterX(int t_x) {
@@ -185,23 +199,16 @@ namespace m3d {
         return m_opacity;
     }
 
-    void Sprite::setTexture(Texture t_texture, bool t_autoresize) {
-        m_texture = t_texture;
-        m_subtex = {
-                    m_texture.getWidth(),
-                    m_texture.getHeight(),
-                    0.0f, // left u coordinate
-                    1,    // top v coordinate
-                    1,    // right u coordinate
-                    0.0f,  // bottom v coordinate
-                };
-        m_image = (C2D_Image) { &m_texture.getTexture(), &m_subtex };
+    void Sprite::setSpriteSheet(const std::string& t_spriteSheet, int t_imageId) {
+        m_spriteSheetPath = t_spriteSheet;
+        m_index = t_imageId;
+        m_spriteSheet = C2D_SpriteSheetLoad(m_spriteSheetPath.c_str());
 
         update();
     }
 
-    Texture& Sprite::getTexture() {
-        return m_texture;
+    const std::string& Sprite::getSpriteSheet() {
+        return m_spriteSheetPath;
     }
 
     void Sprite::draw(bool t_3dEnabled, int t_side) {
@@ -210,10 +217,10 @@ namespace m3d {
 
     // private methods
     void Sprite::update() {
-        C2D_SpriteFromImage(&m_sprite, m_image);
-        C2D_SpriteSetCenterRaw(&m_sprite, -m_centerX, -m_centerY);
+        C2D_SpriteFromSheet(&m_sprite, m_spriteSheet, m_index);
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
         C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
-        C2D_SpriteSetScale(&m_sprite, -m_scaleX, -m_scaleY);
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
         C2D_SpriteSetRotationDegrees(&m_sprite, m_rotation);
     }
 
