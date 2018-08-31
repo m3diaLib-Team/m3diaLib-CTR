@@ -7,7 +7,6 @@
 #include "./vertex.hpp"
 #include "./color.hpp"
 #include "./boundingBox.hpp"
-#include "./texture.hpp"
 #include "./drawable.hpp"
 #include "./renderTarget.hpp"
 #include "./screen.hpp"
