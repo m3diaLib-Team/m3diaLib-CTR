@@ -259,6 +259,9 @@ namespace m3d {
                 if(read <= 0) {
                     if (m_loop) {
                         m_decoder.reset();
+                        for (const auto& callback: m_loopCallbacks) {
+                            callback();
+                        }
                     } else {
                         lastbuffer = true;
                         m_status = m3d::Music::Status::Stopped;
@@ -277,6 +280,9 @@ namespace m3d {
                 if(read <= 0) {
                     if (m_loop) {
                         m_decoder.reset();
+                        for (const auto& callback: m_loopCallbacks) {
+                            callback();
+                        }
                     } else {
                         lastbuffer = true;
                         m_status = m3d::Music::Status::Stopped;
@@ -292,12 +298,20 @@ namespace m3d {
             DSP_FlushDataCache(buffer1, m_decoder.m_buffSize * sizeof(int16_t));
             DSP_FlushDataCache(buffer2, m_decoder.m_buffSize * sizeof(int16_t));
         }
-        std::cout << "Playing stopped" << '\n';
+
         m_decoder.exit();
 
         ndspChnWaveBufClear(channel);
         linearFree(buffer1);
         linearFree(buffer2);
         m3d::priv::ndsp::freeChannel(channel);
+
+        for (const auto& callback: m_finishCallbacks) {
+            callback();
+        }
+
+        for (const auto& callback: m_stopCallbacks) {
+            callback(true);
+        }
     }
 }; /* m3d */
