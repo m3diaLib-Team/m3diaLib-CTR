@@ -4,9 +4,11 @@
  */
 #pragma once
 #include <3ds.h>
+#include <atomic>
 #include "audio/playable.hpp"
 #include "core/thread.hpp"
 #include "core/lock.hpp"
+#include <iostream>
 
 namespace m3d {
     /**
@@ -77,6 +79,16 @@ namespace m3d {
         void togglePlay();
 
         /**
+         * @brief Returns the current play-status of the music
+         * @return The current play-status
+         */
+        m3d::Music::Status getPlayStatus();
+
+        void setVolume(float t_volume);
+
+        float getVolume();
+
+        /**
          * @brief Sets the looping-mode of the music
          * @param t_loop Whether to loop or not
          */
@@ -87,12 +99,6 @@ namespace m3d {
          * @return Whether the music loops or not
          */
         bool getLoop();
-
-        /**
-         * @brief Returns the current play-status of the music
-         * @return The current play-status
-         */
-        m3d::Music::Status getPlayStatus();
 
         /**
          * @brief Adds a callback function to call when the music was paused
@@ -119,10 +125,12 @@ namespace m3d {
 
         /* data */
         int m_position;
-        bool m_started, m_loop;
+        std::atomic<float> m_volume;
+        bool m_started;
+        std::atomic<bool> m_loop, m_volumeChanged;
         std::string m_file;
         m3d::Playable::FileType m_filetype;
-        m3d::Music::Status m_status;
+        std::atomic<m3d::Music::Status> m_status;
 
         // callbacks
         std::vector<std::function<void()>> m_pauseCallbacks,

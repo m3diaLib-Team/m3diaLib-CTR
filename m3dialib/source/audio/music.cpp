@@ -5,8 +5,11 @@
 
 namespace m3d {
     Music::Music(const std::string& t_filename) :
+            m_position(0),
+            m_volume(1.f),
             m_started(false),
             m_loop(false),
+            m_volumeChanged(false),
             m_reader(nullptr) {
         setFile(t_filename);
     }
@@ -23,7 +26,6 @@ namespace m3d {
     }
 
     void Music::setFile(const std::string& t_filename) {
-        m3d::Lock lock(m_mutex);
         stop();
         m_file = t_filename;
         m_filetype = getFileType(m_file);
@@ -48,13 +50,10 @@ namespace m3d {
     }
 
     const std::string& Music::getFile() {
-        m3d::Lock lock(m_mutex);
         return m_file;
     }
 
     void Music::play(bool t_waitForChannel) {
-        m3d::Lock lock(m_mutex);
-
         if (m_filetype != m3d::Playable::FileType::Error) {
             m_started = true;
 
@@ -77,7 +76,6 @@ namespace m3d {
     }
 
     void Music::pause() {
-        m3d::Lock lock(m_mutex);
         if (m_status != m3d::Music::Status::Paused) {
             m_status = m3d::Music::Status::Paused;
 
@@ -88,11 +86,11 @@ namespace m3d {
     }
 
     void Music::stop() {
-        m3d::Lock lock(m_mutex);
         if (m_status != m3d::Music::Status::Stopped) {
             m_status = m3d::Music::Status::Stopped;
             m_thread.join();
             m_position = 0;
+            m_decoder.reset();
 
             for (const auto& callback: m_stopCallbacks) {
                 callback(false);
@@ -101,7 +99,6 @@ namespace m3d {
     }
 
     void Music::togglePlay() {
-        m3d::Lock lock(m_mutex);
         if (m_status == m3d::Music::Status::Paused) {
             m_status = m3d::Music::Status::Playing;
 
@@ -120,16 +117,40 @@ namespace m3d {
     m3d::Music::Status Music::getPlayStatus() {
         return m_status;
     }
+    void Music::setVolume(float t_volume) {
+        if (t_volume > 1.f) {
+            m_volume = 1.f;
+        } else if (t_volume < 0) {
+            m_volume = 0.f;
+        } else {
+            m_volume = t_volume;
+        }
 
-    void m3d::Music::onPause(std::function<void()> t_callback) {
+        m_volumeChanged = true;
+    }
+
+    float Music::getVolume() {
+        return m_volume;
+    }
+
+    void Music::loop(bool t_loop) {
+        m_loop = t_loop;
+        m_volumeChanged = true;
+    }
+
+    bool Music::getLoop() {
+        return m_loop;
+    }
+
+    void Music::onPause(std::function<void()> t_callback) {
         m_pauseCallbacks.push_back(t_callback);
     }
 
-    void m3d::Music::onLoop(std::function<void()> t_callback) {
+    void Music::onLoop(std::function<void()> t_callback) {
         m_loopCallbacks.push_back(t_callback);
     }
 
-    void m3d::Music::onStop(std::function<void(bool)> t_callback) {
+    void Music::onStop(std::function<void(bool)> t_callback) {
         m_stopCallbacks.push_back(t_callback);
     }
 
@@ -137,11 +158,8 @@ namespace m3d {
     void Music::playFile(m3d::Parameter t_waitForChannel) {
         // ndsp wasn't initialized or there was an error
         if (!m3d::priv::ndsp::initialized) {
-            {
-                m3d::Lock lock(m_mutex);
-                m_status = m3d::Music::Status::Stopped;
-                return;
-            }
+            m_status = m3d::Music::Status::Stopped;
+            return;
         }
 
         int channel = -1;
@@ -188,6 +206,13 @@ namespace m3d {
                 m_decoder.getChannels() == 2 ? NDSP_FORMAT_STEREO_PCM16 :
                 NDSP_FORMAT_MONO_PCM16);
 
+        float volume[12];
+        for (int i = 0; i < 12; i++) {
+            volume[i] = m_volume;
+        }
+
+        ndspChnSetMix(channel, volume);
+
         memset(waveBuf, 0, sizeof(waveBuf));
         waveBuf[0].nsamples = m_decoder.decode(&buffer1[0]) / m_decoder.getChannels();
         waveBuf[0].data_vaddr = &buffer1[0];
@@ -200,13 +225,21 @@ namespace m3d {
         // wait for music to start
         while (ndspChnIsPlaying(channel) == false);
 
-        while (m_status != m3d::Music::Status::Stopped) {
+        while (m_status != m3d::Music::Status::Stopped || m_loop) {
             if (m_status == m3d::Music::Status::Paused
                 && !ndspChnIsPaused(channel)) {
                 ndspChnSetPaused(channel, true);
             } else if (m_status == m3d::Music::Status::Playing
                 && ndspChnIsPaused(channel)) {
                 ndspChnSetPaused(channel, false);
+            }
+
+            if (m_volumeChanged) {
+                for (int i = 0; i < 12; i++) {
+                    volume[i] = m_volume;
+                }
+
+                ndspChnSetMix(channel, volume);
             }
 
             svcSleepThread(100 * 1000);
@@ -224,7 +257,12 @@ namespace m3d {
                 size_t read = m_decoder.decode(&buffer1[0]);
 
                 if(read <= 0) {
-                    lastbuffer = true;
+                    if (m_loop) {
+                        m_decoder.reset();
+                    } else {
+                        lastbuffer = true;
+                        m_status = m3d::Music::Status::Stopped;
+                    }
                     continue;
                 } else if(read < m_decoder.m_buffSize) {
                     waveBuf[0].nsamples = read / m_decoder.getChannels();
@@ -237,7 +275,12 @@ namespace m3d {
                 size_t read = m_decoder.decode(&buffer2[0]);
 
                 if(read <= 0) {
-                    lastbuffer = true;
+                    if (m_loop) {
+                        m_decoder.reset();
+                    } else {
+                        lastbuffer = true;
+                        m_status = m3d::Music::Status::Stopped;
+                    }
                     continue;
                 } else if(read < m_decoder.m_buffSize) {
                     waveBuf[1].nsamples = read / m_decoder.getChannels();
@@ -249,8 +292,7 @@ namespace m3d {
             DSP_FlushDataCache(buffer1, m_decoder.m_buffSize * sizeof(int16_t));
             DSP_FlushDataCache(buffer2, m_decoder.m_buffSize * sizeof(int16_t));
         }
-
-        // FIXME: Fix this
+        std::cout << "Playing stopped" << '\n';
         m_decoder.exit();
 
         ndspChnWaveBufClear(channel);
