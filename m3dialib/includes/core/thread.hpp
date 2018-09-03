@@ -60,7 +60,7 @@ namespace m3d {
          * @warning If the thread priority is higher or equal than the priority of the calling thread, calling thread will get paused. Use m3d::Thread::getCurrentPriority() to get the priority of the current thread
          */
         Thread(std::function<void(m3d::Parameter)> t_function, m3d::Parameter t_parameter, int t_priority, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
-        
+
         /**
         * @brief Destructs the thread
         */
@@ -139,6 +139,12 @@ namespace m3d {
          */
         static int getCurrentPriority();
 
+        /**
+         * @brief Sleeps for the given time
+         * @param t_milliseconds The time to sleep in milliseconds
+         */
+        static void sleep(int t_milliseconds);
+
     private:
         struct ThreadData {
             m3d::Parameter m_parameter;
@@ -146,7 +152,6 @@ namespace m3d {
         };
 
         static void threadFunction(void* t_arg);
-
         /* data */
         int m_priority, m_stackSize;
         bool m_running, m_started;

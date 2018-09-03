@@ -97,6 +97,10 @@ namespace m3d {
        return 0x3F - prio;
    }
 
+   void Thread::sleep(int t_milliseconds) {
+       svcSleepThread(1000000 * t_milliseconds);
+   }
+
    // private methods
    void Thread::threadFunction(void* arg) {
        m3d::Thread::ThreadData data = *static_cast<m3d::Thread::ThreadData*>(arg);
