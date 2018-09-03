@@ -80,7 +80,6 @@ namespace m3d {
 
         class WavReader: public m3d::Playable::Reader {
         public:
-            virtual ~WavReader();
             void set(m3d::Playable::Decoder& t_decoder);
             int init(const std::string& t_file);
             uint32_t getRate();
