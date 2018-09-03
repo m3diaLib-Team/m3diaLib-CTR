@@ -8,7 +8,6 @@
 #include "audio/playable.hpp"
 #include "core/thread.hpp"
 #include "core/lock.hpp"
-#include <iostream>
 
 namespace m3d {
     /**
