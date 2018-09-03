@@ -35,7 +35,7 @@ namespace m3d {
 
     void Sprite::setXPosition(int t_x) {
         m_posX = t_x;
-        update();
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     int Sprite::getXPosition() {
@@ -44,7 +44,7 @@ namespace m3d {
 
     void Sprite::setYPosition(int t_y) {
         m_posY = t_y;
-        update();
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     int Sprite::getYPosition() {
@@ -54,40 +54,40 @@ namespace m3d {
     void Sprite::setPosition(int t_x, int t_y) {
         m_posX = t_x;
         m_posY = t_y;
-        update();
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::setPosition(Vector2f t_vector) {
         m_posX = static_cast<int>(t_vector.u);
         m_posY = static_cast<int>(t_vector.v);
-        update();
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::moveX(int t_offset) {
         m_posX += t_offset;
-        update();
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::moveY(int t_offset) {
         m_posY += t_offset;
-        update();
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::move(int t_offsetX, int t_offsetY) {
         m_posX += t_offsetX;
         m_posY += t_offsetY;
-        update();
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::move(Vector2f t_vector) {
         m_posX += static_cast<int>(t_vector.u);
         m_posY += static_cast<int>(t_vector.v);
-        update();
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::setCenterX(int t_x) {
         m_centerX = t_x;
-        update();
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
     }
 
     int Sprite::getCenterX() {
@@ -96,7 +96,7 @@ namespace m3d {
 
     void Sprite::setCenterY(int t_y) {
         m_centerY = t_y;
-        update();
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
     }
 
     int Sprite::getCenterY() {
@@ -106,18 +106,18 @@ namespace m3d {
     void Sprite::setCenter(int t_x, int t_y) {
         m_centerX = t_x;
         m_centerY = t_y;
-        update();
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
     }
 
     void Sprite::setCenter(Vector2f t_vector) {
         m_centerX = static_cast<int>(t_vector.u);
         m_centerY = static_cast<int>(t_vector.v);
-        update();
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
     }
 
     void Sprite::setXScale(float t_scale) {
         m_scaleX = t_scale;
-        update();
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
     }
 
     float Sprite::getXScale() {
@@ -126,7 +126,7 @@ namespace m3d {
 
     void Sprite::setYScale(float t_scale) {
         m_scaleY = t_scale;
-        update();
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
     }
 
     float Sprite::getYScale() {
@@ -136,37 +136,37 @@ namespace m3d {
     void Sprite::setScale(float t_yScale, float t_xScale) {
         m_scaleX = t_xScale;
         m_scaleY = t_yScale;
-        update();
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
     }
 
     void Sprite::scaleX(float t_delta) {
         m_scaleX += t_delta;
-        update();
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
     }
 
     void Sprite::scaleY(float t_delta) {
         m_scaleY += t_delta;
-        update();
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
     }
 
     void Sprite::scale(float t_deltaX, float t_deltaY) {
         m_scaleX += t_deltaX;
         m_scaleY += t_deltaY;
-        update();
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
     }
 
     void Sprite::setRotation(float t_rotation, bool t_radians) {
         m_rotation = t_radians ?
                         t_rotation * (180.0/3.141592653589793238463) :
                         t_rotation;
-        update();
+        C2D_SpriteSetRotationDegrees(&m_sprite, m_rotation);
     }
 
     void Sprite::rotate(float t_delta, bool t_radians) {
         m_rotation += t_radians ?
                         t_delta * (180.0/3.141592653589793238463) :
                         t_delta;
-        update();
+        C2D_SpriteSetRotationDegrees(&m_sprite, m_rotation);
     }
 
     void Sprite::setTint(m3d::Color t_color) {
@@ -204,7 +204,7 @@ namespace m3d {
         m_index = t_imageId;
         m_spriteSheet = C2D_SpriteSheetLoad(m_spriteSheetPath.c_str());
 
-        update();
+        C2D_SpriteFromSheet(&m_sprite, m_spriteSheet, m_index);
     }
 
     const std::string& Sprite::getSpriteSheet() {
@@ -216,14 +216,6 @@ namespace m3d {
     }
 
     // private methods
-    void Sprite::update() {
-        C2D_SpriteFromSheet(&m_sprite, m_spriteSheet, m_index);
-        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
-        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
-        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
-        C2D_SpriteSetRotationDegrees(&m_sprite, m_rotation);
-    }
-
     void Sprite::updateTint() {
         C2D_Tint tint = {
             m3d::Color(m_tintColor.getRed(), m_tintColor.getGreen(), m_tintColor.getBlue(), m_opacity).getRgba8(),

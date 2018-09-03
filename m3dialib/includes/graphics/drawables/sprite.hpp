@@ -255,7 +255,6 @@ namespace m3d {
         void draw(bool t_3dEnabled = false, int t_side = 0);
 
     private:
-        void update();
         void updateTint();
 
         /* data */
