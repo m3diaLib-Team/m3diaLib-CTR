@@ -20,6 +20,8 @@ namespace m3d {
         if (!m_started) {
             m_thread.initialize([](m3d::Parameter){}, nullptr);
             m_thread.start();
+        } else {
+            m_thread.join();
         }
 
         delete m_reader;
@@ -88,9 +90,12 @@ namespace m3d {
     void Music::stop() {
         if (m_status != m3d::Music::Status::Stopped) {
             m_status = m3d::Music::Status::Stopped;
-            m_thread.join();
+            if (m_started) {
+                m_thread.join();
+                m_decoder.reset();
+            }
+
             m_position = 0;
-            m_decoder.reset();
 
             for (const auto& callback: m_stopCallbacks) {
                 callback(false);
@@ -225,7 +230,7 @@ namespace m3d {
         // wait for music to start
         while (ndspChnIsPlaying(channel) == false);
 
-        while (m_status != m3d::Music::Status::Stopped || m_loop) {
+        while (m_status != m3d::Music::Status::Stopped) {
             if (m_status == m3d::Music::Status::Paused
                 && !ndspChnIsPaused(channel)) {
                 ndspChnSetPaused(channel, true);
@@ -305,6 +310,8 @@ namespace m3d {
         linearFree(buffer1);
         linearFree(buffer2);
         m3d::priv::ndsp::freeChannel(channel);
+
+        m_status = m3d::Music::Status::Stopped;
 
         for (const auto& callback: m_finishCallbacks) {
             callback();
