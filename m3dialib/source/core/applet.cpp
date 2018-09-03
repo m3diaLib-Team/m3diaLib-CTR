@@ -1,6 +1,7 @@
 #include <3ds.h>
 #include <cstring>
 #include "core/applet.hpp"
+#include "private/private.hpp"
 
 namespace m3d {
     Applet::Applet() :
@@ -12,9 +13,16 @@ namespace m3d {
             acInit();
             romfsInit();
             sdmcInit();
+
+            Result res;
+            res = ndspInit();
+            if (!res) {
+                m3d::priv::ndsp::initialized = true;
+            }
     }
 
     Applet::~Applet() {
+        ndspExit();
         sdmcExit();
         romfsExit();
         acExit();

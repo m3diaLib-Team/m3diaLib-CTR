@@ -9,7 +9,7 @@ namespace m3d {
     namespace priv {
         namespace ndsp {
             m3d::Mutex channelMutex;
-            bool initialized;
+            bool initialized = false;
             std::vector<int> occupiedChannels;
 
             bool channelsFree() {
