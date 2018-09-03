@@ -98,13 +98,13 @@ namespace m3d {
          * @param t_target The target screen
          * @return The width of the screen in pixels
          */
-        int getScreenWidth(m3d::ScreenTarget t_target);
+        static int getScreenWidth(m3d::ScreenTarget t_target);
 
         /**
          * @brief Returns the height of the screen
          * @return The height of the screen in pixels
          */
-        int getScreenHeight();
+        static int getScreenHeight();
 
     private:
         void clear();
