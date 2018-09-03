@@ -28,6 +28,12 @@ namespace m3d {
         };
 
         /**
+         * @brief Default constructor
+         * @note This should only be called when calling m3d::Thread::initialize() before calling m3d::Thread::start()
+         */
+        Thread();
+
+        /**
          * @brief Constructs the thread
          * @param t_function  The thread function
          * @param t_parameter The parameter to pass to the function
@@ -54,11 +60,39 @@ namespace m3d {
          * @warning If the thread priority is higher or equal than the priority of the calling thread, calling thread will get paused. Use m3d::Thread::getCurrentPriority() to get the priority of the current thread
          */
         Thread(std::function<void(m3d::Parameter)> t_function, m3d::Parameter t_parameter, int t_priority, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
+        
+        /**
+        * @brief Destructs the thread
+        */
+        virtual ~Thread();
 
         /**
-         * @brief Destructs the thread
+         * @brief Initializes the thread
+         * @param t_function  The thread function
+         * @param t_parameter The parameter to pass to the function
+         * @param t_priority  The priority of the thread
+         * @param t_autostart Whether the thread should start instantly
+         * @param t_detached  Whether the thread starts detached or not
+         * @param t_stackSize The stacksize allocated for the thread in bytes (rounded to multiples of 8 bytes)
+         * @note t_function needs to be of type `void` and take one (and only one) parameter of type m3d::Parameter
+         * @warning If the thread priority is lower than the priority of the calling thread, the thread will never get executed. Use m3d::Thread::getCurrentPriority() to get the priority of the current thread
          */
-        virtual ~Thread();
+        void initialize(std::function<void(m3d::Parameter)> t_function, m3d::Parameter t_parameter = nullptr, m3d::Thread::Priority t_priority = m3d::Thread::Priority::Default, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
+
+        /**
+         * @brief Initializes the thread with a specific priority
+         * @param t_function  The thread function
+         * @param t_parameter The parameter to pass to the function
+         * @param t_priority  The priority of the thread (Ranging from 0 to 39)
+         * @param t_autostart Whether the thread should start instantly
+         * @param t_detached  Whether the thread starts detached or not
+         * @param t_stackSize The stacksize allocated for the thread in bytes (rounded to multiples of 8 bytes)
+         * @note t_function needs to be of type `void` and take one (and only one) parameter of type m3d::Parameter
+         * @note Higher priority values mean a higher priority
+         * @warning If the priority exceeds this range, it will be clamped
+         * @warning If the thread priority is higher or equal than the priority of the calling thread, calling thread will get paused. Use m3d::Thread::getCurrentPriority() to get the priority of the current thread
+         */
+        void initialize(std::function<void(m3d::Parameter)> t_function, m3d::Parameter t_parameter, int t_priority, bool t_autostart = false, bool t_detached = false, unsigned long long int t_stackSize = 4 * 1024);
 
         /**
          * @brief Sets the priority for the next thread that get's started
