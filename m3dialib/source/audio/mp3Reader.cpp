@@ -13,6 +13,7 @@ namespace m3d {
         m_buffSize = &(t_decoder.m_buffSize);
         t_decoder.decode = std::bind(&m3d::Playable::Mp3Reader::decode, this, std::placeholders::_1);
         t_decoder.exit = std::bind(&m3d::Playable::Mp3Reader::exit, this);
+        t_decoder.reset = std::bind(&m3d::Playable::Mp3Reader::reset, this);
     }
 
     int Playable::Mp3Reader::init(const std::string& t_file)
@@ -70,5 +71,9 @@ namespace m3d {
         mpg123_close(m_handle);
         mpg123_delete(m_handle);
         mpg123_exit();
+    }
+
+    void Playable::Mp3Reader::reset() {
+        mpg123_seek(m_handle, 0, SEEK_SET);
     }
 } /* m3d */

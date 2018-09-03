@@ -47,6 +47,7 @@ namespace m3d {
             size_t m_buffSize;
             std::function<uint64_t(void*)> decode;
             std::function<void()> exit;
+            std::function<void()> reset;
         };
 
         class Reader {
@@ -58,6 +59,7 @@ namespace m3d {
             virtual uint8_t getChannels() = 0;
             virtual uint64_t decode(void* t_buffer) = 0;
             virtual void exit() = 0;
+            virtual void reset() = 0;
         };
 
         class Mp3Reader: public m3d::Playable::Reader {
@@ -69,6 +71,7 @@ namespace m3d {
             uint8_t getChannels();
             uint64_t decode(void* t_buffer);
             void exit();
+            void reset();
 
         private:
             /* data */
@@ -86,6 +89,7 @@ namespace m3d {
             uint8_t getChannels();
             uint64_t decode(void* t_buffer);
             void exit();
+            void reset();
 
         private:
             /* data */

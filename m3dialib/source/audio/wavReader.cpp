@@ -8,6 +8,7 @@ namespace m3d {
         t_decoder.m_buffSize = m_buffSize;
         t_decoder.decode = std::bind(&m3d::Playable::WavReader::decode, this, std::placeholders::_1);
         t_decoder.exit = std::bind(&m3d::Playable::WavReader::exit, this);
+        t_decoder.reset = std::bind(&m3d::Playable::WavReader::reset, this);
     }
 
     int Playable::WavReader::init(const std::string& t_file) {
@@ -46,5 +47,9 @@ namespace m3d {
 
     void Playable::WavReader::exit() {
         fclose(m_file);
+    }
+
+    void Playable::WavReader::reset() {
+        fseek(m_file, 44, SEEK_SET);
     }
 } /* m3d */
