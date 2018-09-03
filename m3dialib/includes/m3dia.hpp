@@ -8,6 +8,7 @@
 #include <citro2d.h>
 
 // m3Dia includes
+#include "./audio/audio.hpp"
 #include "./core/core.hpp"
 #include "./graphics/graphics.hpp"
 #include "./input/input.hpp"
