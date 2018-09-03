@@ -24,16 +24,6 @@ namespace m3d {
          */
         virtual ~Lock();
 
-        /**
-         * @brief Locks the mutex
-         */
-        void lock();
-
-        /**
-         * @brief Unlocks the mutex
-         */
-        void unlock();
-
     private:
         /* data */
         m3d::Mutex m_mutex;
