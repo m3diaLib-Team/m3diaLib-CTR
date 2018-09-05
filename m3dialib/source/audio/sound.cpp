@@ -59,12 +59,15 @@ namespace m3d {
 
     void Sound::play(bool t_waitForChannel) {
         if (m_filetype != m3d::Playable::FileType::Error) {
+            if (m_playing) {
+                m_playing = false;
+                m_thread.join();
+            }
+
             m_started = true;
             m_waitForChannel = t_waitForChannel;
-
-            if (m_playing) {
-                m_decoder.reset();
-            }
+            m_thread.initialize(std::bind(&m3d::Sound::playLoop, this, std::placeholders::_1), nullptr);
+            m_thread.start();
 
             m_playing = true;
 
@@ -96,7 +99,7 @@ namespace m3d {
             return;
         }
 
-        while (!m_ending) {
+        while (!m_ending && m_playing) {
             if (m_playing) {
                 int channel = -1;
 
