@@ -15,6 +15,7 @@
 #include "m3d/utils/utils.hpp"
 
 #ifdef M3D_DEBUG
+#include <iostream>
 /**
  * @brief Breaks the execution and waits for the A-button to be pressed
  *
