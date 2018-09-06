@@ -4,6 +4,6 @@
  */
 #pragma once
 
-#include "./softwareKeyboard.hpp"
-#include "./buttons.hpp"
-#include "./touch.hpp"
+#include "softwareKeyboard.hpp"
+#include "buttons.hpp"
+#include "touch.hpp"

@@ -4,5 +4,5 @@
  */
 #pragma once
 
-#include "./music.hpp"
-#include "./sound.hpp"
+#include "music.hpp"
+#include "sound.hpp"

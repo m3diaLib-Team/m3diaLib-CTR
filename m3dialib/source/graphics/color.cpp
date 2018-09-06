@@ -1,4 +1,4 @@
-#include "graphics/color.hpp"
+#include "m3d/graphics/color.hpp"
 
 namespace m3d {
     Color::Color() :

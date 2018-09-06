@@ -1,4 +1,4 @@
-#include "core/lock.hpp"
+#include "m3d/core/lock.hpp"
 
 namespace m3d {
     Lock::Lock(m3d::Mutex& t_mutex) :

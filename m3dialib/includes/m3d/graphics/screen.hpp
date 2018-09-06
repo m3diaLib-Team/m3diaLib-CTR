@@ -7,9 +7,9 @@
 #include <map>
 #include <cstring>
 #include <citro2d.h>
-#include "./renderTarget.hpp"
-#include "./drawable.hpp"
-#include "./color.hpp"
+#include "renderTarget.hpp"
+#include "drawable.hpp"
+#include "color.hpp"
 
 /**
  * @brief The general m3d-namespace

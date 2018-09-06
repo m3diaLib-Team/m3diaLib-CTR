@@ -5,9 +5,9 @@
 #pragma once
 #include <3ds.h>
 #include <atomic>
-#include "audio/playable.hpp"
-#include "core/thread.hpp"
-#include "core/lock.hpp"
+#include "m3d/audio/playable.hpp"
+#include "m3d/core/thread.hpp"
+#include "m3d/core/lock.hpp"
 
 namespace m3d {
     /**

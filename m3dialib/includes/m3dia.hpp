@@ -8,11 +8,11 @@
 #include <citro2d.h>
 
 // m3Dia includes
-#include "./audio/audio.hpp"
-#include "./core/core.hpp"
-#include "./graphics/graphics.hpp"
-#include "./input/input.hpp"
-#include "./utils/utils.hpp"
+#include "m3d/audio/audio.hpp"
+#include "m3d/core/core.hpp"
+#include "m3d/graphics/graphics.hpp"
+#include "m3d/input/input.hpp"
+#include "m3d/utils/utils.hpp"
 
 #ifdef M3D_DEBUG
 /**

@@ -1,4 +1,4 @@
-#include "core/thread.hpp"
+#include "m3d/core/thread.hpp"
 
 namespace m3d {
     Thread::Thread() :

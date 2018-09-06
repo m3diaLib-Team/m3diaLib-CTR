@@ -1,4 +1,4 @@
-#include "audio/playable.hpp"
+#include "m3d/audio/playable.hpp"
 
 namespace m3d {
     void Playable::WavReader::set(m3d::Playable::Decoder& t_decoder) {

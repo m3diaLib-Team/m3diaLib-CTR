@@ -3,7 +3,7 @@
  * @brief Defines the triangle shape
  */
 #pragma once
-#include "graphics/drawables/shape.hpp"
+#include "shape.hpp"
 
 namespace m3d {
     /**

@@ -1,4 +1,4 @@
-#include "graphics/boundingBox.hpp"
+#include "m3d/graphics/boundingBox.hpp"
 
 namespace m3d {
     BoundingBox::BoundingBox(int t_x, int t_y, int t_width, int t_height) :

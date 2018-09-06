@@ -1,4 +1,4 @@
-#include "graphics/drawables/text.hpp"
+#include "m3d/graphics/drawables/text.hpp"
 
 namespace m3d {
     Text::Text(const std::string& t_text, m3d::Color t_color) :

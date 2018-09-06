@@ -6,7 +6,7 @@
 #include <3ds.h>
 #include <functional>
 #include <string>
-#include "./parameter.hpp"
+#include "parameter.hpp"
 
 using CTRU_Thread = Thread;
 

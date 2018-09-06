@@ -1,7 +1,7 @@
 #include <fstream>
 #include <png.h>
 #include <vector>
-#include "graphics/texture.hpp"
+#include "m3d/graphics/texture.hpp"
 
 namespace m3d {
     Texture::Texture() :

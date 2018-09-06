@@ -3,8 +3,8 @@
  * @brief Defines the rectangle shape
  */
 #pragma once
-#include "graphics/drawables/shape.hpp"
-#include "graphics/boundingBox.hpp"
+#include "shape.hpp"
+#include "m3d/graphics/boundingBox.hpp"
 
 namespace m3d {
     /**

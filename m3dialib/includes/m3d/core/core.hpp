@@ -4,6 +4,6 @@
  */
 #pragma once
 
-#include "./applet.hpp"
-#include "./error.hpp"
-#include "./thread.hpp"
+#include "applet.hpp"
+#include "error.hpp"
+#include "thread.hpp"

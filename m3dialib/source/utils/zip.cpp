@@ -1,5 +1,5 @@
-#include "utils/zip.hpp"
-#include "zip/zip_wrapper.h"
+#include "m3d/utils/zip.hpp"
+#include "m3d/utils/zip/zip_wrapper.h"
 
 namespace m3d {
     Zip::Zip(const std::string& t_filename) {

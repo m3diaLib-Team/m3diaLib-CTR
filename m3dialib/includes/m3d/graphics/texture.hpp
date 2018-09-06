@@ -5,7 +5,7 @@
 #pragma once
 #include <citro2d.h>
 #include <string>
-#include "graphics/vertex.hpp"
+#include "vertex.hpp"
 
 namespace m3d {
     /**

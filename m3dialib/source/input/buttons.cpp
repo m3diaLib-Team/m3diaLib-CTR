@@ -1,4 +1,4 @@
-#include "input/buttons.hpp"
+#include "m3d/input/buttons.hpp"
 
 namespace m3d {
 	namespace buttons {

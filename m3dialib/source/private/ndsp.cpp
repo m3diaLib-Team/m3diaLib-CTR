@@ -3,7 +3,7 @@
 #include <iterator>
 #include <numeric>
 #include <vector>
-#include "core/lock.hpp"
+#include "m3d/core/lock.hpp"
 
 namespace m3d {
     namespace priv {
