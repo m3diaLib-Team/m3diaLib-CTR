@@ -4,12 +4,13 @@
  */
 #pragma once
 
-#include "./vertex.hpp"
-#include "./color.hpp"
-#include "./boundingBox.hpp"
-#include "./drawable.hpp"
-#include "./renderTarget.hpp"
-#include "./screen.hpp"
+#include "vertex.hpp"
+#include "color.hpp"
+#include "boundingBox.hpp"
+#include "drawable.hpp"
+#include "renderTarget.hpp"
+#include "screen.hpp"
+#include "texture.hpp"
 
 // all pre-coded drawables
-#include "./drawables.hpp"
+#include "drawables.hpp"
