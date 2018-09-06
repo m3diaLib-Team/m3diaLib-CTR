@@ -2,7 +2,6 @@
 #include <png.h>
 #include <vector>
 #include "graphics/texture.hpp"
-#include <iostream>
 
 namespace m3d {
     Texture::Texture() :
