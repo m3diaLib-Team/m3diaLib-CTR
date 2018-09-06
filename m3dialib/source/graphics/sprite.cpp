@@ -207,6 +207,10 @@ namespace m3d {
         C2D_SpriteFromSheet(&m_sprite, m_spriteSheet, m_index);
     }
 
+    void Sprite::setTexture(m3d::Texture& t_texture) {
+        C2D_SpriteFromImage(&m_sprite, t_texture.getImage());
+    }
+
     const std::string& Sprite::getSpriteSheet() {
         return m_spriteSheetPath;
     }

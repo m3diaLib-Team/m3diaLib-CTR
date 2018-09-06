@@ -7,6 +7,7 @@
 #include "graphics/boundingBox.hpp"
 #include "graphics/color.hpp"
 #include "graphics/drawable.hpp"
+#include "graphics/texture.hpp"
 #include "graphics/vertex.hpp"
 #include <string>
 
@@ -240,6 +241,12 @@ namespace m3d {
          * @param t_imageId The index of the image from the spritesheet to use
          */
         void setSpriteSheet(const std::string& t_spriteSheet, int t_imageId = 0);
+
+        /**
+         * @brief Sets the texture of the sprite
+         * @param t_texture The m3d::Texture to use
+         */
+        void setTexture(m3d::Texture& t_texture);
 
         /**
          * @brief Returns the path to the spritesheet assigned to the sprite
