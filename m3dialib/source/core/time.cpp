@@ -114,24 +114,54 @@ namespace m3d {
         return *this;
     }
 
+    bool Time::operator==(const unsigned long long int t_nanoseconds) {
+        return m_nanoseconds == t_nanoseconds;
+    }
+
     bool Time::operator==(m3d::Time &rhs) {
         return m_nanoseconds == rhs.getAsNanoseconds();
+    }
+
+    bool Time::operator<(const unsigned long long int t_nanoseconds) {
+        return m_nanoseconds < t_nanoseconds;
     }
 
     bool Time::operator<(m3d::Time &rhs) {
         return m_nanoseconds < rhs.getAsNanoseconds();
     }
 
+    bool Time::operator<=(const unsigned long long int t_nanoseconds) {
+        return m_nanoseconds <= t_nanoseconds;
+    }
+
     bool Time::operator<=(m3d::Time &rhs) {
         return m_nanoseconds <= rhs.getAsNanoseconds();
+    }
+
+    bool Time::operator>(const unsigned long long int t_nanoseconds) {
+        return m_nanoseconds > t_nanoseconds;
     }
 
     bool Time::operator>(m3d::Time &rhs) {
         return m_nanoseconds > rhs.getAsNanoseconds();
     }
 
+    bool Time::operator>=(const unsigned long long int t_nanoseconds) {
+        return m_nanoseconds >= t_nanoseconds;
+    }
+
     bool Time::operator>=(m3d::Time &rhs) {
         return m_nanoseconds >= rhs.getAsNanoseconds();
+    }
+
+    m3d::Time Time::operator+=(unsigned long long int rhs) {
+        addTime(rhs);
+        return *this;
+    }
+
+    m3d::Time Time::operator+=(m3d::Time &rhs) {
+        addTime(rhs);
+        return *this;
     }
 
     m3d::Time Time::operator+(unsigned long long int rhs) {
@@ -141,6 +171,16 @@ namespace m3d {
 
     m3d::Time Time::operator+(m3d::Time &rhs) {
         addTime(rhs);
+        return *this;
+    }
+
+    m3d::Time Time::operator-=(unsigned long long int rhs) {
+        substractTime(rhs);
+        return *this;
+    }
+
+    m3d::Time Time::operator-=(m3d::Time &rhs) {
+        substractTime(rhs);
         return *this;
     }
 

@@ -144,9 +144,19 @@ namespace m3d {
         m3d::Time& operator=(m3d::Time& rhs);
 
         /**
+         * @brief Overloads the equal-to operator with nanoseconds
+         */
+        bool operator==(const unsigned long long int t_nanoseconds);
+
+        /**
          * @brief Overloads the equal-to operator
          */
         bool operator==(m3d::Time &rhs);
+
+        /**
+         * @brief Overloads the less-than operator with nanoseconds
+         */
+        bool operator<(const unsigned long long int t_nanoseconds);
 
         /**
          * @brief Overloads the less-than operator
@@ -154,9 +164,19 @@ namespace m3d {
         bool operator<(m3d::Time &rhs);
 
         /**
+         * @brief Overloads the less-or-equal operator with nanoseconds
+         */
+        bool operator<=(const unsigned long long int t_nanoseconds);
+
+        /**
          * @brief Overloads the less-or-equal operator
          */
         bool operator<=(m3d::Time &rhs);
+
+        /**
+         * @brief Overloads the greater-than operator with nanoseconds
+         */
+        bool operator>(const unsigned long long int t_nanoseconds);
 
         /**
          * @brief Overloads the greater-than operator
@@ -164,9 +184,24 @@ namespace m3d {
         bool operator>(m3d::Time &rhs);
 
         /**
+         * @brief Overloads the greater-or-equal operator with nanoseconds
+         */
+        bool operator>=(const unsigned long long int t_nanoseconds);
+
+        /**
          * @brief Overloads the greater-or-equal operator
          */
         bool operator>=(m3d::Time &rhs);
+
+        /**
+         * @brief Overloads the addition-assignment operator to add nanoseconds
+         */
+        m3d::Time operator+=(unsigned long long int rhs);
+
+        /**
+         * @brief Overloads the addition-assignment operator to add another time object
+         */
+        m3d::Time operator+=(m3d::Time &rhs);
 
         /**
          * @brief Overloads the addition operator to add nanoseconds
@@ -177,6 +212,16 @@ namespace m3d {
          * @brief Overloads the addition operator to add another time object
          */
         m3d::Time operator+(m3d::Time &rhs);
+
+        /**
+         * @brief Overloads the substraction-assignment operator to substract nanoseconds
+         */
+        m3d::Time operator-=(unsigned long long int rhs);
+
+        /**
+         * @brief Overloads the substraction-assignment operator to substract another time object
+         */
+        m3d::Time operator-=(m3d::Time &rhs);
 
         /**
          * @brief Overloads the substraction operator to substract nanoseconds
