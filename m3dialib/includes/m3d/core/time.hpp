@@ -116,6 +116,12 @@ namespace m3d {
         long double getAsNanoseconds();
 
         /**
+         * @brief Returns the current unix timestamp in milliseconds
+         * @return The timestamp
+         */
+        static unsigned long int getTimestamp();
+
+        /**
          * @brief Converts a given time component to another one
          * @param  t_from The time-component to convert from
          * @param  t_to   The time-component to convert to

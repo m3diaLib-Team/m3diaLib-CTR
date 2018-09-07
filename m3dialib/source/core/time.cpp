@@ -1,3 +1,4 @@
+#include <chrono>
 #include "m3d/core/time.hpp"
 
 namespace m3d {
@@ -57,6 +58,10 @@ namespace m3d {
 
     long double Time::getAsNanoseconds() {
         return (long double) m_nanoseconds;
+    }
+
+    unsigned long int getTimestamp() {
+        return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
     }
 
     unsigned long long int Time::convert(m3d::Time::Component t_from, m3d::Time::Component t_to, unsigned long long int t_time) {
