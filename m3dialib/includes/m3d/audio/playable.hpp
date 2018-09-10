@@ -45,6 +45,8 @@ namespace m3d {
             std::function<uint32_t()> getRate;
             std::function<uint8_t()> getChannels;
             size_t m_buffSize;
+            std::function<void(int)> setPosition;
+            std::function<int()> getPosition;
             std::function<uint64_t(void*)> decode;
             std::function<void()> exit;
             std::function<void()> reset;
@@ -57,6 +59,8 @@ namespace m3d {
             virtual int init(const std::string& t_file) = 0;
             virtual uint32_t getRate() = 0;
             virtual uint8_t getChannels() = 0;
+            virtual void setPosition(int t_position) = 0;
+            virtual int getPosition() = 0;
             virtual uint64_t decode(void* t_buffer) = 0;
             virtual void exit() = 0;
             virtual void reset() = 0;
@@ -69,6 +73,8 @@ namespace m3d {
             int init(const std::string& t_file);
             uint32_t getRate();
             uint8_t getChannels();
+            void setPosition(int t_position);
+            int getPosition();
             uint64_t decode(void* t_buffer);
             void exit();
             void reset();
@@ -87,6 +93,8 @@ namespace m3d {
             int init(const std::string& t_file);
             uint32_t getRate();
             uint8_t getChannels();
+            void setPosition(int t_position);
+            int getPosition();
             uint64_t decode(void* t_buffer);
             void exit();
             void reset();
