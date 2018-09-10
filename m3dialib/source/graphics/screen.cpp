@@ -1,6 +1,6 @@
 #include <citro2d.h>
-#include "graphics/screen.hpp"
-#include "graphics/color.hpp"
+#include "m3d/graphics/screen.hpp"
+#include "m3d/graphics/color.hpp"
 
 namespace m3d {
     Screen::Screen(bool t_enable3d) :

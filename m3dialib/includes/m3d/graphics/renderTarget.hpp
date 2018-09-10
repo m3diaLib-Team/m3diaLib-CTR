@@ -3,7 +3,6 @@
  * @brief Defines the RenderTarget class
  */
 #pragma once
-#include <3ds.h>
 #include <citro3d.h>
 
 namespace m3d {

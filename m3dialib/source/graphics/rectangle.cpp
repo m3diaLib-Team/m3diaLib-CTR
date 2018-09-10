@@ -1,4 +1,4 @@
-#include "graphics/drawables/rectangle.hpp"
+#include "m3d/graphics/drawables/rectangle.hpp"
 
 namespace m3d {
     Rectangle::Rectangle(int t_x, int t_y, int t_width, int t_height, m3d::Color t_color) :

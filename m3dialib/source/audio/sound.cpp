@@ -1,8 +1,8 @@
 #include <cstring>
 #include <mpg123.h>
 #include <string>
-#include "audio/sound.hpp"
-#include "private/private.hpp"
+#include "m3d/audio/sound.hpp"
+#include "m3d/private/private.hpp"
 
 namespace m3d {
     Sound::Sound(const std::string& t_filename) :

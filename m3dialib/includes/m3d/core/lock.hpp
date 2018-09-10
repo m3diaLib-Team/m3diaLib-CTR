@@ -4,7 +4,7 @@
  */
 #pragma once
 #include <3ds.h>
-#include "core/mutex.hpp"
+#include "m3d/core/mutex.hpp"
 
 namespace m3d {
     /**

@@ -4,10 +4,11 @@
  */
 #pragma once
 #include <citro2d.h>
-#include "graphics/boundingBox.hpp"
-#include "graphics/color.hpp"
-#include "graphics/drawable.hpp"
-#include "graphics/vertex.hpp"
+#include "m3d/graphics/boundingBox.hpp"
+#include "m3d/graphics/color.hpp"
+#include "m3d/graphics/drawable.hpp"
+#include "m3d/graphics/texture.hpp"
+#include "m3d/graphics/vertex.hpp"
 #include <string>
 
 namespace m3d {
@@ -242,6 +243,12 @@ namespace m3d {
         void setSpriteSheet(const std::string& t_spriteSheet, int t_imageId = 0);
 
         /**
+         * @brief Sets the texture of the sprite
+         * @param t_texture The m3d::Texture to use
+         */
+        void setTexture(m3d::Texture& t_texture);
+
+        /**
          * @brief Returns the path to the spritesheet assigned to the sprite
          * @return The path to the spritesheet
          */
@@ -255,7 +262,6 @@ namespace m3d {
         void draw(bool t_3dEnabled = false, int t_side = 0);
 
     private:
-        void update();
         void updateTint();
 
         /* data */

@@ -3,7 +3,7 @@
  * @brief Defines the Vertex structs as well as multi-dimensional vectors used for shapes
  */
 #pragma once
-#include "./color.hpp"
+#include "color.hpp"
 
 namespace m3d {
     /**

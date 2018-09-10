@@ -1,6 +1,6 @@
-#include "graphics/renderTarget.hpp"
-#include "graphics/color.hpp"
 #include <citro2d.h>
+#include "m3d/graphics/renderTarget.hpp"
+#include "m3d/graphics/color.hpp"
 
 namespace m3d {
     RenderTarget::RenderTarget(int t_width, int t_height) :

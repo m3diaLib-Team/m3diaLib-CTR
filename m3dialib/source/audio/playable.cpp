@@ -1,4 +1,4 @@
-#include "audio/playable.hpp"
+#include "m3d/audio/playable.hpp"
 
 namespace m3d {
     void m3d::Playable::onPlay(std::function<void()> t_callback) {

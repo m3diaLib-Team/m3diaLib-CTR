@@ -5,10 +5,10 @@
 #pragma once
 #include <citro2d.h>
 #include <string>
-#include "graphics/boundingBox.hpp"
-#include "graphics/color.hpp"
-#include "graphics/drawable.hpp"
-#include "graphics/vertex.hpp"
+#include "m3d/graphics/boundingBox.hpp"
+#include "m3d/graphics/color.hpp"
+#include "m3d/graphics/drawable.hpp"
+#include "m3d/graphics/vertex.hpp"
 
 namespace m3d {
     /**

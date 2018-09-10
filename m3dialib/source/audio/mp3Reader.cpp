@@ -1,4 +1,4 @@
-#include "audio/playable.hpp"
+#include "m3d/audio/playable.hpp"
 
 namespace m3d {
     Playable::Mp3Reader::~Mp3Reader() {

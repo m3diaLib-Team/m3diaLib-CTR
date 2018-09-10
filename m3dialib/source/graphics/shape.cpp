@@ -1,6 +1,6 @@
-#include "graphics/earcut.hpp"
-#include "graphics/drawables/shape.hpp"
 #include <citro2d.h>
+#include "m3d/graphics/earcut.hpp"
+#include "m3d/graphics/drawables/shape.hpp"
 
 namespace m3d {
     Shape::Shape() :

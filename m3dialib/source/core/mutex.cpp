@@ -1,4 +1,4 @@
-#include "core/mutex.hpp"
+#include "m3d/core/mutex.hpp"
 
 namespace m3d {
     Mutex::Mutex() {

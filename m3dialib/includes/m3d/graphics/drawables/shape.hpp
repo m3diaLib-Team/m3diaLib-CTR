@@ -4,9 +4,9 @@
  */
 #pragma once
 #include <vector>
-#include "graphics/drawable.hpp"
-#include "graphics/color.hpp"
-#include "graphics/vertex.hpp"
+#include "m3d/graphics/drawable.hpp"
+#include "m3d/graphics/color.hpp"
+#include "m3d/graphics/vertex.hpp"
 
 namespace m3d {
     /**

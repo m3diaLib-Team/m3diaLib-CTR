@@ -1,4 +1,4 @@
-#include "graphics/drawables/triangle.hpp"
+#include "m3d/graphics/drawables/triangle.hpp"
 
 namespace m3d {
     Triangle::Triangle(int t_x1, int t_y1, int t_x2, int t_y2, int t_x3, int t_y3, m3d::Color t_color) :
