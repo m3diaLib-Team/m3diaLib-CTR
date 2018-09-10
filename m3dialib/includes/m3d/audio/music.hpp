@@ -6,8 +6,9 @@
 #include <3ds.h>
 #include <atomic>
 #include "m3d/audio/playable.hpp"
-#include "m3d/core/thread.hpp"
 #include "m3d/core/lock.hpp"
+#include "m3d/core/thread.hpp"
+#include "m3d/core/time.hpp"
 
 namespace m3d {
     /**
@@ -83,8 +84,40 @@ namespace m3d {
          */
         m3d::Music::Status getPlayStatus();
 
+        /**
+         * @brief Sets the play-offset of the music in samples
+         * @param t_position The play-offset
+         */
+        void setPosition(int t_position);
+
+        /**
+         * @brief Sets the play-offset of the music
+         * @param t_position The play-offset
+         */
+        void setPosition(m3d::Time t_position);
+
+        /**
+         * @brief Returns the play-offset of the music in samples
+         * @return The play-offset
+         */
+        int getPosition();
+
+        /**
+         * @brief Returns the samplerate of the music
+         * @return The samplerate
+         */
+        int getSampleRate();
+
+        /**
+         * @brief Sets the volume of the music
+         * @param t_volume The volume
+         */
         void setVolume(float t_volume);
 
+        /**
+         * @brief Returns the current volume of the music
+         * @return The volume
+         */
         float getVolume();
 
         /**
@@ -123,7 +156,7 @@ namespace m3d {
         void playFile(m3d::Parameter t_waitForChannel);
 
         /* data */
-        int m_position;
+        std::atomic<int> m_position;
         std::atomic<float> m_volume;
         bool m_started;
         std::atomic<bool> m_loop, m_volumeChanged;

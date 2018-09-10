@@ -5,7 +5,6 @@
 
 namespace m3d {
     Music::Music(const std::string& t_filename) :
-            m_position(0),
             m_volume(1.f),
             m_started(false),
             m_loop(false),
@@ -122,6 +121,32 @@ namespace m3d {
     m3d::Music::Status Music::getPlayStatus() {
         return m_status;
     }
+
+    void Music::setPosition(int t_position) {
+        m_position = t_position;
+
+        if (m_status != m3d::Music::Status::Stopped) {
+            m_reader->setPosition(t_position);
+        }
+    }
+
+    void Music::setPosition(m3d::Time t_position) {
+        setPosition(t_position.getAsSeconds() * (float) m_reader->getRate());
+    }
+
+    int Music::getPosition() {
+        if (m_reader != nullptr) {
+            m_position = m_reader->getPosition();
+            return m_position;
+        }
+
+        return 0;
+    }
+
+    int Music::getSampleRate() {
+        return m_reader->getRate();
+    }
+
     void Music::setVolume(float t_volume) {
         if (t_volume > 1.f) {
             m_volume = 1.f;
@@ -195,6 +220,11 @@ namespace m3d {
             return;
         }
 
+        {
+            m3d::Lock lock(m_mutex);
+            m_decoder.setPosition(m_position);
+        }
+
         if(m_decoder.getChannels() > 2 || m_decoder.getChannels() < 1) {
             return;
         }
@@ -227,8 +257,11 @@ namespace m3d {
         waveBuf[1].data_vaddr = &buffer2[0];
         ndspChnWaveBufAdd(channel, &waveBuf[1]);
 
+
         // wait for music to start
         while (ndspChnIsPlaying(channel) == false);
+
+        int position = 0;
 
         while (m_status != m3d::Music::Status::Stopped) {
             if (m_status == m3d::Music::Status::Paused
@@ -302,6 +335,8 @@ namespace m3d {
 
             DSP_FlushDataCache(buffer1, m_decoder.m_buffSize * sizeof(int16_t));
             DSP_FlushDataCache(buffer2, m_decoder.m_buffSize * sizeof(int16_t));
+
+            // TODO: Clear wavebuffers if position has changed so that the position switching is faster
         }
 
         m_decoder.exit();
