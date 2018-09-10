@@ -5,6 +5,7 @@
 #pragma once
 
 #include "applet.hpp"
+#include "clock.hpp"
 #include "error.hpp"
 #include "thread.hpp"
 #include "time.hpp"
