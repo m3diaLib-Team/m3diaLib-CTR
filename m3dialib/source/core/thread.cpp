@@ -55,6 +55,10 @@ namespace m3d {
         }
     }
 
+   void Thread::sleep() {
+       svcSleepThread(0);
+   }
+
    void Thread::sleep(int t_milliseconds) {
        svcSleepThread(1000000 * t_milliseconds);
    }

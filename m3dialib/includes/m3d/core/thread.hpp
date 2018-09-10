@@ -72,6 +72,13 @@ namespace m3d {
         void join(long long unsigned int t_timeout = U64_MAX);
 
         /**
+         * @brief Puts the thread to sleep
+         *
+         * This is needed if you have multiple threads running at the same time. It doesn't affect the execution-time of the thread, it just makes it possible for the other threads to get their chance to shine.
+         */
+        static void sleep();
+
+        /**
          * @brief Sleeps for the given time
          * @param t_milliseconds The time to sleep in milliseconds
          */
