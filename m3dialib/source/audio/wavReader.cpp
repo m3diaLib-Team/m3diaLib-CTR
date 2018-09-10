@@ -6,6 +6,8 @@ namespace m3d {
         t_decoder.getRate = std::bind(&m3d::Playable::WavReader::getRate, this);
         t_decoder.getChannels = std::bind(&m3d::Playable::WavReader::getChannels, this);
         t_decoder.m_buffSize = m_buffSize;
+        t_decoder.setPosition = std::bind(&m3d::Playable::WavReader::setPosition, this, std::placeholders::_1);
+        t_decoder.getPosition = std::bind(&m3d::Playable::WavReader::getPosition, this);
         t_decoder.decode = std::bind(&m3d::Playable::WavReader::decode, this, std::placeholders::_1);
         t_decoder.exit = std::bind(&m3d::Playable::WavReader::exit, this);
         t_decoder.reset = std::bind(&m3d::Playable::WavReader::reset, this);
@@ -39,6 +41,14 @@ namespace m3d {
 
     uint8_t Playable::WavReader::getChannels() {
         return m_channels;
+    }
+
+    void Playable::WavReader::setPosition(int t_position) {
+        fseek(m_file, 44 + t_position, SEEK_SET);
+    }
+
+    int Playable::WavReader::getPosition() {
+        return ftell(m_file) - 44;
     }
 
     uint64_t Playable::WavReader::decode(void* t_buffer) {
