@@ -20,8 +20,6 @@ namespace m3d {
             Minutes, ///< Minutes
             Seconds, ///< Seconds
             Milliseconds, ///< Milliseconds
-            Microseconds, ///< Microseconds
-            Nanoseconds ///< Nanoseconds
         };
 
         /**
@@ -30,10 +28,10 @@ namespace m3d {
         Time();
 
         /**
-         * @brief Initializes the time with a given amount of nanoseconds
-         * @param t_nanoseconds The time in nanoseconds
+         * @brief Initializes the time with a given amount of milliseconds
+         * @param t_milliseconds The time in milliseconds
          */
-        Time(unsigned long long int t_nanoseconds);
+        Time(unsigned long long int t_milliseconds);
 
         /**
          * @brief Initializes the time given another m3d::Time-object
@@ -44,10 +42,10 @@ namespace m3d {
         Time(m3d::Time& t_time);
 
         /**
-         * @brief Sets the time with a given amount of nanoseconds
-         * @param t_nanoseconds The time in nanoseconds
+         * @brief Sets the time with a given amount of milliseconds
+         * @param t_milliseconds The time in milliseconds
          */
-        void setTime(unsigned long long int t_nanoseconds);
+        void setTime(unsigned long long int t_milliseconds);
 
         /**
          * @brief Sets the time given another m3d::Time-object
@@ -56,10 +54,10 @@ namespace m3d {
         void setTime(m3d::Time& t_time);
 
         /**
-         * @brief Adds nanoseconds to time
-         * @param t_nanoseconds The nanoseconds
+         * @brief Adds milliseconds to time
+         * @param t_milliseconds The milliseconds
          */
-        void addTime(unsigned long long int t_nanoseconds);
+        void addTime(unsigned long long int t_milliseconds);
 
         /**
          * @brief Adds to the time
@@ -68,10 +66,10 @@ namespace m3d {
         void addTime(m3d::Time& rhs);
 
         /**
-         * @brief Substracts nanoseconds from the time
-         * @param t_nanoseconds The nanoseconds
+         * @brief Substracts milliseconds from the time
+         * @param t_milliseconds The milliseconds
          */
-        void substractTime(unsigned long long int t_nanoseconds);
+        void substractTime(unsigned long long int t_milliseconds);
 
         /**
          * @brief Substracts from the time
@@ -104,18 +102,6 @@ namespace m3d {
         long double getAsMilliseconds();
 
         /**
-         * @brief Returns the time converted to microseconds
-         * @return The time converted to microseconds
-         */
-        long double getAsMicroseconds();
-
-        /**
-         * @brief Returns the time converted to nanoseconds
-         * @return The time converted to nanoseconds
-         */
-        long double getAsNanoseconds();
-
-        /**
          * @brief Returns the current unix timestamp in milliseconds
          * @return The timestamp
          */
@@ -128,13 +114,13 @@ namespace m3d {
          * @param  t_time The time to convert
          * @return        The converted time
          *
-         * Example to convert 5 hours to nanoseconds:\n
-         * `unsigned long long int ns = m3d::Time::convert(m3d::Time::Component::Hours, m3d::Time::Component::Nanoseconds, 5);`
+         * Example to convert 5 hours to milliseconds:\n
+         * `unsigned long long int ns = m3d::Time::convert(m3d::Time::Component::Hours, m3d::Time::Component::Milliseconds, 5);`
          */
         static unsigned long long int convert(m3d::Time::Component t_from, m3d::Time::Component t_to, unsigned long long int t_time);
 
         /**
-         * @brief Overloads the assignment operator to set the nanoseconds
+         * @brief Overloads the assignment operator to set the milliseconds
          */
         m3d::Time& operator=(unsigned long long int rhs);
 
@@ -144,9 +130,9 @@ namespace m3d {
         m3d::Time& operator=(m3d::Time& rhs);
 
         /**
-         * @brief Overloads the equal-to operator with nanoseconds
+         * @brief Overloads the equal-to operator with milliseconds
          */
-        bool operator==(const unsigned long long int t_nanoseconds);
+        bool operator==(const unsigned long long int t_milliseconds);
 
         /**
          * @brief Overloads the equal-to operator
@@ -154,9 +140,9 @@ namespace m3d {
         bool operator==(m3d::Time &rhs);
 
         /**
-         * @brief Overloads the less-than operator with nanoseconds
+         * @brief Overloads the less-than operator with milliseconds
          */
-        bool operator<(const unsigned long long int t_nanoseconds);
+        bool operator<(const unsigned long long int t_milliseconds);
 
         /**
          * @brief Overloads the less-than operator
@@ -164,9 +150,9 @@ namespace m3d {
         bool operator<(m3d::Time &rhs);
 
         /**
-         * @brief Overloads the less-or-equal operator with nanoseconds
+         * @brief Overloads the less-or-equal operator with milliseconds
          */
-        bool operator<=(const unsigned long long int t_nanoseconds);
+        bool operator<=(const unsigned long long int t_milliseconds);
 
         /**
          * @brief Overloads the less-or-equal operator
@@ -174,9 +160,9 @@ namespace m3d {
         bool operator<=(m3d::Time &rhs);
 
         /**
-         * @brief Overloads the greater-than operator with nanoseconds
+         * @brief Overloads the greater-than operator with milliseconds
          */
-        bool operator>(const unsigned long long int t_nanoseconds);
+        bool operator>(const unsigned long long int t_milliseconds);
 
         /**
          * @brief Overloads the greater-than operator
@@ -184,9 +170,9 @@ namespace m3d {
         bool operator>(m3d::Time &rhs);
 
         /**
-         * @brief Overloads the greater-or-equal operator with nanoseconds
+         * @brief Overloads the greater-or-equal operator with milliseconds
          */
-        bool operator>=(const unsigned long long int t_nanoseconds);
+        bool operator>=(const unsigned long long int t_milliseconds);
 
         /**
          * @brief Overloads the greater-or-equal operator
@@ -194,7 +180,7 @@ namespace m3d {
         bool operator>=(m3d::Time &rhs);
 
         /**
-         * @brief Overloads the addition-assignment operator to add nanoseconds
+         * @brief Overloads the addition-assignment operator to add milliseconds
          */
         m3d::Time operator+=(unsigned long long int rhs);
 
@@ -204,7 +190,7 @@ namespace m3d {
         m3d::Time operator+=(m3d::Time &rhs);
 
         /**
-         * @brief Overloads the addition operator to add nanoseconds
+         * @brief Overloads the addition operator to add milliseconds
          */
         m3d::Time operator+(unsigned long long int rhs);
 
@@ -214,7 +200,7 @@ namespace m3d {
         m3d::Time operator+(m3d::Time &rhs);
 
         /**
-         * @brief Overloads the substraction-assignment operator to substract nanoseconds
+         * @brief Overloads the substraction-assignment operator to substract milliseconds
          */
         m3d::Time operator-=(unsigned long long int rhs);
 
@@ -224,7 +210,7 @@ namespace m3d {
         m3d::Time operator-=(m3d::Time &rhs);
 
         /**
-         * @brief Overloads the substraction operator to substract nanoseconds
+         * @brief Overloads the substraction operator to substract milliseconds
          */
         m3d::Time operator-(unsigned long long int rhs);
 
@@ -235,6 +221,6 @@ namespace m3d {
 
     private:
         /* data */
-        std::atomic<unsigned long long int> m_nanoseconds;
+        std::atomic<unsigned long long int> m_milliseconds;
     };
 } /* m3d */
