@@ -38,3 +38,23 @@
 #define M3D_BREAKPOINT()
 #define M3D_DEBUGPOINT(msg)
 #endif
+
+/**
+ * @brief The current major version of the library
+ */
+#define M3D_VERSION_MAJOR 1
+
+/**
+ * @brief The current minor version of the library
+ */
+#define M3D_VERSION_MINOR 0
+
+/**
+ * @brief The current revision of the library
+ */
+#define M3D_VERSION_REVISION 0
+
+/**
+ * @brief The current version of the library in the format MAJOR.MINOR.REVISION
+ */
+#define M3D_VERSION M3D_VERSION_MAJOR + "." + M3D_VERSION_MINOR + "." + M3D_VERSION_REVISION
