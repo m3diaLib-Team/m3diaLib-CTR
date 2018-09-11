@@ -183,6 +183,10 @@ namespace m3d {
          */
         void setFilter(m3d::Music::Filter t_filter, float t_frequency);
 
+        /**
+         * @brief Returns the current audio-frame
+         * @return The current audio-frame
+         */
         const std::vector<int16_t> getCurrentFrame();
 
     private:
