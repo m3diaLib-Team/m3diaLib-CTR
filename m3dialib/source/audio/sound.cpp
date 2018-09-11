@@ -111,7 +111,7 @@ namespace m3d {
                 return m_volumeLeft;
             case m3d::Playable::Side::Right:
                 return m_volumeRight;
-            case m3d::Playable::Side::Both:
+            default:
                 return (m_volumeLeft + m_volumeRight) / 2;
         }
     }

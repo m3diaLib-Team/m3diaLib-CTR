@@ -208,7 +208,7 @@ namespace m3d {
                 return m_volumeLeft;
             case m3d::Playable::Side::Right:
                 return m_volumeRight;
-            case m3d::Playable::Side::Both:
+            default:
                 return (m_volumeLeft + m_volumeRight) / 2;
         }
     }
@@ -364,8 +364,6 @@ namespace m3d {
 
         // wait for music to start
         while (ndspChnIsPlaying(m_channel) == false);
-
-        int position = 0;
 
         while (m_status != m3d::Music::Status::Stopped) {
             svcSleepThread(100 * 1000);
