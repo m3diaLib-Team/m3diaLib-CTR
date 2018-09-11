@@ -29,12 +29,11 @@ namespace m3d {
          * @brief Represents different filter types
          */
         enum class Filter {
-            None,     ///< Disable filter
-            LowPass,  ///< Lowpass filter
-            HighPass, ///< Highpass filter
-            BandPass, ///< Bandpass filter
-            Notch,    ///< Notch filter
-            Peak      ///< Peaking filter
+            None,     ///< Disables filter
+            LowPass,  ///< Lowpass filter. Parameter is the cut-off frequency
+            HighPass, ///< Highpass filter. Parameter is the cut-off frequency
+            BandPass, ///< Bandpass filter. Parameter is the mid-frequency
+            Notch     ///< Notch filter. Parameter is the notch-frequency
         };
 
         /**
@@ -170,17 +169,31 @@ namespace m3d {
          */
         int getChannel();
 
+        /**
+         * @brief Disables the filter for the music
+         */
+        void disableFilter();
+
+        /**
+         * @brief Sets the filter for the music
+         * @param t_filter    The filter-type
+         * @param t_frequency The filter-frequency
+         * @note The recommended frequency range for the filter is between 30Hz and 16kHz (16,000Hz)
+         */
+        void setFilter(m3d::Music::Filter t_filter, float t_frequency);
+
     private:
         void playFile(m3d::Parameter t_waitForChannel);
 
         /* data */
         std::atomic<int> m_position, m_channel;
-        std::atomic<float> m_volume;
+        std::atomic<float> m_volume, m_filterFrequency;
         bool m_started;
         std::atomic<bool> m_loop, m_volumeChanged;
         std::string m_file;
         m3d::Playable::FileType m_filetype;
         std::atomic<m3d::Music::Status> m_status;
+        std::atomic<m3d::Music::Filter> m_filter;
 
         // callbacks
         std::vector<std::function<void()>> m_pauseCallbacks,

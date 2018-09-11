@@ -8,9 +8,12 @@ namespace m3d {
             m_position(0),
             m_channel(-1),
             m_volume(1.f),
+            m_filterFrequency(0.f),
             m_started(false),
             m_loop(false),
             m_volumeChanged(false),
+            m_status(m3d::Music::Status::Stopped),
+            m_filter(m3d::Music::Filter::None),
             m_reader(nullptr) {
         setFile(t_filename);
     }
@@ -190,6 +193,39 @@ namespace m3d {
         return m_channel;
     }
 
+    void Music::disableFilter() {
+        m_filter = m3d::Music::Filter::None;
+        m_filterFrequency = 0.f;
+
+        if (m_status != m3d::Music::Status::Stopped) {
+            ndspChnIirBiquadSetEnable(m_channel, false);
+        }
+    }
+
+    void Music::setFilter(m3d::Music::Filter t_filter, float t_frequency) {
+        m_filter = t_filter;
+        m_filterFrequency = t_frequency;
+
+        if (m_status != m3d::Music::Status::Stopped) {
+            switch (t_filter) {
+                case m3d::Music::Filter::LowPass:
+                    ndspChnIirBiquadSetParamsLowPassFilter(m_channel, t_frequency, 0.707f);
+                    break;
+                case m3d::Music::Filter::HighPass:
+                    ndspChnIirBiquadSetParamsHighPassFilter(m_channel, t_frequency, 0.707f);
+                    break;
+                case m3d::Music::Filter::BandPass:
+                    ndspChnIirBiquadSetParamsBandPassFilter(m_channel, t_frequency, 0.707f);
+                    break;
+                case m3d::Music::Filter::Notch:
+                    ndspChnIirBiquadSetParamsNotchFilter(m_channel, t_frequency, 0.707f);
+                    break;
+                default:
+                    ndspChnIirBiquadSetEnable(m_channel, false);
+            }
+        }
+    }
+
     // private methods
     void Music::playFile(m3d::Parameter t_waitForChannel) {
         // ndsp wasn't initialized or there was an error
@@ -246,6 +282,8 @@ namespace m3d {
         ndspChnSetFormat(m_channel,
                 m_decoder.getChannels() == 2 ? NDSP_FORMAT_STEREO_PCM16 :
                 NDSP_FORMAT_MONO_PCM16);
+
+        setFilter(m_filter, m_filterFrequency);
 
         float volume[12];
         for (int i = 0; i < 12; i++) {
