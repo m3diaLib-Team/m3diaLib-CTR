@@ -30,10 +30,10 @@ namespace m3d {
          */
         enum class Filter {
             None,     ///< Disables filter
-            LowPass,  ///< Lowpass filter. Parameter is the cut-off frequency
-            HighPass, ///< Highpass filter. Parameter is the cut-off frequency
-            BandPass, ///< Bandpass filter. Parameter is the mid-frequency
-            Notch     ///< Notch filter. Parameter is the notch-frequency
+            LowPass,  ///< Lowpass filter. %Parameter is the cut-off frequency
+            HighPass, ///< Highpass filter. %Parameter is the cut-off frequency
+            BandPass, ///< Bandpass filter. %Parameter is the mid-frequency
+            Notch     ///< Notch filter. %Parameter is the notch-frequency
         };
 
         /**
