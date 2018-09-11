@@ -226,6 +226,11 @@ namespace m3d {
         }
     }
 
+    const std::vector<int16_t> Music::getCurrentFrame() {
+        m3d::Lock lock(m_mutex);
+        return m_currentFrame;
+    }
+
     // private methods
     void Music::playFile(m3d::Parameter t_waitForChannel) {
         // ndsp wasn't initialized or there was an error
@@ -338,6 +343,11 @@ namespace m3d {
             if(waveBuf[0].status == NDSP_WBUF_DONE) {
                 size_t read = m_decoder.decode(&buffer1[0]);
 
+                {
+                    m3d::Lock lock(m_mutex);
+                    m_currentFrame.assign(buffer1, buffer1 + m_decoder.m_buffSize * sizeof(int16_t));
+                }
+
                 if(read <= 0) {
                     if (m_loop) {
                         m_decoder.reset();
@@ -358,6 +368,11 @@ namespace m3d {
 
             if(waveBuf[1].status == NDSP_WBUF_DONE) {
                 size_t read = m_decoder.decode(&buffer2[0]);
+
+                {
+                    m3d::Lock lock(m_mutex);
+                    m_currentFrame.assign(buffer2, buffer2 + m_decoder.m_buffSize * sizeof(int16_t));
+                }
 
                 if(read <= 0) {
                     if (m_loop) {

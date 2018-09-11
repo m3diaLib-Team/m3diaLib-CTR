@@ -182,6 +182,8 @@ namespace m3d {
          */
         void setFilter(m3d::Music::Filter t_filter, float t_frequency);
 
+        const std::vector<int16_t> getCurrentFrame();
+
     private:
         void playFile(m3d::Parameter t_waitForChannel);
 
@@ -194,6 +196,7 @@ namespace m3d {
         m3d::Playable::FileType m_filetype;
         std::atomic<m3d::Music::Status> m_status;
         std::atomic<m3d::Music::Filter> m_filter;
+        std::vector<int16_t> m_currentFrame;
 
         // callbacks
         std::vector<std::function<void()>> m_pauseCallbacks,
