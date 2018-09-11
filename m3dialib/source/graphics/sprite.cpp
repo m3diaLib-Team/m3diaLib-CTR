@@ -1,24 +1,41 @@
-#include "graphics/drawables/sprite.hpp"
-#include <iostream>
+#include "m3d/graphics/drawables/sprite.hpp"
 
 namespace m3d {
     Sprite::Sprite() :
             m_posX(0),
             m_posY(0),
-            m_width(0),
-            m_height(0),
-            m_changed(true),
-            m_stretch(false),
-            m_opacity(1.0f) { /* do nothing */ }
+            m_centerX(0),
+            m_centerY(0),
+            m_opacity(255),
+            m_index(0),
+            m_scaleX(1.0f),
+            m_scaleY(1.0f),
+            m_rotation(0.f),
+            m_blendStrength(0.f),
+            m_spriteSheetPath(""),
+            m_tintColor(m3d::Color(255, 255, 255, 255)) {
+                updateTint();
+                m_spriteSheet = nullptr;
+            }
 
-    Sprite::~Sprite() {
-        linearFree(m_internalVertices);
-        linearFree(m_elementData);
-    }
+    Sprite::Sprite(const std::string& t_spriteSheet, int t_imageId) :
+            m_posX(0),
+            m_posY(0),
+            m_centerX(0),
+            m_centerY(0),
+            m_opacity(255),
+            m_scaleX(1.0f),
+            m_scaleY(1.0f),
+            m_rotation(0),
+            m_blendStrength(0.f),
+            m_tintColor(m3d::Color(255, 255, 255, 255)) {
+                updateTint();
+                setSpriteSheet(t_spriteSheet, t_imageId);
+            }
 
     void Sprite::setXPosition(int t_x) {
         m_posX = t_x;
-        m_changed = true;
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     int Sprite::getXPosition() {
@@ -27,7 +44,7 @@ namespace m3d {
 
     void Sprite::setYPosition(int t_y) {
         m_posY = t_y;
-        m_changed = true;
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     int Sprite::getYPosition() {
@@ -37,148 +54,178 @@ namespace m3d {
     void Sprite::setPosition(int t_x, int t_y) {
         m_posX = t_x;
         m_posY = t_y;
-        m_changed = true;
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::setPosition(Vector2f t_vector) {
         m_posX = static_cast<int>(t_vector.u);
         m_posY = static_cast<int>(t_vector.v);
-        m_changed = true;
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::moveX(int t_offset) {
         m_posX += t_offset;
-        m_changed = true;
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::moveY(int t_offset) {
         m_posY += t_offset;
-        m_changed = true;
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::move(int t_offsetX, int t_offsetY) {
         m_posX += t_offsetX;
         m_posY += t_offsetY;
-        m_changed = true;
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
     void Sprite::move(Vector2f t_vector) {
         m_posX += static_cast<int>(t_vector.u);
         m_posY += static_cast<int>(t_vector.v);
-        m_changed = true;
+        C2D_SpriteSetPos(&m_sprite, m_posX, m_posY);
     }
 
-    void Sprite::setWidth(int t_width) {
-        m_width = t_width;
-        m_changed = true;
+    void Sprite::setCenterX(int t_x) {
+        m_centerX = t_x;
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
     }
 
-    int Sprite::getWidth() {
-        return m_width;
+    int Sprite::getCenterX() {
+        return m_centerX;
     }
 
-    void Sprite::setHeight(int t_height) {
-        m_height = t_height;
-        m_changed = true;
+    void Sprite::setCenterY(int t_y) {
+        m_centerY = t_y;
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
     }
 
-    int Sprite::getHeight() {
-        return m_height;
+    int Sprite::getCenterY() {
+        return m_centerY;
     }
 
-    void Sprite::setDimensions(int t_width, int t_height) {
-        m_width = t_width;
-        m_height = t_height;
-        m_changed = true;
+    void Sprite::setCenter(int t_x, int t_y) {
+        m_centerX = t_x;
+        m_centerY = t_y;
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
     }
 
-    BoundingBox Sprite::getBoundingBox() {
-        return m3d::BoundingBox(m_posX, m_posY, m_width, m_height);
+    void Sprite::setCenter(Vector2f t_vector) {
+        m_centerX = static_cast<int>(t_vector.u);
+        m_centerY = static_cast<int>(t_vector.v);
+        C2D_SpriteSetCenterRaw(&m_sprite, m_centerX, m_centerY);
     }
 
-    void Sprite::setOpacity(float t_opacity) {
+    void Sprite::setXScale(float t_scale) {
+        m_scaleX = t_scale;
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
+    }
+
+    float Sprite::getXScale() {
+        return m_scaleX;
+    }
+
+    void Sprite::setYScale(float t_scale) {
+        m_scaleY = t_scale;
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
+    }
+
+    float Sprite::getYScale() {
+        return m_scaleY;
+    }
+
+    void Sprite::setScale(float t_yScale, float t_xScale) {
+        m_scaleX = t_xScale;
+        m_scaleY = t_yScale;
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
+    }
+
+    void Sprite::scaleX(float t_delta) {
+        m_scaleX += t_delta;
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
+    }
+
+    void Sprite::scaleY(float t_delta) {
+        m_scaleY += t_delta;
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
+    }
+
+    void Sprite::scale(float t_deltaX, float t_deltaY) {
+        m_scaleX += t_deltaX;
+        m_scaleY += t_deltaY;
+        C2D_SpriteSetScale(&m_sprite, m_scaleX, m_scaleY);
+    }
+
+    void Sprite::setRotation(float t_rotation, bool t_radians) {
+        m_rotation = t_radians ?
+                        t_rotation * (180.0/3.141592653589793238463) :
+                        t_rotation;
+        C2D_SpriteSetRotationDegrees(&m_sprite, m_rotation);
+    }
+
+    void Sprite::rotate(float t_delta, bool t_radians) {
+        m_rotation += t_radians ?
+                        t_delta * (180.0/3.141592653589793238463) :
+                        t_delta;
+        C2D_SpriteSetRotationDegrees(&m_sprite, m_rotation);
+    }
+
+    void Sprite::setTint(m3d::Color t_color) {
+        m_tintColor = t_color;
+        updateTint();
+    }
+
+    m3d::Color Sprite::getTint() {
+        return m_tintColor;
+    }
+
+    void Sprite::setBlend(float t_blend) {
+        if (t_blend < 0.f) m_blendStrength = 0.f;
+        else if (t_blend > 1.f) m_blendStrength = 1.f;
+        else m_blendStrength = t_blend;
+
+        updateTint();
+    }
+
+    float Sprite::getBlend() {
+        return m_blendStrength;
+    }
+
+    void Sprite::setOpacity(unsigned int t_opacity) {
         m_opacity = t_opacity;
-        m_changed = true;
+        updateTint();
     }
 
     float Sprite::getOpacity() {
         return m_opacity;
     }
 
-    void Sprite::setTexture(Texture t_texture, bool t_autoresize) {
-        m_texture = t_texture;
+    void Sprite::setSpriteSheet(const std::string& t_spriteSheet, int t_imageId) {
+        m_spriteSheetPath = t_spriteSheet;
+        m_index = t_imageId;
+        m_spriteSheet = C2D_SpriteSheetLoad(m_spriteSheetPath.c_str());
 
-        if (t_autoresize) {
-            m_width = t_texture.getWidth();
-            m_height = t_texture.getHeight();
-        }
-
-        m_changed = true;
+        C2D_SpriteFromSheet(&m_sprite, m_spriteSheet, m_index);
     }
 
-    Texture& Sprite::getTexture() {
-        return m_texture;
+    void Sprite::setTexture(m3d::Texture& t_texture) {
+        C2D_SpriteFromImage(&m_sprite, t_texture.getImage());
     }
 
-    void Sprite::setTextureStretching(bool t_stretch) {
-        m_stretch = t_stretch;
-        m_changed = true;
+    const std::string& Sprite::getSpriteSheet() {
+        return m_spriteSheetPath;
     }
 
-    bool Sprite::getTextureStretching() {
-        return m_stretch;
+    void Sprite::draw(bool t_3dEnabled, int t_side) {
+        C2D_DrawSpriteTinted(&m_sprite, &m_imageTint);
     }
 
-    void Sprite::draw(int, int, int, int) {
-        if (m_changed) {
-            m_changed = false;
-            linearFree(m_internalVertices);
-            linearFree(m_elementData);
-            m_internalVertices = static_cast<m3d::InternalTexturedVertex*>(linearAlloc(4 * sizeof(m3d::InternalTexturedVertex)));
-            m_elementData = static_cast<s16*>(linearAlloc(6 * sizeof(s16)));
+    // private methods
+    void Sprite::updateTint() {
+        C2D_Tint tint = {
+            m3d::Color(m_tintColor.getRed(), m_tintColor.getGreen(), m_tintColor.getBlue(), m_opacity).getRgba8(),
+            m_blendStrength
+        };
 
-            // since sprites are always rectangular, we can hardcode the vertices
-            if (m_stretch) {
-                m_internalVertices[0] = (m3d::InternalTexturedVertex) { {m_posX, m_posY, 0.5f}, {0.0f, 0.0f} };
-                m_internalVertices[1] = (m3d::InternalTexturedVertex) { {m_posX, m_posY + m_height, 0.5f}, {0.0f, 1.0f} };
-                m_internalVertices[2] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY + m_height, 0.5f}, {1.0f, 1.0f} };
-                m_internalVertices[3] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY, 0.5f}, {1.0f, 0.0f} };
-            } else {
-                float v = (float) m_width  / (float) m_texture.getWidth();
-                float u = (float) m_height / (float) m_texture.getHeight();
-
-                m_internalVertices[0] = (m3d::InternalTexturedVertex) { {m_posX, m_posY, 0.5f}, {0.0f, 0.0f} };
-                m_internalVertices[1] = (m3d::InternalTexturedVertex) { {m_posX, m_posY + m_height, 0.5f}, {0.0f, u} };
-                m_internalVertices[2] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY + m_height, 0.5f}, {v, u} };
-                m_internalVertices[3] = (m3d::InternalTexturedVertex) { {m_posX + m_width, m_posY, 0.5f}, {v, 0.0f} };
-            }
-
-            m_elementData[0] = 0;
-            m_elementData[1] = 1;
-            m_elementData[2] = 2;
-            m_elementData[3] = 2;
-            m_elementData[4] = 3;
-            m_elementData[5] = 0;
-        }
-
-        // there be dragons
-        C3D_AttrInfo* attrInfo = C3D_GetAttrInfo();
-        AttrInfo_Init(attrInfo);
-        AttrInfo_AddLoader(attrInfo, 0, GPU_FLOAT, 3); // position
-        AttrInfo_AddLoader(attrInfo, 1, GPU_FLOAT, 2); // texture coordinates
-
-        C3D_BufInfo* bufInfo = C3D_GetBufInfo();
-        BufInfo_Init(bufInfo);
-        BufInfo_Add(bufInfo, m_internalVertices, sizeof(m3d::InternalTexturedVertex), 2, 0x10);
-
-        C3D_TexBind(0, &m_texture.getTexture());
-
-        C3D_TexEnv* env = C3D_GetTexEnv(0);
-        C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, 0, 0);
-        C3D_TexEnvOp(env, C3D_Both, 0, 0, 0);
-        C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
-
-        // Draw the VBO
-        C3D_DrawElements(GPU_TRIANGLES, 6, GPU_UNSIGNED_BYTE, m_elementData);
+        m_imageTint = { tint, tint, tint, tint };
     }
 } /* m3d */

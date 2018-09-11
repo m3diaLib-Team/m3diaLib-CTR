@@ -1,4 +1,4 @@
-#include "core/error.hpp"
+#include "m3d/core/error.hpp"
 
 namespace m3d {
     Error::Error() :

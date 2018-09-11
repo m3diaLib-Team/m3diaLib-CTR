@@ -1,18 +1,29 @@
 #include <3ds.h>
 #include <cstring>
-#include "core/applet.hpp"
+#include "m3d/core/applet.hpp"
+#include "m3d/private/private.hpp"
 
 namespace m3d {
     Applet::Applet() :
-         m_running(true) {
+         m_running(true),
+         m_currentFrame(0) {
             aptInit();
             cfguInit();
             ptmuInit();
             acInit();
             romfsInit();
+            sdmcInit();
+
+            Result res;
+            res = ndspInit();
+            if (!res) {
+                m3d::priv::ndsp::initialized = true;
+            }
     }
 
     Applet::~Applet() {
+        ndspExit();
+        sdmcExit();
         romfsExit();
         acExit();
         ptmuExit();
@@ -22,6 +33,7 @@ namespace m3d {
 
     bool Applet::isRunning() {
         hidScanInput(); // scan input since this gets called every frame
+        m_currentFrame++;
         return m_running;
     }
 
@@ -183,5 +195,10 @@ namespace m3d {
         u8 state;
         PTMU_GetBatteryLevel(&state);
         return (state <= 5 && state >= 0 ? state : 0);
+    }
+
+    int Applet::getCurrentFrame() {
+        m_currentFrame = m_currentFrame % 60;
+        return m_currentFrame;
     }
 } /* m3d */
