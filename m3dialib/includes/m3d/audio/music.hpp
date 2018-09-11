@@ -123,13 +123,14 @@ namespace m3d {
          * @brief Sets the volume of the music
          * @param t_volume The volume
          */
-        void setVolume(float t_volume);
+        void setVolume(float t_volume, m3d::Playable::Side t_side = m3d::Playable::Side::Both);
 
         /**
          * @brief Returns the current volume of the music
-         * @return The volume
+         * @param t_side The side to get the volume from
+         * @return       The volume
          */
-        float getVolume();
+        float getVolume(m3d::Playable::Side t_side);
 
         /**
          * @brief Sets the looping-mode of the music
@@ -189,7 +190,7 @@ namespace m3d {
 
         /* data */
         std::atomic<int> m_position, m_channel;
-        std::atomic<float> m_volume, m_filterFrequency;
+        std::atomic<float> m_volumeLeft, m_volumeRight, m_filterFrequency;
         bool m_started;
         std::atomic<bool> m_loop;
         std::string m_file;

@@ -66,23 +66,24 @@ namespace m3d {
         void play(const std::string& t_file, bool t_waitForChannel = false);
 
         /**
-         * @brief Sets the volume of the sound (ranging from 0.0f to 1.0f)
-         * @param t_volume The volume of the sound
+         * @brief Sets the volume of the music
+         * @param t_volume The volume
          */
-        void setVolume(float t_volume);
+        void setVolume(float t_volume, m3d::Playable::Side t_side = m3d::Playable::Side::Both);
 
         /**
-         * @brief Returns the volume of the sound (ranging from 0.0f to 1.0f)
-         * @return The current volume of the sound
+         * @brief Returns the current volume of the music
+         * @param t_side The side to get the volume from
+         * @return       The volume
          */
-        float getVolume();
+        float getVolume(m3d::Playable::Side t_side);
 
     private:
         void playLoop(m3d::Parameter);
 
         /* data */
         int m_position;
-        std::atomic<float> m_volume;
+        std::atomic<float> m_volumeLeft, m_volumeRight;
         bool m_started;
         std::atomic<bool> m_playing, m_waitForChannel, m_ending;
         std::string m_file;

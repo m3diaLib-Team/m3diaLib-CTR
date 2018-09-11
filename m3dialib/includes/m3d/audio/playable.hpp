@@ -17,6 +17,15 @@ namespace m3d {
     class Playable {
     public:
         /**
+         * @brief Defines the two stereo sides
+         */
+        enum class Side {
+            Left,  ///< Left stereo side
+            Right, ///< Right stereo side
+            Both   ///< Both stereo sides
+        };
+
+        /**
          * @brief Starts the playback of the playable
          * @param t_waitForChannel Whether to wait for a free NDSP channel
          *
@@ -26,6 +35,20 @@ namespace m3d {
          * When `t_waitForChannel` is set to `true`, the playback will wait until a new channel is freed if there isn't a free channel. Otherwise, the playback will immediately stop.
          */
         virtual void play(bool t_waitForChannel = false) = 0;
+
+        /**
+         * @brief Sets the volume of the playable
+         * @param t_volume The volume
+         * @param t_side   The side to set the volume for
+         */
+        virtual void setVolume(float t_volume, m3d::Playable::Side t_side = m3d::Playable::Side::Both) = 0;
+
+        /**
+         * @brief Returns the current volume of the music
+         * @param t_side The side to get the volume from
+         * @return       The volume
+         */
+        virtual float getVolume(m3d::Playable::Side t_side) = 0;
 
         /**
          * @brief Adds a callback function to call when the playable starts playing
