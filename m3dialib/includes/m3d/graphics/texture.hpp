@@ -85,6 +85,11 @@ namespace m3d {
         m3d::Texture& operator=(m3d::Texture& rhs);
 
     private:
+        enum class FileType {
+            Png,
+            Jpg
+        };
+
         bool loadPng(FILE* t_fp);
         void unloadImage(C2D_Image t_image);
         static u32 getNextPow2(u32 v);
