@@ -26,6 +26,18 @@ namespace m3d {
         };
 
         /**
+         * @brief Represents different filter types
+         */
+        enum class Filter {
+            None,     ///< Disable filter
+            LowPass,  ///< Lowpass filter
+            HighPass, ///< Highpass filter
+            BandPass, ///< Bandpass filter
+            Notch,    ///< Notch filter
+            Peak      ///< Peaking filter
+        };
+
+        /**
          * @brief Initializes the music with the given file
          * @param t_filename The path to the file
          *
