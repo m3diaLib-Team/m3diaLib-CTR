@@ -191,7 +191,7 @@ namespace m3d {
         std::atomic<int> m_position, m_channel;
         std::atomic<float> m_volume, m_filterFrequency;
         bool m_started;
-        std::atomic<bool> m_loop, m_volumeChanged;
+        std::atomic<bool> m_loop;
         std::string m_file;
         m3d::Playable::FileType m_filetype;
         std::atomic<m3d::Music::Status> m_status;

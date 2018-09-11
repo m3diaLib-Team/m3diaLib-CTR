@@ -11,7 +11,6 @@ namespace m3d {
             m_filterFrequency(0.f),
             m_started(false),
             m_loop(false),
-            m_volumeChanged(false),
             m_status(m3d::Music::Status::Stopped),
             m_filter(m3d::Music::Filter::None),
             m_reader(nullptr) {
@@ -73,6 +72,7 @@ namespace m3d {
                 }
             } else if (m_status == m3d::Music::Status::Paused) {
                 m_status = m3d::Music::Status::Playing;
+                ndspChnSetPaused(m_channel, false);
 
                 for (const auto& callback: m_playCallbacks) {
                     callback();
@@ -84,6 +84,7 @@ namespace m3d {
     void Music::pause() {
         if (m_status != m3d::Music::Status::Paused) {
             m_status = m3d::Music::Status::Paused;
+            ndspChnSetPaused(m_channel, true);
 
             for (const auto& callback: m_pauseCallbacks) {
                 callback();
@@ -110,12 +111,14 @@ namespace m3d {
     void Music::togglePlay() {
         if (m_status == m3d::Music::Status::Paused) {
             m_status = m3d::Music::Status::Playing;
+            ndspChnSetPaused(m_channel, false);
 
             for (const auto& callback: m_playCallbacks) {
                 callback();
             }
         } else if (m_status == m3d::Music::Status::Playing) {
             m_status = m3d::Music::Status::Paused;
+            ndspChnSetPaused(m_channel, true);
 
             for (const auto& callback: m_pauseCallbacks) {
                 callback();
@@ -153,15 +156,20 @@ namespace m3d {
     }
 
     void Music::setVolume(float t_volume) {
-        if (t_volume > 1.f) {
-            m_volume = 1.f;
-        } else if (t_volume < 0) {
+        if (t_volume < 0) {
             m_volume = 0.f;
         } else {
             m_volume = t_volume;
         }
 
-        m_volumeChanged = true;
+        if (m_status != m3d::Music::Status::Stopped) {
+            float volume[12];
+            for (int i = 0; i < 12; i++) {
+                volume[i] = m_volume;
+            }
+
+            ndspChnSetMix(m_channel, volume);
+        }
     }
 
     float Music::getVolume() {
@@ -170,7 +178,6 @@ namespace m3d {
 
     void Music::loop(bool t_loop) {
         m_loop = t_loop;
-        m_volumeChanged = true;
     }
 
     bool Music::getLoop() {
@@ -287,6 +294,7 @@ namespace m3d {
         ndspChnSetFormat(m_channel,
                 m_decoder.getChannels() == 2 ? NDSP_FORMAT_STEREO_PCM16 :
                 NDSP_FORMAT_MONO_PCM16);
+        ndspChnSetPaused(m_channel, false);
 
         setFilter(m_filter, m_filterFrequency);
 
@@ -313,22 +321,6 @@ namespace m3d {
         int position = 0;
 
         while (m_status != m3d::Music::Status::Stopped) {
-            if (m_status == m3d::Music::Status::Paused
-                && !ndspChnIsPaused(m_channel)) {
-                ndspChnSetPaused(m_channel, true);
-            } else if (m_status == m3d::Music::Status::Playing
-                && ndspChnIsPaused(m_channel)) {
-                ndspChnSetPaused(m_channel, false);
-            }
-
-            if (m_volumeChanged) {
-                for (int i = 0; i < 12; i++) {
-                    volume[i] = m_volume;
-                }
-
-                ndspChnSetMix(m_channel, volume);
-            }
-
             svcSleepThread(100 * 1000);
 
             // break after the last buffer has finished
