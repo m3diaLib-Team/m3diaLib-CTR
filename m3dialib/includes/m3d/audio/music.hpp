@@ -26,6 +26,17 @@ namespace m3d {
         };
 
         /**
+         * @brief Represents different filter types
+         */
+        enum class Filter {
+            None,     ///< Disables filter
+            LowPass,  ///< Lowpass filter. Parameter is the cut-off frequency
+            HighPass, ///< Highpass filter. Parameter is the cut-off frequency
+            BandPass, ///< Bandpass filter. Parameter is the mid-frequency
+            Notch     ///< Notch filter. Parameter is the notch-frequency
+        };
+
+        /**
          * @brief Initializes the music with the given file
          * @param t_filename The path to the file
          *
@@ -112,13 +123,14 @@ namespace m3d {
          * @brief Sets the volume of the music
          * @param t_volume The volume
          */
-        void setVolume(float t_volume);
+        void setVolume(float t_volume, m3d::Playable::Side t_side = m3d::Playable::Side::Both);
 
         /**
          * @brief Returns the current volume of the music
-         * @return The volume
+         * @param t_side The side to get the volume from
+         * @return       The volume
          */
-        float getVolume();
+        float getVolume(m3d::Playable::Side t_side);
 
         /**
          * @brief Sets the looping-mode of the music
@@ -152,17 +164,44 @@ namespace m3d {
          */
         void onStop(std::function<void(bool)> t_callback);
 
+        /**
+         * @brief Returns the currently occupied dsp-channel
+         * @return The current channel
+         */
+        int getChannel();
+
+        /**
+         * @brief Disables the filter for the music
+         */
+        void disableFilter();
+
+        /**
+         * @brief Sets the filter for the music
+         * @param t_filter    The filter-type
+         * @param t_frequency The filter-frequency
+         * @note The recommended frequency range for the filter is between 30Hz and 16kHz (16,000Hz)
+         */
+        void setFilter(m3d::Music::Filter t_filter, float t_frequency);
+
+        /**
+         * @brief Returns the current audio-frame
+         * @return The current audio-frame
+         */
+        const std::vector<int16_t> getCurrentFrame();
+
     private:
         void playFile(m3d::Parameter t_waitForChannel);
 
         /* data */
-        std::atomic<int> m_position;
-        std::atomic<float> m_volume;
+        std::atomic<int> m_position, m_channel;
+        std::atomic<float> m_volumeLeft, m_volumeRight, m_filterFrequency;
         bool m_started;
-        std::atomic<bool> m_loop, m_volumeChanged;
+        std::atomic<bool> m_loop;
         std::string m_file;
         m3d::Playable::FileType m_filetype;
         std::atomic<m3d::Music::Status> m_status;
+        std::atomic<m3d::Music::Filter> m_filter;
+        std::vector<int16_t> m_currentFrame;
 
         // callbacks
         std::vector<std::function<void()>> m_pauseCallbacks,

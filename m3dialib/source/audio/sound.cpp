@@ -7,7 +7,8 @@
 namespace m3d {
     Sound::Sound(const std::string& t_filename) :
             m_position(0),
-            m_volume(1.f),
+            m_volumeLeft(1.f),
+            m_volumeRight(1.f),
             m_started(false),
             m_waitForChannel(false),
             m_ending(false),
@@ -77,18 +78,42 @@ namespace m3d {
         }
     }
 
-    void Sound::setVolume(float t_volume) {
-        if (t_volume > 1.f) {
-            m_volume = 1.f;
-        } else if (t_volume < 0) {
-            m_volume = 0.f;
-        } else {
-            m_volume = t_volume;
+    void Sound::setVolume(float t_volume, m3d::Playable::Side t_side) {
+        switch (t_side) {
+            case m3d::Playable::Side::Left:
+                if (t_volume < 0) {
+                    m_volumeLeft = 0.f;
+                } else {
+                    m_volumeLeft = t_volume;
+                }
+                break;
+            case m3d::Playable::Side::Right:
+                if (t_volume < 0) {
+                    m_volumeRight = 0.f;
+                } else {
+                    m_volumeRight = t_volume;
+                }
+                break;
+            case m3d::Playable::Side::Both:
+                if (t_volume < 0) {
+                    m_volumeLeft = 0.f;
+                    m_volumeRight = 0.f;
+                } else {
+                    m_volumeLeft = t_volume;
+                    m_volumeRight = t_volume;
+                }
         }
     }
 
-    float Sound::getVolume() {
-        return m_volume;
+    float Sound::getVolume(m3d::Playable::Side t_side) {
+        switch (t_side) {
+            case m3d::Playable::Side::Left:
+                return m_volumeLeft;
+            case m3d::Playable::Side::Right:
+                return m_volumeRight;
+            default:
+                return (m_volumeLeft + m_volumeRight) / 2;
+        }
     }
 
     // private methods
@@ -145,10 +170,20 @@ namespace m3d {
                         m_decoder.getChannels() == 2 ? NDSP_FORMAT_STEREO_PCM16 :
                         NDSP_FORMAT_MONO_PCM16);
 
-                float volume[12];
-                for (int i = 0; i < 12; i++) {
-                    volume[i] = m_volume;
-                }
+                float volume[] = {
+                    m_volumeLeft,  // front left
+                    m_volumeRight, // front right
+                    m_volumeLeft,  // back left
+                    m_volumeRight, // back right
+                    m_volumeLeft,  // aux 0 front left
+                    m_volumeRight, // aux 0 front right
+                    m_volumeLeft,  // aux 0 back left
+                    m_volumeRight, // aux 0 back right
+                    m_volumeLeft,  // aux 1 front left
+                    m_volumeRight, // aux 1 front right
+                    m_volumeLeft,  // aux 1 back left
+                    m_volumeRight  // aux 1 back right
+                };
 
                 ndspChnSetMix(channel, volume);
 
