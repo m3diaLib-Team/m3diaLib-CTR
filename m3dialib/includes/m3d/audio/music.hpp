@@ -164,11 +164,17 @@ namespace m3d {
          */
         void onStop(std::function<void(bool)> t_callback);
 
+        /**
+         * @brief Returns the currently occupied dsp-channel
+         * @return The current channel
+         */
+        int getChannel();
+
     private:
         void playFile(m3d::Parameter t_waitForChannel);
 
         /* data */
-        std::atomic<int> m_position;
+        std::atomic<int> m_position, m_channel;
         std::atomic<float> m_volume;
         bool m_started;
         std::atomic<bool> m_loop, m_volumeChanged;
