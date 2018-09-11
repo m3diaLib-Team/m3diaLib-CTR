@@ -56,8 +56,8 @@ namespace m3d {
         return osGetTime();
     }
 
-    unsigned long long int Time::convert(m3d::Time::Component t_from, m3d::Time::Component t_to, unsigned long long int t_time) {
-        long double milliseconds;
+    long double Time::convert(m3d::Time::Component t_from, m3d::Time::Component t_to, unsigned long long int t_time) {
+        long double milliseconds = 0;
 
         switch (t_from) {
             case m3d::Time::Component::Hours:

@@ -117,7 +117,7 @@ namespace m3d {
          * Example to convert 5 hours to milliseconds:\n
          * `unsigned long long int ns = m3d::Time::convert(m3d::Time::Component::Hours, m3d::Time::Component::Milliseconds, 5);`
          */
-        static unsigned long long int convert(m3d::Time::Component t_from, m3d::Time::Component t_to, unsigned long long int t_time);
+        static long double convert(m3d::Time::Component t_from, m3d::Time::Component t_to, unsigned long long int t_time);
 
         /**
          * @brief Overloads the assignment operator to set the milliseconds
