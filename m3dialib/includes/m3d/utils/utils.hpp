@@ -4,4 +4,5 @@
  */
 #pragma once
 
+#include "encryptionContext.hpp"
 #include "zip.hpp"
