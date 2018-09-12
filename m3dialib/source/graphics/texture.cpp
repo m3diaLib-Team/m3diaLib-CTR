@@ -170,7 +170,7 @@ namespace m3d {
                 png_bytep px = &(row[i * 4]);
                 u32 dst = ((((j >> 3) * (getNextPow2(m_height) >> 3) + (i >> 3)) << 6) + ((i & 1) | ((j & 1) << 1) | ((i & 2) << 1) | ((j & 2) << 2) | ((i & 4) << 2) | ((j & 4) << 3))) * 4;
 
-                memcpy(m_image.tex->data + dst, px, sizeof(u32));
+                memcpy((png_bytep*) m_image.tex->data + dst, px, sizeof(u32));
             }
         }
 
