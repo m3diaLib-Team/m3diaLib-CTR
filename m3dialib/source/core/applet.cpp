@@ -41,15 +41,15 @@ namespace m3d {
         m_running = false;
     }
 
-    void Applet::reboot() {
+    inline void Applet::reboot() {
         APT_HardwareResetAsync();
     }
 
-    void Applet::setSleepAllowed(bool t_allowed) {
+    inline void Applet::setSleepAllowed(bool t_allowed) {
         aptSetSleepAllowed(t_allowed);
     }
 
-    bool Applet::getSleepAllowed() {
+    inline bool Applet::getSleepAllowed() {
         return aptIsSleepAllowed();
     }
 
@@ -141,19 +141,19 @@ namespace m3d {
         return true;
     }
 
-    bool Applet::isNew3ds() {
+    inline bool Applet::isNew3ds() {
         bool state;
         APT_CheckNew3DS(&state);
         return state;
     }
 
-    bool Applet::is2ds() {
+    inline bool Applet::is2ds() {
         u8 state;
         CFGU_GetModelNintendo2DS(&state);
         return (state == 0);
     }
 
-    bool Applet::wifiConnected() {
+    inline bool Applet::wifiConnected() {
         u32 state;
         ACU_GetWifiStatus(&state);
         return (state > 0);
@@ -179,19 +179,19 @@ namespace m3d {
         }
     }
 
-    bool Applet::adapterPluggedIn() {
+    inline bool Applet::adapterPluggedIn() {
         bool state;
         PTMU_GetAdapterState(&state);
         return state;
     }
 
-    bool Applet::isCharging() {
+    inline bool Applet::isCharging() {
         u8 state;
         PTMU_GetBatteryChargeState(&state);
         return (state == 1);
     }
 
-    int Applet::getBatteryLevel() {
+    inline int Applet::getBatteryLevel() {
         u8 state;
         PTMU_GetBatteryLevel(&state);
         return (state <= 5 && state >= 0 ? state : 0);

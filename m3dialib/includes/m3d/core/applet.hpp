@@ -105,19 +105,19 @@ namespace m3d {
         /**
          * @brief Reboots the system
          */
-        void reboot();
+        static inline void reboot();
 
         /**
          * @brief Sets whether stand-by mode is allowed
          * @param t_allowed Stand-by mode allowed?
          */
-        void setSleepAllowed(bool t_allowed);
+        static inline void setSleepAllowed(bool t_allowed);
 
         /**
          * @brief Gets whether stand-by mode is allowed
          * @return Stand-by mode allowed?
          */
-        bool getSleepAllowed();
+        static inline bool getSleepAllowed();
 
         /**
          * @brief Launches a system app
@@ -126,26 +126,26 @@ namespace m3d {
          *
          * To get the id of the app you want to launch, please refer to <a href="http://3dbrew.org/wiki/Title_list#00040010_-_System_Applications" target="_blank">http://3dbrew.org/wiki/Title_list#00040010_-_System_Applications</a>.
          */
-        void launchSystemApp(u64 t_appId);
+        static void launchSystemApp(u64 t_appId);
 
         /**
          * @brief Launches a library app (extrapad, memolib, ...)
          * @param  t_id The id of the app
          * @return      The success state of the launch
          */
-        bool launchLibApp(m3d::LibAppId t_id);
+        static bool launchLibApp(m3d::LibAppId t_id);
 
         /**
          * @brief Returns whether the system is a New3DS
          * @return Whether the system is a New3DS or not
          */
-        bool isNew3ds();
+        static inline bool isNew3ds();
 
         /**
          * @brief Returns whether the system is a 2DS
          * @return Whether the system is a 2DS or not
          */
-        bool is2ds();
+        static inline bool is2ds();
 
         /**
          * @brief Returns the model of the system
@@ -157,25 +157,25 @@ namespace m3d {
          * @brief Returns whether the system is connected to a wifi network
          * @return The state of whether the system is connected to a wifi network or not
          */
-        bool wifiConnected();
+        static inline bool wifiConnected();
 
         /**
          * @brief Returns whether the power adapter is plugged in
          * @return The state whether the power adapter is plugged in or not
          */
-        bool adapterPluggedIn();
+        static inline bool adapterPluggedIn();
 
         /**
          * @brief Returns whether the system is charging or not
          * @return The charging state of the console
          */
-        bool isCharging();
+        static inline bool isCharging();
 
         /**
          * @brief Returns the current battery level of the console
          * @return The battery level of the console (0-5)
          */
-        int getBatteryLevel();
+        static inline int getBatteryLevel();
 
         /**
          * @brief Returns the current frame
