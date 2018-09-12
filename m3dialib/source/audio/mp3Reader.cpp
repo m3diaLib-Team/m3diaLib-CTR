@@ -13,6 +13,7 @@ namespace m3d {
         m_buffSize = &(t_decoder.m_buffSize);
         t_decoder.setPosition = std::bind(&m3d::Playable::Mp3Reader::setPosition, this, std::placeholders::_1);
         t_decoder.getPosition = std::bind(&m3d::Playable::Mp3Reader::getPosition, this);
+        t_decoder.getLength = std::bind(&m3d::Playable::Mp3Reader::getLength, this);
         t_decoder.decode = std::bind(&m3d::Playable::Mp3Reader::decode, this, std::placeholders::_1);
         t_decoder.exit = std::bind(&m3d::Playable::Mp3Reader::exit, this);
         t_decoder.reset = std::bind(&m3d::Playable::Mp3Reader::reset, this);
@@ -69,6 +70,10 @@ namespace m3d {
 
     int Playable::Mp3Reader::getPosition() {
         return mpg123_tell(m_handle);
+    }
+
+    int Playable::Mp3Reader::getLength() {
+        return mpg123_length(m_handle);
     }
 
     uint64_t Playable::Mp3Reader::decode(void* t_buffer) {
