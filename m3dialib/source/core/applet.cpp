@@ -64,68 +64,65 @@ namespace m3d {
         APT_DoApplicationJump(param, sizeof(param), hmac);
     }
 
-    bool Applet::launchLibApp(m3d::LibAppId t_id) {
+    bool Applet::launchLibApp(m3d::Applet::LibAppId t_id) {
         NS_APPID id;
 
         switch(t_id) {
-            case LIBAPP_HOMEMENU:
+            case m3d::Applet::LibAppId::HomeMenu:
                 id = APPID_HOMEMENU;
                 break;
-            case LIBAPP_CAMERA:
+            case m3d::Applet::LibAppId::Camera:
                 id = APPID_CAMERA;
                 break;
-            case LIBAPP_FRIENDS_LIST:
+            case m3d::Applet::LibAppId::FriendsList:
                 id = APPID_FRIENDS_LIST;
                 break;
-            case LIBAPP_GAME_NOTES:
+            case m3d::Applet::LibAppId::GameNotes:
                 id = APPID_GAME_NOTES;
                 break;
-            case LIBAPP_WEB:
+            case m3d::Applet::LibAppId::Web:
                 id = APPID_WEB;
                 break;
-            case LIBAPP_INSTRUCTION_MANUAL:
+            case m3d::Applet::LibAppId::InstructionManual:
                 id = APPID_INSTRUCTION_MANUAL;
                 break;
-            case LIBAPP_NOTIFICATIONS:
+            case m3d::Applet::LibAppId::Notifications:
                 id = APPID_NOTIFICATIONS;
                 break;
-            case LIBAPP_MIIVERSE:
+            case m3d::Applet::LibAppId::Miiverse:
                 id = APPID_MIIVERSE;
                 break;
-            case LIBAPP_MIIVERSE_POSTING:
+            case m3d::Applet::LibAppId::MiiversePosting:
                 id = APPID_MIIVERSE_POSTING;
                 break;
-            case LIBAPP_AMIIBO_SETTINGS:
+            case m3d::Applet::LibAppId::AmiiboSettings:
                 id = APPID_AMIIBO_SETTINGS;
                 break;
-            case LIBAPP_APPLICATION:
-                id = APPID_APPLICATION;
-                break;
-            case LIBAPP_ESHOP:
+            case m3d::Applet::LibAppId::EShopTiger:
                 id = APPID_ESHOP;
                 break;
-            case LIBAPP_SOFTWARE_KEYBOARD:
+            case m3d::Applet::LibAppId::SoftwareKeyboard:
                 id = APPID_SOFTWARE_KEYBOARD;
                 break;
-            case LIBAPP_APPLETED:
+            case m3d::Applet::LibAppId::MiiEditor:
                 id = APPID_APPLETED;
                 break;
-            case LIBAPP_PNOTE_AP:
+            case m3d::Applet::LibAppId::PhotoSelector:
                 id = APPID_PNOTE_AP;
                 break;
-            case LIBAPP_SNOTE_AP:
+            case m3d::Applet::LibAppId::SoundSelector:
                 id = APPID_SNOTE_AP;
                 break;
-            case LIBAPP_ERROR:
+            case m3d::Applet::LibAppId::Error:
                 id = APPID_ERROR;
                 break;
-            case LIBAPP_MINT:
+            case m3d::Applet::LibAppId::EShopMint:
                 id = APPID_MINT;
                 break;
-            case LIBAPP_EXTRAPAD:
+            case m3d::Applet::LibAppId::Extrapad:
                 id = APPID_EXTRAPAD;
                 break;
-            case LIBAPP_MEMOLIB:
+            case m3d::Applet::LibAppId::Memolib:
                 id = APPID_MEMOLIB;
                 break;
             default:
@@ -159,23 +156,23 @@ namespace m3d {
         return (state > 0);
     }
 
-    m3d::ConsoleModel Applet::getConsoleModel() {
+    m3d::Applet::ConsoleModel Applet::getConsoleModel() {
         u8 state;
         CFGU_GetSystemModel(&state);
 
         switch(state) {
             case 0:
-                return MODEL_O3DS;
+                return m3d::Applet::ConsoleModel::Old3DS;
             case 1:
-                return MODEL_O3DSXL;
+                return m3d::Applet::ConsoleModel::Old3DSXL;
             case 2:
-                return MODEL_N3DS;
+                return m3d::Applet::ConsoleModel::New3DS;
             case 3:
-                return MODEL_2DS;
+                return m3d::Applet::ConsoleModel::Old2DS;
             case 4:
-                return MODEL_N3DSXL;
+                return m3d::Applet::ConsoleModel::New3DSXL;
             default:
-                return MODEL_UNKNOWN;
+                return m3d::Applet::ConsoleModel::Unknown;
         }
     }
 

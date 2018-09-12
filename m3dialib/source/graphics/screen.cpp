@@ -4,8 +4,8 @@
 
 namespace m3d {
     Screen::Screen(bool t_enable3d) :
-            m_clearColorTop(m3d::colors::BLACK),
-            m_clearColorBottom(m3d::colors::BLACK) {
+            m_clearColorTop(m3d::colors::Black),
+            m_clearColorBottom(m3d::colors::Black) {
         gfxInitDefault();
         C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
@@ -36,14 +36,14 @@ namespace m3d {
         m_clearColorBottom = t_color;
     }
 
-    void Screen::setClearColor(m3d::Color t_color, m3d::ScreenTarget t_target) {
-        t_target == SCREEN_TOP ?
+    void Screen::setClearColor(m3d::Color t_color, m3d::Screen::ScreenTarget t_target) {
+        t_target == m3d::Screen::ScreenTarget::Top ?
                     m_clearColorTop = t_color :
                     m_clearColorBottom = t_color;
     }
 
-    m3d::Color Screen::getClearColor(m3d::ScreenTarget t_target) {
-        return t_target == SCREEN_TOP ? m_clearColorTop : m_clearColorBottom;
+    m3d::Color Screen::getClearColor(m3d::Screen::ScreenTarget t_target) {
+        return t_target == m3d::Screen::ScreenTarget::Top ? m_clearColorTop : m_clearColorBottom;
     }
 
     void Screen::drawTop(m3d::Drawable& t_object, int t_layer) {
@@ -77,7 +77,7 @@ namespace m3d {
 
                 for(const auto &entry : m_drawStackBottom) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
-                        drawable->draw(m_3dEnabled, m3d::SIDE_LEFT);
+                        drawable->draw(m_3dEnabled, m3d::Screen::Stereo3dSide::Left);
                     }
                 }
             }
@@ -87,7 +87,7 @@ namespace m3d {
 
                 for(const auto &entry : m_drawStackTop) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
-                        drawable->draw(m_3dEnabled, m3d::SIDE_LEFT);
+                        drawable->draw(m_3dEnabled, m3d::Screen::Stereo3dSide::Left);
                     }
                 }
 
@@ -96,7 +96,7 @@ namespace m3d {
 
                     for(const auto &entry : m_drawStackTop) { // for every layer
                         for(const auto &drawable : entry.second) { // draw every object
-                            drawable->draw(m_3dEnabled, m3d::SIDE_RIGHT);
+                            drawable->draw(m_3dEnabled, m3d::Screen::Stereo3dSide::Right);
                         }
                     }
                 }
@@ -108,8 +108,8 @@ namespace m3d {
         }
     }
 
-    int Screen::getScreenWidth(m3d::ScreenTarget t_target) {
-        return t_target == SCREEN_TOP ? 400 : 320;
+    int Screen::getScreenWidth(m3d::Screen::ScreenTarget t_target) {
+        return t_target == m3d::Screen::ScreenTarget::Top ? 400 : 320;
     }
 
     int Screen::getScreenHeight() {

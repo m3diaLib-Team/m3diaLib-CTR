@@ -8,7 +8,6 @@
 #pragma once
 
 #include "encryptionContext.hpp"
-#include "zip.hpp"
 
 
 #endif /* end of include guard: UTILS_H */

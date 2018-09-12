@@ -11,19 +11,19 @@
 
 namespace m3d {
     /**
-     * @brief Defines which type of error to display
-     */
-    enum ErrorType {
-        ERROR_TYPE_TEXT,      ///< Displays text passed to this applet
-        ERROR_TYPE_EULA,      ///< Displays the EULA
-        ERROR_TYPE_WORD_WRAP, ///< Displays the custom error message passed to this applet with automatic line wrapping
-    };
-
-    /**
      * @brief The Error class, used for displaying error messages in the system-3ds style
      */
     class Error {
     public:
+        /**
+         * @brief Defines which type of error to display
+         */
+        enum class ErrorType {
+            Text,      ///< Displays text passed to this applet
+            Eula,      ///< Displays the EULA
+            WordWrap  ///< Displays the custom error message passed to this applet with automatic line wrapping
+        };
+
         /**
          * @brief Initializes an Error object
          */
@@ -38,13 +38,13 @@ namespace m3d {
          * @brief Sets the error type
          * @param t_type The error type to be set
          */
-        void setType(m3d::ErrorType t_type);
+        void setType(m3d::Error::ErrorType t_type);
 
         /**
          * @brief Returns the error type
          * @return The error type currently set
          */
-        m3d::ErrorType getType();
+        m3d::Error::ErrorType getType();
 
         /**
          * @brief Sets the error code
@@ -97,7 +97,7 @@ namespace m3d {
     private:
         /* data */
         errorConf m_conf;
-        m3d::ErrorType m_type;
+        m3d::Error::ErrorType m_type;
         int m_errorCode;
         std::string m_text;
         bool m_allowHomeButton, m_showErrorCode;

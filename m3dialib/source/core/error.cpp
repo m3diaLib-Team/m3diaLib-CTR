@@ -2,7 +2,7 @@
 
 namespace m3d {
     Error::Error() :
-        m_type(ERROR_TYPE_TEXT),
+        m_type(m3d::Error::ErrorType::Text),
         m_errorCode(0),
         m_text(""),
         m_allowHomeButton(false),
@@ -13,13 +13,13 @@ namespace m3d {
         errorConf conf;
 
         switch(m_type) {
-            case ERROR_TYPE_TEXT:
+            case m3d::Error::ErrorType::Text:
                 type = ERROR_TEXT;
                 break;
-            case ERROR_TYPE_EULA:
+            case m3d::Error::ErrorType::Eula:
                 type = ERROR_EULA;
                 break;
-            case ERROR_TYPE_WORD_WRAP:
+            case m3d::Error::ErrorType::WordWrap:
                 type = ERROR_TEXT_WORD_WRAP;
                 break;
             default:
@@ -38,11 +38,11 @@ namespace m3d {
         errorDisp(&conf);
     }
 
-    void Error::setType(m3d::ErrorType t_type) {
+    void Error::setType(m3d::Error::ErrorType t_type) {
         m_type = t_type;
     }
 
-    m3d::ErrorType Error::getType() {
+    m3d::Error::ErrorType Error::getType() {
         return m_type;
     }
 

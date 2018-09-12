@@ -10,80 +10,79 @@
  */
 namespace m3d {
    /**
-    * @brief Region values
-    */
-   enum Region {
-       REGION_JPN, ///< Japan
-       REGION_USA, ///< USA
-       REGION_EUR, ///< Europe
-       REGION_AUS, ///< Australia
-       REGION_CHN, ///< China
-       REGION_KOR, ///< Korea
-       REGION_TWN     ///< Taiwan
-   };
-
-   /**
-    * @brief Language values
-    */
-   enum Language {
-       LANGUAGE_JP,     ///< Japanese
-       LANGUAGE_EN,     ///< English
-       LANGUAGE_FR,     ///< French
-       LANGUAGE_DE,     ///< German
-       LANGUAGE_IT,     ///< Italian
-       LANGUAGE_ES,     ///< Spanish
-       LANGUAGE_ZH,     ///< Simplified chinese
-       LANGUAGE_KO,     ///< Korean
-       LANGUAGE_NL,     ///< Dutch
-       LANGUAGE_PT,     ///< Portugese
-       LANGUAGE_RU,    ///< Russian
-       LANGUAGE_TW     ///< Traditional chinese
-   };
-
-   /**
-    * @brief Defines ids of LibApps
-    */
-   enum LibAppId {
-       LIBAPP_NONE,
-       LIBAPP_HOMEMENU,              ///< Home menu
-       LIBAPP_CAMERA,                ///< Camera applet
-       LIBAPP_FRIENDS_LIST,          ///< Friends list applet
-       LIBAPP_GAME_NOTES,            ///< Game notes applet
-       LIBAPP_WEB,                   ///< Internet browser
-       LIBAPP_INSTRUCTION_MANUAL,    ///< Instruction manual applet
-       LIBAPP_NOTIFICATIONS,         ///< Notifications applet
-       LIBAPP_MIIVERSE,              ///< Miiverse applet
-       LIBAPP_MIIVERSE_POSTING,      ///< Miiverse posting applet
-       LIBAPP_AMIIBO_SETTINGS,       ///< Amiibo settings applet
-       LIBAPP_APPLICATION,           ///< Application (?)
-       LIBAPP_ESHOP,                 ///< eShop (tiger)
-       LIBAPP_SOFTWARE_KEYBOARD,     ///< Software keyboard (do not use, use the m3d::SoftwareKeyboard class instead)
-       LIBAPP_APPLETED,              ///< AppletEd (Mii editor)
-       LIBAPP_PNOTE_AP,              ///< Photo selector
-       LIBAPP_SNOTE_AP,              ///< Sound selector
-       LIBAPP_ERROR,                 ///< Error (do not use, use the m3d::Error class instead)
-       LIBAPP_MINT,                  ///< Mint (eShop)
-       LIBAPP_EXTRAPAD,              ///< Extrapad
-       LIBAPP_MEMOLIB                ///< Memolib
-   };
-
-   /**
-    * @brief Defines the different 3DS models
-    */
-   enum ConsoleModel {
-       MODEL_O3DS,     ///< Old 3DS
-       MODEL_O3DSXL,   ///< Old 3DS XL
-       MODEL_N3DS,     ///< New 3DS
-       MODEL_N3DSXL,   ///< New 3DS XL
-       MODEL_2DS,      ///< 2DS
-       MODEL_UNKNOWN
-   };
-
-   /**
     * @brief The applet class (used for running the app)
     */
    class Applet {
    public:
+       /**
+        * @brief Region values
+        */
+       enum class Region {
+           Japan,     ///< Japan
+           Usa,       ///< USA
+           Europe,    ///< Europe
+           Australia, ///< Australia
+           China,     ///< China
+           Korea,     ///< Korea
+           Taiwan     ///< Taiwan
+       };
+
+       /**
+        * @brief Language values
+        */
+       enum class Language {
+           Japanese,          ///< Japanese
+           English,           ///< English
+           French,            ///< French
+           German,            ///< German
+           Italian,           ///< Italian
+           Spanish,           ///< Spanish
+           ChineseSimplified, ///< Simplified chinese
+           Korean,            ///< Korean
+           Dutch,             ///< Dutch
+           Portugese,         ///< Portugese
+           Russian,           ///< Russian
+           ChineseTraditional ///< Traditional chinese
+       };
+
+       /**
+        * @brief Defines ids of LibApps
+        */
+       enum class LibAppId {
+           None,
+           HomeMenu,              ///< Home menu
+           Camera,                ///< Camera applet
+           FriendsList,           ///< Friends list applet
+           GameNotes,             ///< Game notes applet
+           Web,                   ///< Internet browser
+           InstructionManual,     ///< Instruction manual applet
+           Notifications,         ///< Notifications applet
+           Miiverse,              ///< Miiverse applet
+           MiiversePosting,       ///< Miiverse posting applet
+           AmiiboSettings,        ///< Amiibo settings applet
+           EShopTiger,            ///< eShop (tiger)
+           SoftwareKeyboard,      ///< Software keyboard (do not use, use the m3d::SoftwareKeyboard class instead)
+           MiiEditor,             ///< AppletEd (Mii editor)
+           PhotoSelector,         ///< Photo selector
+           SoundSelector,         ///< Sound selector
+           Error,                 ///< Error (do not use, use the m3d::Error class instead)
+           EShopMint,             ///< Mint (eShop)
+           Extrapad,              ///< Extrapad
+           Memolib                ///< Memolib
+       };
+
+       /**
+        * @brief Defines the different 3DS models
+        */
+       enum class ConsoleModel {
+           Old3DS,     ///< Old 3DS
+           Old3DSXL,   ///< Old 3DS XL
+           New3DS,     ///< New 3DS
+           New3DSXL,   ///< New 3DS XL
+           Old2DS,     ///< 2DS
+           Unknown
+       };
+
        /**
         * @brief Creates the applet
         */
@@ -135,7 +134,7 @@ namespace m3d {
         * @param  t_id The id of the app
         * @return      The success state of the launch
         */
-       static bool launchLibApp(m3d::LibAppId t_id);
+       static bool launchLibApp(m3d::Applet::LibAppId t_id);
 
        /**
         * @brief Returns whether the system is a New3DS
@@ -153,7 +152,7 @@ namespace m3d {
         * @brief Returns the model of the system
         * @return The system model
         */
-       m3d::ConsoleModel getConsoleModel();
+       m3d::Applet::ConsoleModel getConsoleModel();
 
        /**
         * @brief Returns whether the system is connected to a wifi network

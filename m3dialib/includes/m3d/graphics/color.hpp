@@ -55,14 +55,14 @@ namespace m3d {
          * @brief Pre-defined colors
          */
         enum Color {
-            RED = RGBA8(255, 0, 0, 255),        ///< FF0000
-            GREEN = RGBA8(0, 255, 0, 255),      ///< 00FF00
-            BLUE = RGBA8(0, 0, 255, 255),       ///< 0000FF
-            YELLOW = RGBA8(255, 255, 0, 255),   ///< FFFF00
-            MAGENTA = RGBA8(255, 0, 255, 255),    ///< FF00FF
-            CYAN = RGBA8(0, 255, 255, 255),     ///< 00FFFF
-            WHITE = RGBA8(255, 255, 255, 255),  ///< FFFFFF
-            BLACK = RGBA8(0, 0, 0, 255)         ///< 000000
+            Red = RGBA8(255, 0, 0, 255),        ///< FF0000
+            Green = RGBA8(0, 255, 0, 255),      ///< 00FF00
+            Blue = RGBA8(0, 0, 255, 255),       ///< 0000FF
+            Yellow = RGBA8(255, 255, 0, 255),   ///< FFFF00
+            Magenta = RGBA8(255, 0, 255, 255),    ///< FF00FF
+            Cyan = RGBA8(0, 255, 255, 255),     ///< 00FFFF
+            White = RGBA8(255, 255, 255, 255),  ///< FFFFFF
+            Black = RGBA8(0, 0, 0, 255)         ///< 000000
         };
     } /* colors */
 
