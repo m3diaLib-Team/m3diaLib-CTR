@@ -70,6 +70,7 @@ namespace m3d {
             size_t m_buffSize;
             std::function<void(int)> setPosition;
             std::function<int()> getPosition;
+            std::function<int()> getLength;
             std::function<uint64_t(void*)> decode;
             std::function<void()> exit;
             std::function<void()> reset;
@@ -84,6 +85,7 @@ namespace m3d {
             virtual uint8_t getChannels() = 0;
             virtual void setPosition(int t_position) = 0;
             virtual int getPosition() = 0;
+            virtual int getLength() = 0;
             virtual uint64_t decode(void* t_buffer) = 0;
             virtual void exit() = 0;
             virtual void reset() = 0;
@@ -98,6 +100,7 @@ namespace m3d {
             uint8_t getChannels();
             void setPosition(int t_position);
             int getPosition();
+            int getLength();
             uint64_t decode(void* t_buffer);
             void exit();
             void reset();
@@ -118,6 +121,7 @@ namespace m3d {
             uint8_t getChannels();
             void setPosition(int t_position);
             int getPosition();
+            int getLength();
             uint64_t decode(void* t_buffer);
             void exit();
             void reset();
@@ -128,6 +132,7 @@ namespace m3d {
             FILE* m_file;
             char m_header[45];
             uint8_t m_channels;
+            int m_length;
         };
 
         enum class FileType {
@@ -137,6 +142,7 @@ namespace m3d {
         };
 
         m3d::Playable::FileType getFileType(const std::string& t_file);
+        int occupyChannel(bool t_waitForChannel = false);
 
         /* data */
         std::vector<std::function<void()>> m_playCallbacks,

@@ -1,4 +1,5 @@
 #include "m3d/audio/playable.hpp"
+#include "m3d/private/private.hpp"
 
 namespace m3d {
     void m3d::Playable::onPlay(std::function<void()> t_callback) {
@@ -54,5 +55,19 @@ namespace m3d {
 
         fclose(file);
         return filetype;
+    }
+
+    int Playable::occupyChannel(bool t_waitForChannel) {
+        if (m3d::priv::ndsp::channelsFree()) {
+            return m3d::priv::ndsp::occupyChannel();
+        } else {
+            if (t_waitForChannel) {
+                while (!m3d::priv::ndsp::channelsFree());
+                return m3d::priv::ndsp::occupyChannel();
+            } else {
+                // no free channel
+                return -1;
+            }
+        }
     }
 } /* m3d */
