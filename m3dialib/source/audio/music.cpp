@@ -6,6 +6,7 @@
 namespace m3d {
     Music::Music(const std::string& t_filename) :
             m_position(0),
+            m_loopPoint(0),
             m_channel(-1),
             m_volumeLeft(1.f),
             m_volumeRight(1.f),
@@ -221,6 +222,18 @@ namespace m3d {
         return m_loop;
     }
 
+    void Music::setLoopPoint(int t_position) {
+        m_loopPoint = t_position;
+    }
+
+    void Music::setLoopPoint(m3d::Time t_position) {
+        setLoopPoint(t_position.getAsSeconds() * (float) m_reader->getRate());
+    }
+
+    int Music::getLoopPoint() {
+        return m_loopPoint;
+    }
+
     void Music::onPause(std::function<void()> t_callback) {
         m_pauseCallbacks.push_back(t_callback);
     }
@@ -376,7 +389,7 @@ namespace m3d {
 
                 if(read <= 0) {
                     if (m_loop) {
-                        m_decoder.reset();
+                        m_decoder.setPosition(m_loopPoint);
                         for (const auto& callback: m_loopCallbacks) {
                             callback();
                         }
@@ -402,7 +415,7 @@ namespace m3d {
 
                 if(read <= 0) {
                     if (m_loop) {
-                        m_decoder.reset();
+                        m_decoder.setPosition(m_loopPoint);
                         for (const auto& callback: m_loopCallbacks) {
                             callback();
                         }

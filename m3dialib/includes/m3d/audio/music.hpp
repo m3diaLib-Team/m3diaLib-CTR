@@ -143,6 +143,24 @@ namespace m3d {
          * @return Whether the music loops or not
          */
         bool getLoop();
+        
+        /**
+         * @brief Sets the loop-point (the point in the music to jump back to when looping)
+         * @param t_position The loop-point in samples
+         */
+        void setLoopPoint(int t_position);
+        
+        /**
+         * @brief Sets the loop-point (the point in the music to jump back to when looping)
+         * @param t_position The loop-point
+         */
+        void setLoopPoint(m3d::Time t_position);
+
+        /**
+         * @brief Returns the loop-point (the point in the music to jump back to when looping) in samples
+         * @return The loop-point
+         */
+        int getLoopPoint();
 
         /**
          * @brief Adds a callback function to call when the music was paused
@@ -193,7 +211,7 @@ namespace m3d {
         void playFile(m3d::Parameter t_waitForChannel);
 
         /* data */
-        std::atomic<int> m_position, m_channel;
+        std::atomic<int> m_position, m_loopPoint, m_channel;
         std::atomic<float> m_volumeLeft, m_volumeRight, m_filterFrequency;
         bool m_started;
         std::atomic<bool> m_loop;
