@@ -2,6 +2,9 @@
  * @file lock.hpp
  * @brief Defines the Lock class
  */
+#ifndef LOCK_H
+#define LOCK_H
+
 #pragma once
 #include <3ds.h>
 #include "m3d/core/mutex.hpp"
@@ -29,3 +32,6 @@ namespace m3d {
         m3d::Mutex m_mutex;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: LOCK_H */

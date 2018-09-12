@@ -1,3 +1,6 @@
+#ifndef ENCRYPTIONCONTEXT_H
+#define ENCRYPTIONCONTEXT_H
+
 #pragma once
 #include <string>
 #include "crypto/rijndael.hpp"
@@ -20,3 +23,6 @@ namespace m3d {
         m3d::priv::CRijndael m_rijndael;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: ENCRYPTIONCONTEXT_H */

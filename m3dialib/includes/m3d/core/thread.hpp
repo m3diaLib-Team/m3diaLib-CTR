@@ -2,6 +2,9 @@
  * @file thread.hpp
  * @brief Defines the Thread class
  */
+#ifndef THREAD_H
+#define THREAD_H
+
 #pragma once
 #include <3ds.h>
 #include <functional>
@@ -98,3 +101,6 @@ namespace m3d {
         CTRU_Thread m_thread;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: THREAD_H */

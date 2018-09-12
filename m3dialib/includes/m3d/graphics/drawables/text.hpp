@@ -2,6 +2,9 @@
  * @file text.hpp
  * @brief Defines the text class
  */
+#ifndef TEXT_H
+#define TEXT_H
+
 #pragma once
 #include <citro2d.h>
 #include <string>
@@ -205,3 +208,6 @@ namespace m3d {
         C2D_TextBuf m_textBuffer;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: TEXT_H */

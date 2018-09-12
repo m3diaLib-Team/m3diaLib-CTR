@@ -2,6 +2,9 @@
  * @file boundingBox.hpp
  * @brief Defines the BoundingBox class
  */
+#ifndef BOUNDING_BOX
+#define BOUNDING_BOX
+
 #pragma once
 
 namespace m3d {
@@ -56,3 +59,5 @@ namespace m3d {
 
     };
 } /* m3d */
+
+#endif /* end of include guard: BOUNDING_BOX */

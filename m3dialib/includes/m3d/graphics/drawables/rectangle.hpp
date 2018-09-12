@@ -2,6 +2,9 @@
  * @file rectangle.hpp
  * @brief Defines the rectangle shape
  */
+#ifndef RECTANGLE_H
+#define RECTANGLE_H
+
 #pragma once
 #include "shape.hpp"
 #include "m3d/graphics/boundingBox.hpp"
@@ -105,3 +108,6 @@ namespace m3d {
         m3d::Color m_color;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: RECTANGLE_H */

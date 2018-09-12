@@ -2,6 +2,9 @@
  * @file error.hpp
  * @brief Defines the Error class (used for displaying system error messages)
  */
+#ifndef ERROR_H
+#define ERROR_H
+
 #pragma once
 #include <string>
 #include <3ds.h>
@@ -101,3 +104,6 @@ namespace m3d {
 
     };
 } /* m3d */
+
+
+#endif /* end of include guard: ERROR_H */

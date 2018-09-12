@@ -2,6 +2,9 @@
  * @file zip.hpp
  * @brief Defines the zip class
  */
+#ifndef ZIP_H
+#define ZIP_H
+
 #pragma once
 #include <vector>
 #include <string>
@@ -83,3 +86,6 @@ namespace m3d {
         std::string m_filename;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: ZIP_H */

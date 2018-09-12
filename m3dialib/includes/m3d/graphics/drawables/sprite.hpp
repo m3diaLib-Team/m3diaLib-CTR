@@ -2,6 +2,9 @@
  * @file sprite.hpp
  * @brief Defines the sprite class which can be used for drawing textures
  */
+#ifndef SPRITE_H
+#define SPRITE_H
+
 #pragma once
 #include <citro2d.h>
 #include "m3d/graphics/boundingBox.hpp"
@@ -274,3 +277,6 @@ namespace m3d {
         C2D_SpriteSheet m_spriteSheet;
     };
 } /* m3d */
+
+#endif /* end of include guard: SPRITE_H */
+

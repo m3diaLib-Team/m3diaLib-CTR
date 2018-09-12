@@ -2,6 +2,9 @@
  * @file shape.hpp
  * @brief Defines the base class for all shapes
  */
+#ifndef SHAPE_H
+#define SHAPE_H
+
 #pragma once
 #include <vector>
 #include "m3d/graphics/drawable.hpp"
@@ -56,3 +59,6 @@ namespace m3d {
         std::vector<uint16_t> m_indices;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: SHAPE_H */

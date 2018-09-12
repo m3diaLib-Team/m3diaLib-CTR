@@ -2,6 +2,9 @@
  * @file sound.hpp
  * @brief Defines the Sound class
  */
+#ifndef SOUND_H
+#define SOUND_H
+
 #pragma once
 #include <3ds.h>
 #include <atomic>
@@ -98,3 +101,6 @@ namespace m3d {
         m3d::Thread m_thread;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: SOUND_H */

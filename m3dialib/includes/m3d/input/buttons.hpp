@@ -2,6 +2,9 @@
  * @file buttons.hpp
  * @brief Implements support for button input
  */
+#ifndef BUTTONS_H
+#define BUTTONS_H
+
 #pragma once
 #include <3ds.h>
 
@@ -65,3 +68,6 @@ namespace m3d {
         bool buttonReleased(m3d::buttons::Button t_button);
     } /* buttons */
 } /* m3d */
+
+#endif /* end of include guard: BUTTONS_H */
+

@@ -2,6 +2,9 @@
  * @file renderTarget.hpp
  * @brief Defines the RenderTarget class
  */
+#ifndef RENDERTARGET_H
+#define RENDERTARGET_H
+
 #pragma once
 #include <citro3d.h>
 
@@ -75,3 +78,5 @@ namespace m3d {
 
     };
 } /* m3d */
+
+#endif /* end of include guard: RENDERTARGET_H */

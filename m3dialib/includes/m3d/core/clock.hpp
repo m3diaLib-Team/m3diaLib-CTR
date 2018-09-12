@@ -2,6 +2,9 @@
  * @file clock.hpp
  * @brief Defines the Clock class
  */
+#ifndef CLOCK_H
+#define CLOCK_H
+
 #pragma once
 #include <3ds.h>
 #include "lock.hpp"
@@ -79,3 +82,6 @@ namespace m3d {
         m3d::Thread m_thread;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: CLOCK_H */

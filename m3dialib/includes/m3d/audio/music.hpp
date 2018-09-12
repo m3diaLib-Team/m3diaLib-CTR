@@ -2,6 +2,9 @@
  * @file music.hpp
  * @brief Defines the Music class
  */
+#ifndef MUSIC_H
+#define MUSIC_H
+
 #pragma once
 #include <3ds.h>
 #include <atomic>
@@ -112,7 +115,7 @@ namespace m3d {
          * @return The play-offset
          */
         int getPosition();
-        
+
         /**
          * @brief Returns the length of the music in samples
          * @return The length
@@ -149,13 +152,13 @@ namespace m3d {
          * @return Whether the music loops or not
          */
         bool getLoop();
-        
+
         /**
          * @brief Sets the loop-point (the point in the music to jump back to when looping)
          * @param t_position The loop-point in samples
          */
         void setLoopPoint(int t_position);
-        
+
         /**
          * @brief Sets the loop-point (the point in the music to jump back to when looping)
          * @param t_position The loop-point
@@ -241,3 +244,6 @@ namespace m3d {
         m3d::Thread m_thread;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: MUSIC_H */

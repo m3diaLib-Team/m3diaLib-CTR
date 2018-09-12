@@ -2,6 +2,9 @@
  * @file color.hpp
  * @brief Defines the color class as well as some basic colors
  */
+#ifndef COLOR_H
+#define COLOR_H
+
 #pragma once
 #include <cstdint>
 #include <3ds.h>
@@ -182,3 +185,6 @@ namespace m3d {
 
     };
 } /* m3d */
+
+
+#endif /* end of include guard: COLOR_H */

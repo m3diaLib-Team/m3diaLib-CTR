@@ -2,6 +2,9 @@
  * @file vertex.hpp
  * @brief Defines the Vertex structs as well as multi-dimensional vectors used for shapes
  */
+#ifndef VERTEX_H
+#define VERTEX_H
+
 #pragma once
 #include "color.hpp"
 
@@ -39,3 +42,5 @@ namespace m3d {
         Vector2f textureCoords;  ///< Texture coordinates of the vertex
     };
 } /* m3d */
+
+#endif /* end of include guard: VERTEX_H */

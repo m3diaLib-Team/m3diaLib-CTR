@@ -2,6 +2,9 @@
  * @file screen.hpp
  * @brief The master class for drawing on screens
  */
+#ifndef SCREEN_H
+#define SCREEN_H
+
 #pragma once
 #include <vector>
 #include <map>
@@ -120,3 +123,5 @@ namespace m3d {
 
     };
 } /* m3d */
+
+#endif /* end of include guard: SCREEN_H */
