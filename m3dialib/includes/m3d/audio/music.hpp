@@ -112,6 +112,12 @@ namespace m3d {
          * @return The play-offset
          */
         int getPosition();
+        
+        /**
+         * @brief Returns the length of the music in samples
+         * @return The length
+         */
+        int getLength();
 
         /**
          * @brief Returns the samplerate of the music

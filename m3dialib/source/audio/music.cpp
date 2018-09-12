@@ -153,6 +153,14 @@ namespace m3d {
         return 0;
     }
 
+    int Music::getLength() {
+        if (m_reader != nullptr) {
+            return m_reader->getLength();
+        }
+
+        return 0;
+    }
+
     int Music::getSampleRate() {
         return m_reader->getRate();
     }
