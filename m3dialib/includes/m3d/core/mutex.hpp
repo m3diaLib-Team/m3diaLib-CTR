@@ -2,6 +2,9 @@
  * @file mutex.hpp
  * @brief Defines the Mutex class
  */
+#ifndef MUTEX_H
+#define MUTEX_H
+
 #pragma once
 #include <3ds.h>
 
@@ -31,3 +34,6 @@ namespace m3d {
         RecursiveLock m_mutex;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: MUTEX_H */

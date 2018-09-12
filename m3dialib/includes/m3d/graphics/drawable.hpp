@@ -2,6 +2,9 @@
  * @file drawable.hpp
  * @brief Defines the base class for all drawable classes
  */
+#ifndef DRAWABLE_H
+#define DRAWABLE_H
+
 #pragma once
 #include <citro3d.h>
 
@@ -23,3 +26,6 @@ namespace m3d {
         virtual void draw(bool t_3dEnabled = false, int t_side = 0) = 0;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: DRAWABLE_H */

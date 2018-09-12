@@ -1,3 +1,6 @@
+#ifndef EARCUT_H
+#define EARCUT_H
+
 #pragma once
 
 #include <algorithm>
@@ -770,3 +773,5 @@ std::vector<N> earcut(const Polygon& poly) {
     return std::move(earcut.indices);
 }
 }
+
+#endif /* end of include guard: EARCUT_H */

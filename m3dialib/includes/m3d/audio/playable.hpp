@@ -2,6 +2,9 @@
  * @file playable.hpp
  * @brief Defines the base class for all playable classes
  */
+#ifndef PLAYABLE_H
+#define PLAYABLE_H
+
 #pragma once
 #include <3ds.h>
 #include <functional>
@@ -149,3 +152,6 @@ namespace m3d {
                                            m_finishCallbacks;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: PLAYABLE_H */

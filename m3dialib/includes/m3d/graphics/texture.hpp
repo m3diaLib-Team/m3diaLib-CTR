@@ -2,6 +2,9 @@
  * @file texture.hpp
  * @brief Defines the Texture class
  */
+#ifndef TEXTURE_H
+#define TEXTURE_H
+
 #pragma once
 #include <citro2d.h>
 #include <string>
@@ -109,3 +112,5 @@ namespace m3d {
         Tex3DS_SubTexture m_subtexture;
     };
 } /* m3d */
+
+#endif /* end of include guard: TEXTURE_H */

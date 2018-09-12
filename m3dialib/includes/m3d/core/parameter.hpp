@@ -2,6 +2,9 @@
  * @file parameter.hpp
  * @brief Defines the Parameter class
  */
+#ifndef PARAMETER_H
+#define PARAMETER_H
+
 #pragma once
 #include <tuple>
 
@@ -117,3 +120,6 @@ namespace m3d {
         template<typename T> T &get() & { return stat<T>(); }
     };
 } /* m3d */
+
+
+#endif /* end of include guard: PARAMETER_H */

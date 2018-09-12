@@ -1,3 +1,6 @@
+#ifndef NDSP_H
+#define NDSP_H
+
 #pragma once
 #include <vector>
 #include "m3d/core/lock.hpp"
@@ -19,3 +22,6 @@ namespace m3d {
         } /* ndsp */
     } /* priv */
 } /* m3d */
+
+
+#endif /* end of include guard: NDSP_H */

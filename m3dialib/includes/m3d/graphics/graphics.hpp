@@ -2,6 +2,9 @@
  * @file graphics.hpp
  * @brief Includes all files related to graphics
  */
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
+
 #pragma once
 
 #include "vertex.hpp"
@@ -14,3 +17,6 @@
 
 // all pre-coded drawables
 #include "drawables.hpp"
+
+
+#endif /* end of include guard: GRAPHICS_H */

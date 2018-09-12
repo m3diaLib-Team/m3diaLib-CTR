@@ -2,6 +2,9 @@
  * @file time.hpp
  * @brief Defines the Time class
  */
+#ifndef TIME_H
+#define TIME_H
+
 #pragma once
 #include <3ds.h>
 #include <atomic>
@@ -224,3 +227,7 @@ namespace m3d {
         std::atomic<unsigned long long int> m_milliseconds;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: TIME_H */
+

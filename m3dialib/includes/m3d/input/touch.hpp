@@ -2,6 +2,9 @@
  * @file touch.hpp
  * @brief Implements support for touch input
  */
+#ifndef TOUCH_H
+#define TOUCH_H
+
 #pragma once
 #include <3ds.h>
 
@@ -23,3 +26,6 @@ namespace m3d {
         int getYPosition();
     } /* touch */
 } /* m3d */
+
+
+#endif /* end of include guard: TOUCH_H */

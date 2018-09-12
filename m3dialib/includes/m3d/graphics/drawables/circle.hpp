@@ -2,6 +2,9 @@
  * @file circle.hpp
  * @brief Defines the circle shape
  */
+#ifndef CIRCLE_H
+#define CIRCLE_H
+
 #pragma once
 #include "shape.hpp"
 #include "m3d/graphics/boundingBox.hpp"
@@ -127,3 +130,6 @@ namespace m3d {
         m3d::Color m_color;
     };
 } /* m3d */
+
+
+#endif /* end of include guard: CIRCLE_H */

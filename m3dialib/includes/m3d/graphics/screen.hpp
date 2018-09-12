@@ -2,6 +2,9 @@
  * @file screen.hpp
  * @brief The master class for drawing on screens
  */
+#ifndef SCREEN_H
+#define SCREEN_H
+
 #pragma once
 #include <vector>
 #include <map>
@@ -16,26 +19,26 @@
  */
 namespace m3d {
     /**
-     * @brief Defines the screen targets (top/bottom)
-     */
-    enum ScreenTarget {
-        SCREEN_TOP,     ///< Top screen
-        SCREEN_BOTTOM   ///< Bottom/touch screen
-    };
-
-    /**
-     * @brief Defines the two sides in stereoscopic 3D mode
-     */
-    enum Stereo3dSide {
-        SIDE_LEFT = 0, ///< Left side
-        SIDE_RIGHT = 1 ///< Right side
-    };
-
-    /**
      * @brief The class used for rendering stuff on a screen
      */
     class Screen {
     public:
+        /**
+         * @brief Defines the screen targets (top/bottom)
+         */
+        enum ScreenTarget {
+            Top,     ///< Top screen
+            Bottom   ///< Bottom/touch screen
+        };
+
+        /**
+         * @brief Defines the two sides in stereoscopic 3D mode
+         */
+        enum Stereo3dSide {
+            Left  = 0, ///< Left side
+            Right = 1  ///< Right side
+        };
+
         /**
          * @brief Initializes the m3d::Screen object
          * @param t_enable3d Whether to enable stereoscopic 3D by default
@@ -64,14 +67,14 @@ namespace m3d {
          * @param t_color  The color to clear the screen with
          * @param t_target The screen to clear set the color for
          */
-        void setClearColor(m3d::Color t_color, m3d::ScreenTarget t_target);
+        void setClearColor(m3d::Color t_color, m3d::Screen::ScreenTarget t_target);
 
         /**
          * @brief Returns the clear color for the given screen
          * @param  t_target The screen to get the color from
          * @return          The set clear color for the screen
          */
-        m3d::Color getClearColor(m3d::ScreenTarget t_target);
+        m3d::Color getClearColor(m3d::Screen::ScreenTarget t_target);
 
         /**
          * @brief Draws something on the top screen
@@ -98,7 +101,7 @@ namespace m3d {
          * @param t_target The target screen
          * @return The width of the screen in pixels
          */
-        static int getScreenWidth(m3d::ScreenTarget t_target);
+        static int getScreenWidth(m3d::Screen::ScreenTarget t_target);
 
         /**
          * @brief Returns the height of the screen
@@ -120,3 +123,5 @@ namespace m3d {
 
     };
 } /* m3d */
+
+#endif /* end of include guard: SCREEN_H */

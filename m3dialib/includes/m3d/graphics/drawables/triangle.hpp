@@ -2,6 +2,9 @@
  * @file triangle.hpp
  * @brief Defines the triangle shape
  */
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
+
 #pragma once
 #include "shape.hpp"
 
@@ -116,3 +119,5 @@ namespace m3d {
         m3d::Color m_color;
     };
 } /* m3d */
+
+#endif /* end of include guard: TRIANGLE_H */
