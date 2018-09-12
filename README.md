@@ -53,7 +53,7 @@ The utils module contains all kind of useful utilities. Some of its functionalit
 
 ---
 
-All features are well documented [here](https://docs.stunthacks.eu/m3diaLib/). Examples can be viewed [here](https://github.com/StuntHacks/m3d-examples).
+All features are well documented [here](https://docs.stunthacks.eu/m3dialib/). Examples can be viewed [here](https://github.com/StuntHacks/m3d-examples).
 
 ## How to use it
 The barebones of a homebrew app using the m3diaLib would look like this:
