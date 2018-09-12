@@ -20,8 +20,11 @@ namespace m3d {
 
     bool Texture::loadFromFile(const std::string& t_filename) {
         FILE* fp = fopen(t_filename.c_str(), "rb");
-        bool ret = loadPng(fp);
-        return ret;
+        return loadPng(fp);
+    }
+
+    bool Texture::loadFromBuffer(const void* t_buffer) {
+        return loadPng(t_buffer, true);
     }
 
     int Texture::getWidth() {
@@ -69,7 +72,7 @@ namespace m3d {
     }
 
     // private methods
-    bool Texture::loadPng(FILE* t_fp) {
+    bool Texture::loadPng(const void* t_fp, bool t_buffer) {
         png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 
         png_infop info = png_create_info_struct(png);
@@ -80,7 +83,20 @@ namespace m3d {
             return false;
         }
 
-        png_init_io(png, t_fp);
+        if (t_buffer) {
+            png_set_read_fn(png, (png_voidp) t_fp,
+                            [](png_structp ptr, png_bytep data, png_size_t len) {
+                                unsigned int* addr = (unsigned int*) png_get_io_ptr(ptr);
+                                memcpy(data, (void*) *addr, len);
+                                *addr += len;
+                            });
+        } else {
+            png_set_read_fn(png, (png_voidp) t_fp,
+                            [](png_structp ptr, png_bytep data, png_size_t len) {
+                                fread(data, 1, len, (FILE*) png_get_io_ptr(ptr));
+                            });
+        }
+
         png_read_info(png, info);
 
         m_width = png_get_image_width(png, info);
@@ -105,7 +121,7 @@ namespace m3d {
         if(png_get_valid(png, info, PNG_INFO_tRNS))
             png_set_tRNS_to_alpha(png);
 
-        // These color_type don't have an alpha channel then fill it with 0xff.
+        // if color_type doesn't have an alpha channel, fill it with 0xff.
         if(color_type == PNG_COLOR_TYPE_RGB ||
            color_type == PNG_COLOR_TYPE_GRAY ||
            color_type == PNG_COLOR_TYPE_PALETTE)
@@ -115,7 +131,7 @@ namespace m3d {
            color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
             png_set_gray_to_rgb(png);
 
-        //output ABGR
+        // output ABGR
         png_set_bgr(png);
         png_set_swap_alpha(png);
 
@@ -128,7 +144,7 @@ namespace m3d {
 
         png_read_image(png, row_pointers);
 
-        fclose(t_fp);
+        if (!t_buffer) fclose((FILE*) t_fp);
         png_destroy_read_struct(&png, &info, NULL);
 
         unloadImage(m_image);
@@ -164,11 +180,11 @@ namespace m3d {
         return true;
     }
 
-    void Texture::unloadImage(C2D_Image t_image) {
+    inline void Texture::unloadImage(C2D_Image t_image) {
         if (t_image.tex) C3D_TexDelete(t_image.tex);
     }
 
-    u32 Texture::getNextPow2(u32 v) {
+    inline u32 Texture::getNextPow2(u32 v) {
         v--;
         v |= v >> 1;
         v |= v >> 2;
