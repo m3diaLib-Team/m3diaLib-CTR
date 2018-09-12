@@ -102,13 +102,7 @@ This module isn't availiable at the moment. However, it's planned features are:
 ...and anything that strikes my mind in the future.
 
 ## Installation
-There are two ways to install this library. The recommended way is via the [devkitPro-pacman](https://devkitpro.org/wiki/devkitPro_pacman) with the following command:
-
-```
-dkp-pacman -S 3ds-libm3dia
-```
-
-Alternatively, you can download the latest release and then execute the following commands:
+To install the library, download the latest release and then execute the following commands:
 
 ```
 make
