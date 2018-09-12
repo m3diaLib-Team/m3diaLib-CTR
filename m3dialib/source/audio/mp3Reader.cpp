@@ -4,7 +4,6 @@
 
 namespace m3d {
     Playable::Mp3Reader::~Mp3Reader() {
-        delete m_handle;
         delete m_buffSize;
     }
 

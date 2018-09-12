@@ -1,8 +1,12 @@
 # m3diaLib
 A fast, extensive and powerful allround media and game library for the Nintendo 3DS, written in C++.
 
+#### Click [here](#installation) to get to the installation instructions.
+
+#### This library is still in beta! If you have any issues or find any bugs, please report them!
+
 ## Features
-The m3diaLib (spelled media-lib) is split into 5 big modules, which can then be split into smaller parts:
+The m3diaLib (spelled media-lib) is split into multiple modules, which can then be split into smaller parts:
 
 ### Core
 The core module contains all functionality for interacting with the system. Its features range from running and handling the app itself to displaying errors and running system applets.
@@ -13,6 +17,7 @@ The core module contains all functionality for interacting with the system. Its 
  * Starting and running applets
  * Time measurement
  * Support for the RomFS
+ * Multithreading and concurrency
 
 ### Input
 The input module does what its name says: It handles each and every input for interacting with the user.
@@ -20,7 +25,6 @@ The input module does what its name says: It handles each and every input for in
 **Its main features are:**
  * Handling button input
  * Handling touch input
- * Using the built-in software keyboard (no need to code one yourself anymore!)
 
 ### Graphics
 The graphics module is by far the biggest module. It handles anything graphic-wise, from rendering simple shapes to rendering and animating high-quality textures.
@@ -28,12 +32,10 @@ The graphics module is by far the biggest module. It handles anything graphic-wi
 **Its main features are:**
  * Support for the top and bottom screen
  * Support for stereoscopic 3D
- * Easy, yet advanced, interface for fast and powerful rendering on both screens
- * **Support for high-quality textures and being able to load them directly from the file system**
+ * Easy-to-use interface for fast rendering on both screens
  * Support for transformation of textures and sprites
  * Pre-coded shapes as well as a shape class for easily rendering your own shapes
- * Easy to use color system
- * Support for render targets
+ * Easy-to-use color system
  * Collision detection
 
 ### Audio
@@ -41,27 +43,17 @@ The audio module can be used for both music and sound effects.
 
 **Its main features are:**
  * Loading or streaming audio files directly from the file system
- * **Support for .ogg and .mp3 (more to come!)**
+ * **Support for .wav and .mp3 (more to come!)**
  * Two different classes, sound and music, which have features that can be helpful specific in their use case
-
-### Networking
-You want to interact with a game server? You want to download updates on the fly? Then this is the right module for you!
-
-**Its main features are:**
- * A simple http and websocket client
- * **My LWMP protocol, for easily implementing a local multiplayer mode (see section below)**
 
 ### Utils
 The utils module contains all kind of useful utilities. Some of its functionalities are the following:
 
- * JSON and XML parsing
- * Secure random numbers
  * Basic encryption
- * ZIP compression and decompression
 
 ---
 
-All features are well documented and come with at least one example. If you still have questions, you can post an issue and I will be happy to help! :) In addition to that, a detailed tutorial will come soon.
+All features are well documented [here](https://docs.stunthacks.eu/m3diaLib/). Examples can be viewed [here](https://github.com/StuntHacks/m3d-examples).
 
 ## How to use it
 The barebones of a homebrew app using the m3diaLib would look like this:
@@ -73,7 +65,7 @@ int main() {
     m3d::Applet app;
 
     while (app.isRunning()) {
-        if (m3d::buttons::buttonPressed(m3d::buttons::BUTTON_START)) {
+        if (m3d::buttons::buttonPressed(m3d::buttons::Button::Start)) {
             app.exit(); // exit if start is pressed
         }
     }
@@ -81,27 +73,61 @@ int main() {
 ```
 Easy, isn't it?
 
-## The LWMP protocol
-The ability of the 3DS to host game servers and join them on the go (also called local multiplayer), is awesome - it can be extremely funny to have some friends over, each of them staring on their own screen while battling each other in Mario Kart.
+## Planned features:
+#### Audio:
+ * Microphone support
+ * More file formats
 
-Sadly, we are not able to make use of that feature. To compensate that, I created a new protocol: the LWMP (local wifi multiplayer) protocol! It's a complete alternative for local multiplayer games, works over the local wifi and even has some advantages over Nintendo's solution:
- * Virtually no distance limitation - the only limitation is that users have to be on the same network
- * Rijndael encryption
+#### Core:
+ * Support for all availiable os and system functionality
 
-Other features inclue:
- * Easily create a local server or join one in your local network, without having to write too much code
- * Manage all connections easily and send data to them directly or via a broadcast
+#### Graphics:
+ * Animation
+ * RenderTargets
+ * More file formats for textures
+ * 3D support
 
-For more information, please refer to the documentation!
+#### Networking:
 
-## TO-DO
- * [ ] Add more code examples to readme
- * [ ] Add examples to documentation
- * [ ] Add support for more audio formats
+This module isn't availiable at the moment. However, it's planned features are:
+ * A simple HTTP and WebSocket client and server
+ * Socket support
+ * A 3DS-download-game alternative (more on that at a later point)
+
+#### Utils:
+ * ZIP compression and decompression
+ * JSON and XML parsing
+ * Secure random numbers
+
+...and anything that strikes my mind in the future.
+
+## Installation
+There are two ways to install this library. The recommended way is via the [devkitPro-pacman](https://devkitpro.org/wiki/devkitPro_pacman) with the following command:
+
+```
+dkp-pacman -S 3ds-libm3dia
+```
+
+Alternatively, you can download the latest release and then execute the following commands:
+
+```
+make
+make install
+```
+
+## Dependencies
+To compile a m3diaLib-app, you need the following dependencies installed (install via [devkitPro-pacman](https://devkitpro.org/wiki/devkitPro_pacman)):
+ * libctru
+ * citro3d
+ * citro2d
+ * 3ds-tinyxml2
+ * 3ds-zlib
+ * 3ds-mpg123
+ * 3ds-libpng
+ * 3ds-freetype
+ * tex3ds (if you want to use spritesheets)
 
 ## Credits
- * Smealum and everyone who worked with him for the [ctrulib](https://github.com/smealum/ctrulib/)
- * fincs for [citro3d](https://github.com/fincs/citro3d)
- * Everyone who helped working on [miniz](https://code.google.com/archive/p/miniz/)
- * kuba-- for his [miniz wrapper](https://github.com/kuba--/zip)
- * Quinn Tyler Jackson for his C++ implementation of [ISAAC](http://www.burtleburtle.net/bob/rand/isaacafa.html)
+ * [ctrulib](https://github.com/smealum/ctrulib/)
+ * [citro3d](https://github.com/fincs/citro3d) (zLib)
+ * [citro2d](https://github.com/devkitPro/citro2d) (zLib)

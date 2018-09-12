@@ -84,6 +84,8 @@ namespace m3d {
             case m3d::Time::Component::Milliseconds:
                 return milliseconds;
         }
+
+        return 0;
     }
 
     m3d::Time& Time::operator=(unsigned long long int rhs) {

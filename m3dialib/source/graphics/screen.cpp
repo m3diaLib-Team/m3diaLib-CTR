@@ -69,6 +69,9 @@ namespace m3d {
     void Screen::render(bool t_clear) {
         if(m_drawStackTop.size() > 0 || m_drawStackBottom.size() > 0) {
             C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
+            m_targetTopLeft->clear();
+            m_targetTopRight->clear();
+            m_targetBottom->clear();
 
             if (t_clear) clear();
 

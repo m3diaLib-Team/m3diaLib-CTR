@@ -63,6 +63,11 @@ namespace m3d {
         void setClearColor(u32 t_color);
 
         /**
+         * @brief Clears the rendertarget
+         */
+        void clear();
+
+        /**
          * @brief Returns the current clear color
          * @return The color
          * @todo Implement support for m3d::Color

@@ -7,7 +7,7 @@ namespace m3d {
             m_changed(false) { /* do nothing */ }
 
     void Shape::addVertex(int t_x, int t_y, m3d::Color t_color) {
-        m_vertices.push_back(std::make_pair((m3d::Vector2f) { t_x, t_y }, t_color));
+        m_vertices.push_back(std::make_pair((m3d::Vector2f) { (float) t_x, (float) t_y }, t_color));
         m_changed = true;
     }
 
@@ -36,7 +36,7 @@ namespace m3d {
             m_indices = mapbox::earcut<uint16_t>(polygon);
         }
 
-        for (int i = 0; i < m_indices.size(); i += 3) {
+        for (unsigned int i = 0; i < m_indices.size(); i += 3) {
             C2D_DrawTriangle(
                         m_vertices[m_indices[i]].first.u,
                         m_vertices[m_indices[i]].first.v,

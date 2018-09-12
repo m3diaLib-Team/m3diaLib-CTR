@@ -1280,7 +1280,7 @@ namespace m3d {
 
 		void CRijndael::Encrypt(char const* in, char* result, size_t n, int iMode)
 		{
-			int i;
+			size_t i;
 			char const* pin;
 			char* presult;
 			if(CBC == iMode) //CBC mode, using the Chain
@@ -1318,7 +1318,7 @@ namespace m3d {
 
 		void CRijndael::Decrypt(char const* in, char* result, size_t n, int iMode)
 		{
-			int i;
+			size_t i;
 			char const* pin;
 			char* presult;
 			if(CBC == iMode) //CBC mode, using the Chain

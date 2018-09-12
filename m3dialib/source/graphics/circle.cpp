@@ -86,7 +86,6 @@ namespace m3d {
     void Circle::updateVertices() {
         clearVertices();
 
-        int x = m_posX, y = m_posY;
         static const int num_segments = 100;
         float xx = m_radius;
         float yy = 0;
