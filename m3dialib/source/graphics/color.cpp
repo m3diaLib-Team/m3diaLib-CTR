@@ -1,4 +1,4 @@
-#include "graphics/color.hpp"
+#include "m3d/graphics/color.hpp"
 
 namespace m3d {
     Color::Color() :
@@ -36,6 +36,13 @@ namespace m3d {
         m_green = t_g;
         m_blue = t_b;
         m_alpha = t_a;
+    }
+
+    void Color::setColor(uint8_t t_r, uint8_t t_g, uint8_t t_b, float t_a) {
+        m_red = t_r;
+        m_green = t_g;
+        m_blue = t_b;
+        m_alpha = t_a * 255;
     }
 
     void Color::setRed(uint8_t t_r) {

@@ -1,4 +1,4 @@
-#include "graphics/drawables/triangle.hpp"
+#include "m3d/graphics/drawables/triangle.hpp"
 
 namespace m3d {
     Triangle::Triangle(int t_x1, int t_y1, int t_x2, int t_y2, int t_x3, int t_y3, m3d::Color t_color) :
@@ -75,9 +75,11 @@ namespace m3d {
         return m_color;
     }
 
+    // private methods
     void Triangle::updateVertices() {
-        addVertex(m_posX1, m_posY1, 0.5f, m_color);
-        addVertex(m_posX2, m_posY2, 0.5f, m_color);
-        addVertex(m_posX3, m_posY3, 0.5f, m_color);
+        clearVertices();
+        addVertex(m_posX1, m_posY1, m_color);
+        addVertex(m_posX2, m_posY2, m_color);
+        addVertex(m_posX3, m_posY3, m_color);
     }
 } /* m3d */
