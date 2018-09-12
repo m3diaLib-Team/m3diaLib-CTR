@@ -137,6 +137,7 @@ namespace m3d {
         };
 
         m3d::Playable::FileType getFileType(const std::string& t_file);
+        int occupyChannel(bool t_waitForChannel = false);
 
         /* data */
         std::vector<std::function<void()>> m_playCallbacks,

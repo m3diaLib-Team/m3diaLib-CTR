@@ -283,19 +283,8 @@ namespace m3d {
             return;
         }
 
-        m_channel = -1;
-
-        if (m3d::priv::ndsp::channelsFree()) {
-            m_channel = m3d::priv::ndsp::occupyChannel();
-        } else {
-            if (t_waitForChannel.get<bool>()) {
-                while (!m3d::priv::ndsp::channelsFree());
-                m_channel = m3d::priv::ndsp::occupyChannel();
-            } else {
-                // no free channel
-                return;
-            }
-        }
+        m_channel = occupyChannel(t_waitForChannel.get<bool>());
+        if (m_channel == -1) return;
 
         int16_t *buffer1, *buffer2;
         ndspWaveBuf waveBuf[2];
