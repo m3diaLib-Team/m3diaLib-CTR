@@ -53,7 +53,7 @@ The utils module contains all kind of useful utilities. Some of its functionalit
 
 ---
 
-All features are well documented [here](https://docs.stunthacks.eu/m3diaLib/). Examples can be viewed [here](https://github.com/StuntHacks/m3d-examples).
+All features are well documented [here](https://docs.stunthacks.eu/m3dialib/). Examples can be viewed [here](https://github.com/StuntHacks/m3d-examples).
 
 ## How to use it
 The barebones of a homebrew app using the m3diaLib would look like this:
@@ -102,13 +102,7 @@ This module isn't availiable at the moment. However, it's planned features are:
 ...and anything that strikes my mind in the future.
 
 ## Installation
-There are two ways to install this library. The recommended way is via the [devkitPro-pacman](https://devkitpro.org/wiki/devkitPro_pacman) with the following command:
-
-```
-dkp-pacman -S 3ds-libm3dia
-```
-
-Alternatively, you can download the latest release and then execute the following commands:
+To install the library, download the latest release and then execute the following commands:
 
 ```
 make
