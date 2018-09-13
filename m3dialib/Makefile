@@ -91,8 +91,8 @@ docs:
 	@doxygen Doxyfile
 
 install:
-	@sudo cp -rf lib/* $(DEVKITPRO)/libctru/lib/
-	@sudo cp -rf includes/* $(DEVKITPRO)/libctru/include/
+	@sudo cp -rf lib/* $(DEVKITPRO)/portlibs/3ds/lib/
+	@sudo cp -rf includes/* $(DEVKITPRO)/portlibs/3ds/include/
 
 lib:
 	@[ -d $@ ] || mkdir -p $@
