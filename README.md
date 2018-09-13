@@ -102,7 +102,9 @@ This module isn't availiable at the moment. However, it's planned features are:
 ...and anything that strikes my mind in the future.
 
 ## Installation
-To install the library, download the latest release and then execute the following commands:
+To install the library, download the latest release-build and execute the command `make install`.
+
+To build it from the source, clone the repository and execute the following commands:
 
 ```
 make
