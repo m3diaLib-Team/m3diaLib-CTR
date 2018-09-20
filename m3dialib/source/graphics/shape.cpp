@@ -21,8 +21,7 @@ namespace m3d {
         m_changed = true;
     }
 
-    void Shape::draw(bool, int) {
-        if (m_changed) {
+    void Shape::draw(m3d::RenderContext t_context) {
             m_changed = false;
 
             std::vector<std::vector<std::array<double, 2>>> polygon;
@@ -34,7 +33,6 @@ namespace m3d {
 
             polygon.push_back(polyline);
             m_indices = mapbox::earcut<uint16_t>(polygon);
-        }
 
         for (unsigned int i = 0; i < m_indices.size(); i += 3) {
             C2D_DrawTriangle(

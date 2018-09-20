@@ -132,7 +132,7 @@ namespace m3d {
         return m_baseline;
     }
 
-    void Text::draw(bool, int) {
+    void Text::draw(m3d::RenderContext t_context) {
         C2D_DrawText(
                     &m_textObject,
                     (m_baseline ? C2D_AtBaseline | C2D_WithColor : C2D_WithColor),

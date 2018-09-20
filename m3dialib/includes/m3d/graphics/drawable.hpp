@@ -7,23 +7,23 @@
 
 #pragma once
 #include <citro3d.h>
+#include "renderContext.hpp"
 
 namespace m3d {
     /**
      * @brief The base class for all drawable classes.
      *
-     * To create your own drawable class, create a child class of this one and implement the draw()-function.
+     * To create your own drawable class, create a child class of this one and implement the draw()-method.
      */
     class Drawable {
     public:
         /**
          * @brief Draws the drawable object
-         * @param t_3dEnabled Whether stereoscopic 3D is enabled or not
-         * @param t_side      The current 3D side (0 = left, 1 = right)
+         * @param t_context the RenderContext
          *
-         * Implement this function in your own class to draw stuff on the screen using Citro2D-functions.
+         * Implement this function in your own class to draw stuff on the screen using Citro3D/2D-functions.
          */
-        virtual void draw(bool t_3dEnabled = false, int t_side = 0) = 0;
+        virtual void draw(m3d::RenderContext t_context) = 0;
     };
 } /* m3d */
 
