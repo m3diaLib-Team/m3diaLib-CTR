@@ -321,6 +321,7 @@ namespace m3d {
         C3D_TexEnvInit(env);
         C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, GPU_PRIMARY_COLOR, GPU_PRIMARY_COLOR);
         C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
+        C3D_CullFace(GPU_CULL_BACK_CCW);
         C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
     }
 } /* m3d */
