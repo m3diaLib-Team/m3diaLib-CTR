@@ -13,7 +13,6 @@
 #include "renderTarget.hpp"
 #include "drawable.hpp"
 #include "color.hpp"
-
 /**
  * @brief The general m3d-namespace
  */
@@ -101,6 +100,7 @@ namespace m3d {
         void clear();
     private:
         void prepare();
+        void prepareLights(m3d::RenderContext::ScreenTarget t_target);
 
         /* data */
         int m_projectionUniform, m_modelViewUniform, m_lightVecUniform, m_lightHalfVecUniform, m_lightColorUniform, m_materialUniform;
@@ -111,7 +111,10 @@ namespace m3d {
         DVLB_s *m_dvlb;
         shaderProgram_s m_shader;
         C3D_AttrInfo* m_attributeInfo;
-        C3D_Mtx m_projection, m_projectionBottom, m_modelView, m_modelViewBottom;
+        C3D_Mtx m_projection, m_modelView;
+        C3D_LightEnv m_lightEnvTop, m_lightEnvBottom;
+        C3D_Light m_lightTop, m_lightBottom;
+        C3D_LightLut m_lutPhongTop, m_lutPhongBottom;
     };
 } /* m3d */
 

@@ -13,9 +13,9 @@ namespace m3d {
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
         gfxSet3D(t_enable3d);
         m_3dEnabled = t_enable3d;
-        m_targetTopLeft  = new m3d::RenderTarget(400, 240, m3d::RenderContext::ScreenTarget::Top, m3d::RenderContext::Stereo3dSide::Left);
-        m_targetTopRight = new m3d::RenderTarget(400, 240, m3d::RenderContext::ScreenTarget::Top, m3d::RenderContext::Stereo3dSide::Right);
-        m_targetBottom   = new m3d::RenderTarget(320, 240, m3d::RenderContext::ScreenTarget::Bottom, m3d::RenderContext::Stereo3dSide::Left);
+        m_targetTopLeft  = new m3d::RenderTarget(400, 240);
+        m_targetTopRight = new m3d::RenderTarget(400, 240);
+        m_targetBottom   = new m3d::RenderTarget(320, 240);
 
         u32 flags = GX_TRANSFER_FLIP_VERT(0) | GX_TRANSFER_OUT_TILED(0) | GX_TRANSFER_RAW_COPY(0) | GX_TRANSFER_IN_FORMAT(GX_TRANSFER_FMT_RGBA8) | GX_TRANSFER_OUT_FORMAT(GX_TRANSFER_FMT_RGB8) | GX_TRANSFER_SCALING(GX_TRANSFER_SCALE_NO);
 
@@ -30,10 +30,6 @@ namespace m3d {
         // get location of uniforms used in the vertex shader.
         m_projectionUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "projection");
         m_modelViewUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "modelView");
-        m_lightVecUniform     = shaderInstanceGetUniformLocation(m_shader.vertexShader, "lightVec");
-        m_lightHalfVecUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "lightHalfVec");
-        m_lightColorUniform     = shaderInstanceGetUniformLocation(m_shader.vertexShader, "lightClr");
-        m_materialUniform     = shaderInstanceGetUniformLocation(m_shader.vertexShader, "material");
 
         clear();
     }
@@ -44,6 +40,10 @@ namespace m3d {
         C2D_Fini();
         C3D_Fini();
         gfxExit();
+        delete m_targetTopLeft;
+        delete m_targetTopRight;
+        delete m_targetBottom;
+        delete m_attributeInfo;
     }
 
     void Screen::set3d(bool t_enabled) {
@@ -123,22 +123,22 @@ namespace m3d {
 
             if(m_drawStackBottom3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetBottom->getRenderTarget());
+                prepareLights(m3d::RenderContext::ScreenTarget::Bottom);
 
                 for(const auto &entry : m_drawStackBottom3d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
                         drawable->draw(m3d::RenderContext(
                                 m_projectionUniform,   // projectionUniform
                                 m_modelViewUniform,    // modelViewUniform
-                                m_lightVecUniform,     // lightVecUniform
-                                m_lightHalfVecUniform, // lightHalfVecUniform
-                                m_lightColorUniform,   // lightColorUniform
-                                m_materialUniform,     // materialUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Spatial,        // mode
                                 m3d::RenderContext::Stereo3dSide::Left,   // side
                                 m3d::RenderContext::ScreenTarget::Bottom, // target
                                 m_projection, // projection
-                                m_modelView   // model
+                                m_modelView,  // model
+                                m_lightEnvBottom, // lightEnv
+                                m_lightBottom,    // light
+                                m_lutPhongBottom  // lutPhong
                             ));
                     }
                 }
@@ -148,6 +148,8 @@ namespace m3d {
 
             if (m_drawStackTop3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetTopLeft->getRenderTarget());
+                prepareLights(m3d::RenderContext::ScreenTarget::Top);
+
                 // tilt stereo perspective
                 if (m_3dEnabled) {
                     Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, osGet3DSliderState() / 3.0f, 2.0f, false);
@@ -160,22 +162,22 @@ namespace m3d {
                         drawable->draw(m3d::RenderContext(
                                 m_projectionUniform,   // projectionUniform
                                 m_modelViewUniform,    // modelViewUniform
-                                m_lightVecUniform,     // lightVecUniform
-                                m_lightHalfVecUniform, // lightHalfVecUniform
-                                m_lightColorUniform,   // lightColorUniform
-                                m_materialUniform,     // materialUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Spatial,      // mode
                                 m3d::RenderContext::Stereo3dSide::Left, // side
                                 m3d::RenderContext::ScreenTarget::Top,  // target
                                 m_projection, // projection
-                                m_modelView   // model
+                                m_modelView,  // model
+                                m_lightEnvTop, // lightEnv
+                                m_lightTop,    // light
+                                m_lutPhongTop  // lutPhong
                             ));
                     }
                 }
 
                 if (m_3dEnabled) {
                     C3D_FrameDrawOn(m_targetTopRight->getRenderTarget());
+
                     // tilt stereo perspective
                     if (m_3dEnabled) {
                         Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, -(osGet3DSliderState() / 3.0f), 2.0f, false);
@@ -188,16 +190,15 @@ namespace m3d {
                             drawable->draw(m3d::RenderContext(
                                     m_projectionUniform,   // projectionUniform
                                     m_modelViewUniform,    // modelViewUniform
-                                    m_lightVecUniform,     // lightVecUniform
-                                    m_lightHalfVecUniform, // lightHalfVecUniform
-                                    m_lightColorUniform,   // lightColorUniform
-                                    m_materialUniform,     // materialUniform
                                     m_3dEnabled, // 3dEnabled
                                     m3d::RenderContext::Mode::Spatial,       // mode
                                     m3d::RenderContext::Stereo3dSide::Right, // side
                                     m3d::RenderContext::ScreenTarget::Top,   // target
                                     m_projection, // projection
-                                    m_modelView   // modelview
+                                    m_modelView,  // model
+                                    m_lightEnvTop, // lightEnv
+                                    m_lightTop,    // light
+                                    m_lutPhongTop  // lutPhong
                                 ));
                         }
                     }
@@ -220,16 +221,15 @@ namespace m3d {
                         drawable->draw(m3d::RenderContext(
                                 m_projectionUniform,   // projectionUniform
                                 m_modelViewUniform,    // modelViewUniform
-                                m_lightVecUniform,     // lightVecUniform
-                                m_lightHalfVecUniform, // lightHalfVecUniform
-                                m_lightColorUniform,   // lightColorUniform
-                                m_materialUniform,     // materialUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Flat,           // mode
                                 m3d::RenderContext::Stereo3dSide::Left,   // side
                                 m3d::RenderContext::ScreenTarget::Bottom, // target
                                 m_projection, // projection
-                                m_modelView   // modelview
+                                m_modelView,  // model
+                                m_lightEnvBottom, // lightEnv
+                                m_lightBottom,    // light
+                                m_lutPhongBottom  // lutPhong
                             ));
                     }
                 }
@@ -245,16 +245,15 @@ namespace m3d {
                         drawable->draw(m3d::RenderContext(
                                 m_projectionUniform,   // projectionUniform
                                 m_modelViewUniform,    // modelViewUniform
-                                m_lightVecUniform,     // lightVecUniform
-                                m_lightHalfVecUniform, // lightHalfVecUniform
-                                m_lightColorUniform,   // lightColorUniform
-                                m_materialUniform,     // materialUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Flat,         // mode
                                 m3d::RenderContext::Stereo3dSide::Left, // side
                                 m3d::RenderContext::ScreenTarget::Top,  // target
                                 m_projection, // projection
-                                m_modelView   // model
+                                m_modelView,  // model
+                                m_lightEnvTop, // lightEnv
+                                m_lightTop,    // light
+                                m_lutPhongTop  // lutPhong
                             ));
                     }
                 }
@@ -267,16 +266,15 @@ namespace m3d {
                             drawable->draw(m3d::RenderContext(
                                     m_projectionUniform,   // projectionUniform
                                     m_modelViewUniform,    // modelViewUniform
-                                    m_lightVecUniform,     // lightVecUniform
-                                    m_lightHalfVecUniform, // lightHalfVecUniform
-                                    m_lightColorUniform,   // lightColorUniform
-                                    m_materialUniform,     // materialUniform
                                     m_3dEnabled, // 3dEnabled
                                     m3d::RenderContext::Mode::Flat,          // mode
                                     m3d::RenderContext::Stereo3dSide::Right, // side
                                     m3d::RenderContext::ScreenTarget::Top,   // target
                                     m_projection, // projection
-                                    m_modelView   // model
+                                    m_modelView,  // model
+                                    m_lightEnvTop, // lightEnv
+                                    m_lightTop,    // light
+                                    m_lutPhongTop  // lutPhong
                                 ));
                         }
                     }
@@ -319,9 +317,42 @@ namespace m3d {
         // See https://www.opengl.org/sdk/docs/man2/xhtml/glTexEnv.xml for more insight
         C3D_TexEnv* env = C3D_GetTexEnv(0);
         C3D_TexEnvInit(env);
-        C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, GPU_PRIMARY_COLOR, GPU_PRIMARY_COLOR);
-        C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
+        C3D_TexEnvSrc(env, C3D_Both, GPU_FRAGMENT_PRIMARY_COLOR, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
+        C3D_TexEnvFunc(env, C3D_Both, GPU_ADD);
+
         C3D_CullFace(GPU_CULL_BACK_CCW);
         C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
+    }
+
+    void Screen::prepareLights(m3d::RenderContext::ScreenTarget t_target) {
+        C3D_FVec lightVec;
+
+        switch (t_target) {
+            case m3d::RenderContext::ScreenTarget::Bottom:
+                C3D_LightEnvInit(&m_lightEnvBottom);
+                C3D_LightEnvBind(&m_lightEnvBottom);
+
+                LightLut_Phong(&m_lutPhongBottom, 30);
+                C3D_LightEnvLut(&m_lightEnvBottom, GPU_LUT_D0, GPU_LUTINPUT_LN, false, &m_lutPhongBottom);
+
+                lightVec = FVec4_New(0.0f, 0.0f, -0.5f, 1.0f);
+
+                C3D_LightInit(&m_lightBottom, &m_lightEnvBottom);
+                C3D_LightColor(&m_lightBottom, 1.0, 1.0, 1.0);
+                C3D_LightPosition(&m_lightBottom, &lightVec);
+                break;
+            default:
+                C3D_LightEnvInit(&m_lightEnvTop);
+                C3D_LightEnvBind(&m_lightEnvTop);
+
+                LightLut_Phong(&m_lutPhongTop, 30);
+                C3D_LightEnvLut(&m_lightEnvTop, GPU_LUT_D0, GPU_LUTINPUT_LN, false, &m_lutPhongTop);
+
+                lightVec = FVec4_New(0.0f, 0.0f, -0.5f, 1.0f);
+
+                C3D_LightInit(&m_lightTop, &m_lightEnvTop);
+                C3D_LightColor(&m_lightTop, 1.0, 1.0, 1.0);
+                C3D_LightPosition(&m_lightTop, &lightVec);
+        }
     }
 } /* m3d */
