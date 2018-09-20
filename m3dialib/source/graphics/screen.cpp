@@ -12,7 +12,6 @@ namespace m3d {
         C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
         gfxSet3D(t_enable3d);
-        C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
         m_3dEnabled = t_enable3d;
         m_targetTopLeft  = new m3d::RenderTarget(400, 240, m3d::RenderContext::ScreenTarget::Top, m3d::RenderContext::Stereo3dSide::Left);
         m_targetTopRight = new m3d::RenderTarget(400, 240, m3d::RenderContext::ScreenTarget::Top, m3d::RenderContext::Stereo3dSide::Right);
@@ -120,6 +119,7 @@ namespace m3d {
         // draw 3d
         if(m_drawStackTop3d.size() > 0 || m_drawStackBottom3d.size() > 0) {
             prepare();
+            Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioBot, 0.01f, 1000.0f, 0, 2.0f, false);
 
             if(m_drawStackBottom3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetBottom->getRenderTarget());
@@ -148,6 +148,12 @@ namespace m3d {
 
             if (m_drawStackTop3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetTopLeft->getRenderTarget());
+                // tilt stereo perspective
+                if (m_3dEnabled) {
+                    Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, osGet3DSliderState() / 3.0f, 2.0f, false);
+                } else {
+                    Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, 0, 2.0f, false);
+                }
 
                 for (const auto &entry : m_drawStackTop3d) { // for every layer
                     for (const auto &drawable : entry.second) { // draw every object
@@ -170,6 +176,12 @@ namespace m3d {
 
                 if (m_3dEnabled) {
                     C3D_FrameDrawOn(m_targetTopRight->getRenderTarget());
+                    // tilt stereo perspective
+                    if (m_3dEnabled) {
+                        Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, -(osGet3DSliderState() / 3.0f), 2.0f, false);
+                    } else {
+                        Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, 0, 2.0f, false);
+                    }
 
                     for (const auto &entry : m_drawStackTop3d) { // for every layer
                         for (const auto &drawable : entry.second) { // draw every object
@@ -198,6 +210,7 @@ namespace m3d {
         // draw 2d
         if (m_drawStackTop2d.size() > 0 || m_drawStackBottom2d.size() > 0) {
             C2D_Prepare();
+            C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
 
             if(m_drawStackBottom2d.size() > 0) {
                 C2D_SceneBegin(m_targetBottom->getRenderTarget());
@@ -304,13 +317,10 @@ namespace m3d {
         // Configure the first fragment shading substage to blend the fragment primary color
         // with the fragment secondary color.
         // See https://www.opengl.org/sdk/docs/man2/xhtml/glTexEnv.xml for more insight
-        // C3D_TexEnv* environment = C3D_GetTexEnv(0);
-        // C3D_TexEnvSrc(environment, C3D_Both, GPU_FRAGMENT_PRIMARY_COLOR, GPU_FRAGMENT_SECONDARY_COLOR, (GPU_TEVSRC) 0);
-        // C3D_TexEnvOp(environment, C3D_Both, 0, 0, 0);
-        // C3D_TexEnvFunc(environment, C3D_Both, GPU_ADD);
         C3D_TexEnv* env = C3D_GetTexEnv(0);
         C3D_TexEnvInit(env);
         C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, GPU_PRIMARY_COLOR, GPU_PRIMARY_COLOR);
-        C3D_TexEnvFunc(env, C3D_Both, GPU_MODULATE);
+        C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
+        C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
     }
 } /* m3d */
