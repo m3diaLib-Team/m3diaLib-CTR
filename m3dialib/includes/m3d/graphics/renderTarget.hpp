@@ -6,8 +6,7 @@
 #define RENDERTARGET_H
 
 #pragma once
-#include <citro3d.h>
-#include "renderContext.hpp"
+#include <citro2d.h>
 
 namespace m3d {
     /**
@@ -20,10 +19,8 @@ namespace m3d {
          * @brief Creates a render target
          * @param t_width  The width of the target
          * @param t_height The height of the target
-         * @param t_screen The screen
-         * @param t_side   The side
          */
-        RenderTarget(int t_width, int t_height, m3d::RenderContext::ScreenTarget t_screen, m3d::RenderContext::Stereo3dSide t_side = m3d::RenderContext::Stereo3dSide::Left);
+        RenderTarget(int t_width, int t_height);
 
         /**
          * @brief Returns the render target

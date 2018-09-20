@@ -1,13 +1,12 @@
-#include <citro2d.h>
 #include "m3d/graphics/renderTarget.hpp"
 #include "m3d/graphics/color.hpp"
 
 namespace m3d {
-    RenderTarget::RenderTarget(int t_width, int t_height, m3d::RenderContext::ScreenTarget t_screen, m3d::RenderContext::Stereo3dSide t_side) :
+    RenderTarget::RenderTarget(int t_width, int t_height) :
         m_width(t_width),
         m_height(t_height),
         m_clearColor(RGBA8(0, 0, 0, 255)) {
-            m_target = C2D_CreateScreenTarget((t_screen == m3d::RenderContext::ScreenTarget::Top ? GFX_TOP : GFX_BOTTOM), (t_side == m3d::RenderContext::Stereo3dSide::Left ? GFX_LEFT : GFX_RIGHT));
+            m_target = C3D_RenderTargetCreate(t_height, t_width, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);
     }
 
     C3D_RenderTarget* RenderTarget::getRenderTarget() {
