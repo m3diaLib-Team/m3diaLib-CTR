@@ -70,6 +70,8 @@ namespace m3d {
 
         C3D_Mtx& getModelViewMatrix();
 
+        void enableTextures(bool t_enable);
+
     private:
         /* data */
         int m_projectionUniformLocation, m_modelViewUniformLocation, m_lightVecUniformLocation, m_lightHalfVecUniformLocation, m_lightColorUniformLocation, m_materialUniformLocation;

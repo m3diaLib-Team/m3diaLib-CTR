@@ -75,4 +75,23 @@ namespace m3d {
     C3D_Mtx& RenderContext::getModelViewMatrix() {
         return m_modelView;
     }
+
+    void RenderContext::enableTextures(bool t_enable) {
+        C3D_TexEnv* env;
+
+        switch (t_enable) {
+            case true:
+                env = C3D_GetTexEnv(0);
+                C3D_TexEnvInit(env);
+                C3D_TexEnvSrc(env, C3D_Both, GPU_FRAGMENT_PRIMARY_COLOR, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
+                C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
+                C3D_TexEnvFunc(env, C3D_Both, GPU_ADD);
+                break;
+            default:
+                env = C3D_GetTexEnv(0);
+                C3D_TexEnvInit(env);
+                C3D_TexEnvSrc(env, C3D_Both, GPU_FRAGMENT_PRIMARY_COLOR, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
+                C3D_TexEnvFunc(env, C3D_Both, GPU_ADD);
+        }
+    }
 } /* m3d */
