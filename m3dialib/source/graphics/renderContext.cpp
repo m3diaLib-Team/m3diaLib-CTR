@@ -4,29 +4,27 @@ namespace m3d {
     RenderContext::RenderContext(
         int t_projectionUniform,
         int t_modelViewUniform,
-        int t_lightVecUniform,
-        int t_lightHalfVecUniform,
-        int t_lightColorUniform,
-        int t_materialUniform,
         bool t_3dEnabled,
         m3d::RenderContext::Mode t_mode,
         m3d::RenderContext::Stereo3dSide t_side,
         m3d::RenderContext::ScreenTarget t_target,
         C3D_Mtx& t_projection,
-        C3D_Mtx& t_modelView
+        C3D_Mtx& t_modelView,
+        C3D_LightEnv& t_lightEnv,
+        C3D_Light& t_light,
+        C3D_LightLut& t_lightLut
     ) :
     m_projectionUniformLocation(t_projectionUniform),
     m_modelViewUniformLocation(t_modelViewUniform),
-    m_lightVecUniformLocation(t_lightVecUniform),
-    m_lightHalfVecUniformLocation(t_lightHalfVecUniform),
-    m_lightColorUniformLocation(t_lightColorUniform),
-    m_materialUniformLocation(t_materialUniform),
     m_3dEnabled(t_3dEnabled),
     m_mode(t_mode),
     m_side(t_side),
     m_target(t_target),
     m_projection(t_projection),
-    m_modelView(t_modelView) { /* do nothing */ }
+    m_modelView(t_modelView),
+    m_lightEnv(t_lightEnv),
+    m_light(t_light),
+    m_lightLut(t_lightLut) { /* do nothing */ }
 
     int RenderContext::getProjectionUniform() {
         return m_projectionUniformLocation;
@@ -34,22 +32,6 @@ namespace m3d {
 
     int RenderContext::getModelViewUniform() {
         return m_modelViewUniformLocation;
-    }
-
-    int RenderContext::getLightVecUniform() {
-        return m_lightVecUniformLocation;
-    }
-
-    int RenderContext::getLightHalfVecUniform() {
-        return m_lightHalfVecUniformLocation;
-    }
-
-    int RenderContext::getLightColorUniform() {
-        return m_lightColorUniformLocation;
-    }
-
-    int RenderContext::getMaterialUniform() {
-        return m_materialUniformLocation;
     }
 
     bool RenderContext::is3dEnabled() {
@@ -74,6 +56,18 @@ namespace m3d {
 
     C3D_Mtx& RenderContext::getModelViewMatrix() {
         return m_modelView;
+    }
+
+    C3D_LightEnv& RenderContext::getLightEnvironment() {
+        return m_lightEnv;
+    }
+
+    C3D_Light& RenderContext::getLight() {
+        return m_light;
+    }
+
+    C3D_LightLut& RenderContext::getLightLut() {
+        return m_lightLut;
     }
 
     void RenderContext::enableTextures(bool t_enable) {
