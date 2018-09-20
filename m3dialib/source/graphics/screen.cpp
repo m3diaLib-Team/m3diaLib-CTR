@@ -14,9 +14,9 @@ namespace m3d {
         gfxSet3D(t_enable3d);
         C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
         m_3dEnabled = t_enable3d;
-        m_targetTopLeft  = new m3d::RenderTarget(400, 240, GFX_TOP, GFX_LEFT);
-        m_targetTopRight = new m3d::RenderTarget(400, 240, GFX_TOP, GFX_RIGHT);
-        m_targetBottom   = new m3d::RenderTarget(320, 240, GFX_BOTTOM, GFX_LEFT);
+        m_targetTopLeft  = new m3d::RenderTarget(400, 240, m3d::RenderContext::ScreenTarget::Top, m3d::RenderContext::Stereo3dSide::Left);
+        m_targetTopRight = new m3d::RenderTarget(400, 240, m3d::RenderContext::ScreenTarget::Top, m3d::RenderContext::Stereo3dSide::Right);
+        m_targetBottom   = new m3d::RenderTarget(320, 240, m3d::RenderContext::ScreenTarget::Bottom, m3d::RenderContext::Stereo3dSide::Left);
 
         u32 flags = GX_TRANSFER_FLIP_VERT(0) | GX_TRANSFER_OUT_TILED(0) | GX_TRANSFER_RAW_COPY(0) | GX_TRANSFER_IN_FORMAT(GX_TRANSFER_FMT_RGBA8) | GX_TRANSFER_OUT_FORMAT(GX_TRANSFER_FMT_RGB8) | GX_TRANSFER_SCALING(GX_TRANSFER_SCALE_NO);
 
