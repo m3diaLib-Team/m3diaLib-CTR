@@ -148,7 +148,6 @@ namespace m3d {
         png_destroy_read_struct(&png, &info, NULL);
 
         unloadImage(m_image);
-        C3D_TexSetFilter(m_texture, GPU_LINEAR, GPU_LINEAR);
 
         m_texture = static_cast<C3D_Tex*>(malloc(sizeof(C3D_Tex)));
         m_image.tex = m_texture;
@@ -174,8 +173,8 @@ namespace m3d {
             }
         }
 
+        C3D_TexSetFilter(m_texture, GPU_LINEAR, GPU_LINEAR);
         m_image.tex->border = 0xFFFFFFFF;
-        C3D_TexSetWrap(m_image.tex, GPU_CLAMP_TO_BORDER, GPU_CLAMP_TO_BORDER);
 
         return true;
     }
