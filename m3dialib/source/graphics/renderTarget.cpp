@@ -3,14 +3,6 @@
 #include "m3d/graphics/color.hpp"
 
 namespace m3d {
-    RenderTarget::RenderTarget(int t_width, int t_height) :
-        m_width(t_width),
-        m_height(t_height),
-        m_clearColor(RGBA8(0, 0, 0, 255)) {
-            m_target = C3D_RenderTargetCreate(t_height, t_width, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);
-            Mtx_OrthoTilt(&m_projection, 0.0f, t_width, t_height, 0.0f, 0.0f, 1.0f, true);
-    }
-
     RenderTarget::RenderTarget(int t_width, int t_height, gfxScreen_t t_screen, gfx3dSide_t t_side = GFX_LEFT) :
         m_width(t_width),
         m_height(t_height),
@@ -20,10 +12,6 @@ namespace m3d {
 
     C3D_RenderTarget* RenderTarget::getRenderTarget() {
         return m_target;
-    }
-
-    C3D_Mtx* RenderTarget::getProjectionMatrix() {
-        return &m_projection;
     }
 
     int RenderTarget::getWidth() {
