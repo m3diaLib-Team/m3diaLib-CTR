@@ -3,11 +3,11 @@
 #include "m3d/graphics/color.hpp"
 
 namespace m3d {
-    RenderTarget::RenderTarget(int t_width, int t_height, gfxScreen_t t_screen, gfx3dSide_t t_side = GFX_LEFT) :
+    RenderTarget::RenderTarget(int t_width, int t_height, m3d::RenderContext::ScreenTarget t_screen, m3d::RenderContext::Stereo3dSide t_side) :
         m_width(t_width),
         m_height(t_height),
         m_clearColor(RGBA8(0, 0, 0, 255)) {
-            m_target = C2D_CreateScreenTarget(t_screen, t_side);
+            m_target = C2D_CreateScreenTarget((t_screen == m3d::RenderContext::ScreenTarget::Top ? GFX_TOP : GFX_BOTTOM), (t_side == m3d::RenderContext::Stereo3dSide::Left ? GFX_LEFT : GFX_RIGHT));
     }
 
     C3D_RenderTarget* RenderTarget::getRenderTarget() {

@@ -7,6 +7,7 @@
 
 #pragma once
 #include <citro3d.h>
+#include "renderContext.hpp"
 
 namespace m3d {
     /**
@@ -19,10 +20,10 @@ namespace m3d {
          * @brief Creates a render target
          * @param t_width  The width of the target
          * @param t_height The height of the target
-         * @param t_screen The screen (GFX_TOP or GFX_BOTTOM)
-         * @param t_side   The side (GFX_LEFT or GFX_RIGHT)
+         * @param t_screen The screen
+         * @param t_side   The side
          */
-        RenderTarget(int t_width, int t_height, gfxScreen_t t_screen, gfx3dSide_t t_side);
+        RenderTarget(int t_width, int t_height, m3d::RenderContext::ScreenTarget t_screen, m3d::RenderContext::Stereo3dSide t_side = m3d::RenderContext::Stereo3dSide::Left);
 
         /**
          * @brief Returns the render target
