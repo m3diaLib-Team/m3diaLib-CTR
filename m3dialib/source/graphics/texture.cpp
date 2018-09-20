@@ -173,7 +173,8 @@ namespace m3d {
             }
         }
 
-        C3D_TexSetFilter(m_texture, GPU_LINEAR, GPU_LINEAR);
+        // C3D_TexSetFilter(m_texture, GPU_LINEAR, GPU_LINEAR);
+        C3D_TexSetWrap(m_image.tex, GPU_CLAMP_TO_BORDER, GPU_CLAMP_TO_BORDER);
         m_image.tex->border = 0xFFFFFFFF;
 
         return true;
