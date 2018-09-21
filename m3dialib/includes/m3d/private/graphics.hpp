@@ -3,12 +3,12 @@
 
 #pragma once
 #include <citro3d.h>
+#include "m3d/graphics/material.hpp"
 
 namespace m3d {
     namespace priv {
         namespace graphics {
-            extern const C3D_Material material;
-            extern const C3D_Mtx materialMatrix;
+            extern const m3d::Material defaultMaterial;
         } /* graphics */
     } /* priv */
 } /* m3d */
