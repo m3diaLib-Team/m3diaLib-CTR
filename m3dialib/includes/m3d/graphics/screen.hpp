@@ -103,15 +103,32 @@ namespace m3d {
         void prepareLights(m3d::RenderContext::ScreenTarget t_target);
 
         /* data */
-        int m_projectionUniform, m_modelViewUniform, m_lightVecUniform, m_lightHalfVecUniform, m_lightColorUniform, m_materialUniform;
+        int m_projectionUniform, m_modelViewUniform;
         bool m_3dEnabled;
         m3d::Color m_clearColorTop, m_clearColorBottom;
-        m3d::RenderTarget *m_targetTopLeft, *m_targetTopRight, *m_targetBottom;
-        std::map<int, std::vector<m3d::Drawable*>, std::less<int>> m_drawStackTop2d, m_drawStackTop3d, m_drawStackBottom2d, m_drawStackBottom3d;
-        DVLB_s *m_dvlb;
+
+        // rendertargets
+        m3d::RenderTarget *m_targetTopLeft,
+                          *m_targetTopRight,
+                          *m_targetBottom;
+
+        // draw stacks
+        std::map<int, std::vector<m3d::Drawable*>, std::less<int>> m_drawStackTop2d,
+                                                                   m_drawStackTop3d,
+                                                                   m_drawStackBottom2d,
+                                                                   m_drawStackBottom3d;
+
+        // shader
+        DVLB_s* m_dvlb;
         shaderProgram_s m_shader;
+
+        // attribute information
         C3D_AttrInfo* m_attributeInfo;
+
+        // matrices
         C3D_Mtx m_projection, m_modelView;
+
+        // light
         C3D_LightEnv m_lightEnvTop, m_lightEnvBottom;
         C3D_Light m_lightTop, m_lightBottom;
         C3D_LightLut m_lutPhongTop, m_lutPhongBottom;
