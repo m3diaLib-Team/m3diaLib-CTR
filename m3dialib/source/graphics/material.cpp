@@ -14,17 +14,20 @@ namespace m3d {
         updateMaterial();
     }
 
+    Material::Material(const m3d::Material& t_source) {
+        operator=(t_source);
+    }
+
     Material::~Material() {
         delete m_material;
     }
 
     void Material::setMaterial(C3D_Material t_material) {
-        m_ambient.setColor(t_material.ambient[2], t_material.ambient[1], t_material.ambient[0]);
-        m_diffuse.setColor(t_material.diffuse[2], t_material.diffuse[1], t_material.diffuse[0]);
-        m_specular0.setColor(t_material.specular0[2], t_material.specular0[1], t_material.specular0[0]);
-        m_specular1.setColor(t_material.specular1[2], t_material.specular1[1], t_material.specular1[0]);
-        m_emission.setColor(t_material.emission[2], t_material.emission[1], t_material.emission[0]);
-
+        m_ambient.setColor(t_material.ambient[2] * 255, t_material.ambient[1] * 255, t_material.ambient[0] * 255);
+        m_diffuse.setColor(t_material.diffuse[2] * 255, t_material.diffuse[1] * 255, t_material.diffuse[0] * 255);
+        m_specular0.setColor(t_material.specular0[2] * 255, t_material.specular0[1] * 255, t_material.specular0[0] * 255);
+        m_specular1.setColor(t_material.specular1[2] * 255, t_material.specular1[1] * 255, t_material.specular1[0] * 255);
+        m_emission.setColor(t_material.emission[2] * 255, t_material.emission[1] * 255, t_material.emission[0] * 255);
         updateMaterial();
     }
 
@@ -100,6 +103,11 @@ namespace m3d {
 
     m3d::Color Material::getEmission() {
         return m_emission;
+    }
+
+    Material& Material::operator=(const Material& rhs) {
+        setMaterial(*rhs.getMaterial());
+        return *this;
     }
 
     // private methods

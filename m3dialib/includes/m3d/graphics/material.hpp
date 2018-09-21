@@ -27,12 +27,18 @@ namespace m3d {
         Material(C3D_Material t_material);
 
         /**
+         * @brief Copy constructor
+         * @param t_source Material to copy
+         */
+        Material(const m3d::Material& t_source);
+
+        /**
          * @brief Destructs the material
          */
         ~Material();
 
         /**
-         * @brief Sets the material with C3D_Materfial
+         * @brief Sets the material with C3D_Material
          * @param t_material The material to copy
          */
         void setMaterial(C3D_Material t_material);
@@ -122,6 +128,7 @@ namespace m3d {
          * @return The specular1-color
          */
         m3d::Color getSpecular1();
+
         /**
          * @brief Sets the emission-color of the material
          * @param t_color The emission-color
@@ -141,6 +148,13 @@ namespace m3d {
          * @return The emission-color
          */
         m3d::Color getEmission();
+
+        /**
+         * @brief Overloads the assignment operator
+         * @param  rhs The material to copy
+         * @return     A reference to this material
+         */
+        m3d::Material& operator=(const m3d::Material& rhs);
 
     private:
         void updateMaterial();
