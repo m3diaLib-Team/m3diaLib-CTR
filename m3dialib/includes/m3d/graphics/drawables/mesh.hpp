@@ -195,19 +195,19 @@ namespace m3d {
         void setPosition(m3d::Vector3f t_position);
 
         /**
-         * @brief Moves the sprite along the X-axis
+         * @brief Moves the mesh along the X-axis
          * @param t_delta The amount to move
          */
         void moveX(float t_delta);
 
         /**
-         * @brief Moves the sprite along the Y-axis
+         * @brief Moves the mesh along the Y-axis
          * @param t_delta The amount to move
          */
         void moveY(float t_delta);
 
         /**
-         * @brief Moves the sprite along the Z-axis
+         * @brief Moves the mesh along the Z-axis
          * @param t_delta The amount to move
          */
         void moveZ(float t_delta);
@@ -304,7 +304,7 @@ namespace m3d {
         m3d::Texture& getTexture();
 
         /**
-         * @brief Draws the shape
+         * @brief Draws the mesh
          * @param t_context The RenderContext
          */
         void draw(m3d::RenderContext t_context);
