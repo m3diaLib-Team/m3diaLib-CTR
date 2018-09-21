@@ -35,7 +35,7 @@ namespace m3d {
         /**
          * @brief Destructs the material
          */
-        ~Material();
+        virtual ~Material();
 
         /**
          * @brief Sets the material with C3D_Material
