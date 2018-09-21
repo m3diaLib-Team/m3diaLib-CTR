@@ -1,3 +1,7 @@
+/**
+ * @file renderContext.hpp
+ * @brief Defines the RenderContext-class
+ */
 #ifndef RENDERCONTEXT_H
 #define RENDERCONTEXT_H
 
@@ -5,6 +9,9 @@
 #include <citro3d.h>
 
 namespace m3d {
+    /**
+     * @brief The RenderContext-class which holds information about the current rendering process
+     */
     class RenderContext {
     public:
         /**
@@ -31,6 +38,20 @@ namespace m3d {
             Spatial ///< 3D
         };
 
+        /**
+         * @brief Default constructor
+         * @param t_projectionUniform The location of the projection uniform
+         * @param t_modelViewUniform  The location of the model view uniform
+         * @param t_3dEnabled         Whether stereoscopic 3D is enabled
+         * @param t_mode              The current rendering mode
+         * @param t_side              The current side for stereoscopic 3D
+         * @param t_target            The current screen target
+         * @param t_projection        The projection matrix
+         * @param t_modelView         The model view matrix
+         * @param t_lightEnv          The light environment
+         * @param t_light             The light
+         * @param t_lightLut          The light LUT
+         */
         RenderContext(
             int t_projectionUniform,
             int t_modelViewUniform,
@@ -45,28 +66,76 @@ namespace m3d {
             C3D_LightLut& t_lightLut
         );
 
+        /**
+         * @brief Returns the location of the projection uniform
+         * @return The location of the uniform
+         */
         int getProjectionUniform();
 
+        /**
+         * @brief Returns the location of the model view uniform
+         * @return The location of the uniform
+         */
         int getModelViewUniform();
 
+        /**
+         * @brief Returns whether or not stereoscopic 3D is enabled
+         * @return Whether or not stereoscopic 3D is enabled
+         */
         bool is3dEnabled();
 
+        /**
+         * @brief Returns the current rendering mode (flat (2D) or spatial (3D))
+         * @return The current mode
+         */
         m3d::RenderContext::Mode getMode();
 
+        /**
+         * @brief Returns the current side for stereoscopic 3D
+         * @return The current side
+         */
         m3d::RenderContext::Stereo3dSide getSide();
 
+        /**
+         * @brief Returns the current screen target
+         * @return The current target
+         */
         m3d::RenderContext::ScreenTarget getScreenTarget();
 
+        /**
+         * @brief Returns the projection matrix
+         * @return The projection matrix
+         */
         C3D_Mtx& getProjectionMatrix();
 
+        /**
+         * @brief Returns the model view matrix
+         * @return The model view matrix
+         */
         C3D_Mtx& getModelViewMatrix();
 
+        /**
+         * @brief Returns the light environment
+         * @return The light environment
+         */
         C3D_LightEnv& getLightEnvironment();
 
+        /**
+         * @brief Returns the light
+         * @return The light
+         */
         C3D_Light& getLight();
 
+        /**
+         * @brief Returns the light LUT
+         * @return The light LUT
+         */
         C3D_LightLut& getLightLut();
 
+        /**
+         * @brief Enables or disables textures
+         * @param t_enable Whether or not to enable textures
+         */
         void enableTextures(bool t_enable);
 
     private:
