@@ -1,13 +1,15 @@
 ; Example PICA200 vertex shader
+; For more in-depth information, see the following Manual:
+; https://github.com/fincs/picasso/blob/master/Manual.md
 
 ; Uniforms
-.fvec projection[4], modelView[4]
+.fvec projection[4], model[4], view[4]
 
 ; Constants
 .constf myconst(0.0, 1.0, -1.0, 0.5)
 .alias  zeros myconst.xxxx ; Vector full of zeros
 .alias  ones  myconst.yyyy ; Vector full of ones
-.alias  half  myconst.wwww
+.alias  half  myconst.wwww ; Vector full of 0.5
 
 ; Outputs
 .out outpos position
@@ -17,25 +19,34 @@
 .out outnq normalquat
 
 ; Inputs (defined as aliases for convenience)
-.alias inpos v0
-.alias intex v1
-.alias innrm v2
+.alias inpos v0 ; Goes with AttrInfo_AddLoader register ID value.
+.alias intex v1 ; Same for v1 and v2.
+.alias innrm v2 ; v0: Position, v1: Texture Coordinates, v2: Normals.
 
 .proc main
-	; Force the w component of inpos to be 1.0
-	mov r0.xyz, inpos
-	mov r0.w,   ones
+	; Vertex position vectors.
+	mov r0.xyz, inpos.xyz
+	mov r0.w, myconst.y     ; This is how you set the variables with a constant.
+	                        ; Homeogeneous coordinates:
+                            ; If w == 1, then the vector is a position. Else if w == 0, it's a direction.
 
-	; r1 = modelView * inpos
-	dp4 r1.x, modelView[0], r0
-	dp4 r1.y, modelView[1], r0
-	dp4 r1.z, modelView[2], r0
-	dp4 r1.w, modelView[3], r0
+	; r1 = modelview matrix, (model matrix * vertex positions)
+	dp4 r2.x, model[0], r0
+	dp4 r2.y, model[1], r0
+	dp4 r2.z, model[2], r0
+	dp4 r2.w, model[3], r0
+
+
+	; r1 = modelview matrix, (view * results)
+	dp4 r1.x, view[0], r2
+	dp4 r1.y, view[1], r2
+	dp4 r1.z, view[2], r2
+	dp4 r1.w, view[3], r2
 
 	; outview = -r1
 	mov outview, -r1
 
-	; outpos = projection * r1
+	; outpos = modelview projection matrix, (projection * results)
 	dp4 outpos.x, projection[0], r1
 	dp4 outpos.y, projection[1], r1
 	dp4 outpos.z, projection[2], r1
@@ -46,9 +57,9 @@
 
 	; Transform the normal vector with the modelView matrix
 	; TODO: use a separate normal matrix that is the transpose of the inverse of modelView
-	dp3 r14.x, modelView[0], innrm
-	dp3 r14.y, modelView[1], innrm
-	dp3 r14.z, modelView[2], innrm
+	dp3 r14.x, model[0], innrm
+	dp3 r14.y, model[1], innrm
+	dp3 r14.z, model[2], innrm
 	dp3 r6.x, r14, r14
 	rsq r6.x, r6.x
 	mul r14.xyz, r14.xyz, r6.x
