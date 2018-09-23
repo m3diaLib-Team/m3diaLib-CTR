@@ -105,7 +105,7 @@ namespace m3d {
         Mtx_RotateX(&m_view, m_rotationX, true);
         Mtx_RotateY(&m_view, m_rotationY, true);
         Mtx_RotateZ(&m_view, m_rotationZ, true);
-        Mtx_Translate(&m_view, -m_posX, m_posY, -m_posZ, true);
+        Mtx_Translate(&m_view, m_posX, m_posY, m_posZ, true);
 
         return m_view;
     }
