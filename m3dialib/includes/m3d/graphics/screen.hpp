@@ -10,9 +10,10 @@
 #include <cstring>
 #include <map>
 #include <vector>
-#include "renderTarget.hpp"
-#include "drawable.hpp"
+#include "camera.hpp"
 #include "color.hpp"
+#include "drawable.hpp"
+#include "renderTarget.hpp"
 /**
  * @brief The general m3d-namespace
  */
@@ -26,7 +27,7 @@ namespace m3d {
          * @brief Initializes the m3d::Screen object
          * @param t_enable3d Whether to enable stereoscopic 3D by default
          */
-        Screen(bool t_enable3d = false);
+        Screen(bool t_enable3d = true);
 
         /**
          * @brief Destructs the screen object
