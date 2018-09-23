@@ -129,7 +129,7 @@ namespace m3d {
         m_material->specular1[2] = (float) m_specular1.getRed() / 255;
 
         m_material->emission[0] = (float) m_emission.getBlue() / 255;
-        m_material->emission[0] = (float) m_emission.getGreen() / 255;
-        m_material->emission[0] = (float) m_emission.getRed() / 255;
+        m_material->emission[1] = (float) m_emission.getGreen() / 255;
+        m_material->emission[2] = (float) m_emission.getRed() / 255;
     }
 } /* m3d */
