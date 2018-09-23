@@ -88,15 +88,15 @@ namespace m3d {
         m_posZ = t_position.z;
     }
 
-    void Camera::moveX(float t_delta, bool t_relative) {
+    void Camera::moveX(float t_delta) {
         m_posX += t_delta;
     }
 
-    void Camera::moveY(float t_delta, bool t_relative) {
+    void Camera::moveY(float t_delta) {
         m_posY += t_delta;
     }
 
-    void Camera::moveZ(float t_delta, bool t_relative) {
+    void Camera::moveZ(float t_delta) {
         m_posZ += t_delta;
     }
 

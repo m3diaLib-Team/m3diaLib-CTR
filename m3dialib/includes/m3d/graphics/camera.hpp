@@ -131,24 +131,21 @@ namespace m3d {
 
         /**
          * @brief Moves the camera along the X-axis
-         * @param t_delta    The amount to move
-         * @param t_relative Whether or not to move on the camera's relative axis instead of the absolute axis
+         * @param t_delta The amount to move
          */
-        void moveX(float t_delta, bool t_relative = true);
+        void moveX(float t_delta);
 
         /**
          * @brief Moves the camera along the Y-axis
          * @param t_delta The amount to move
-         * @param t_relative Whether or not to move on the camera's relative axis instead of the absolute axis
          */
-        void moveY(float t_delta, bool t_relative = true);
+        void moveY(float t_delta);
 
         /**
          * @brief Moves the camera along the Z-axis
          * @param t_delta The amount to move
-         * @param t_relative Whether or not to move on the camera's relative axis instead of the absolute axis
          */
-        void moveZ(float t_delta, bool t_relative = true);
+        void moveZ(float t_delta);
 
         C3D_Mtx& getViewMatrix();
 
