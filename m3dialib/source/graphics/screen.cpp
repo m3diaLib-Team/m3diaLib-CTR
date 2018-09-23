@@ -46,7 +46,6 @@ namespace m3d {
         delete m_targetTopLeft;
         delete m_targetTopRight;
         delete m_targetBottom;
-        delete m_attributeInfo;
     }
 
     void Screen::set3d(bool t_enabled) {
