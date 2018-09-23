@@ -1,7 +1,6 @@
 #include <citro3d.h>
 #include <cstring>
 #include "m3d/graphics/drawables/mesh.hpp"
-#include "m3d/private/graphics.hpp"
 
 namespace m3d {
     Mesh::Mesh() :
@@ -201,15 +200,13 @@ namespace m3d {
 
     void Mesh::draw(m3d::RenderContext t_context) {
         if (t_context.getMode() == m3d::RenderContext::Mode::Spatial) {
-            // Mtx_Translate(&t_context.getProjectionMatrix(), posX, 0.0, , true);
-
             // manipulate modelview matrix
-            Mtx_Identity(&t_context.getModelViewMatrix());
-            Mtx_Translate(&t_context.getModelViewMatrix(), m_posX, m_posY,  -1.87 - m_posZ, true);
-            Mtx_RotateX(&t_context.getModelViewMatrix(), m_rotationX, true);
-            Mtx_RotateY(&t_context.getModelViewMatrix(), m_rotationY, true);
-            Mtx_RotateZ(&t_context.getModelViewMatrix(), m_rotationZ, true);
-            Mtx_Scale(&t_context.getModelViewMatrix(), m_scaleX, m_scaleY, m_scaleZ);
+            Mtx_Identity(&t_context.getModelMatrix());
+            Mtx_Translate(&t_context.getModelMatrix(), m_posX, m_posY,  -1.87 - m_posZ, true);
+            Mtx_RotateX(&t_context.getModelMatrix(), m_rotationX, true);
+            Mtx_RotateY(&t_context.getModelMatrix(), m_rotationY, true);
+            Mtx_RotateZ(&t_context.getModelMatrix(), m_rotationZ, true);
+            Mtx_Scale(&t_context.getModelMatrix(), m_scaleX, m_scaleY, m_scaleZ);
 
             // set material
             C3D_LightEnvMaterial(&t_context.getLightEnvironment(), m_material.getMaterial());
@@ -232,8 +229,7 @@ namespace m3d {
             BufInfo_Add(bufInfo, m_vbo, sizeof(m3d::Mesh::Polygon::Vertex), 3, 0x210);
 
             // update the uniforms
-            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getProjectionUniform(), &t_context.getProjectionMatrix());
-            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getModelViewUniform(),  &t_context.getModelViewMatrix());
+            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getModelUniform(),  &t_context.getModelMatrix());
 
             // draw the VBO
             C3D_DrawArrays(GPU_TRIANGLES, 0, m_vertices.size());
