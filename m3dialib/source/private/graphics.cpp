@@ -3,7 +3,7 @@
 namespace m3d {
     namespace priv {
         namespace graphics {
-            const m3d::Material defaultMaterial;
+            m3d::Camera defaultCamera0, defaultCamera1;
         } /* graphics */
     } /* priv */
 } /* m3d */
