@@ -98,14 +98,29 @@ namespace m3d {
          * @brief Clears the screen manually
          */
         void clear();
+
+        /**
+         * @brief Sets the camera for the given screen target
+         * @param t_camera The camera
+         * @param t_target The target
+         */
+        void setCamera(m3d::Camera& t_camera, m3d::RenderContext::ScreenTarget t_target);
+
+        /**
+         * @brief Returns the camera of the given screen target
+         * @param  t_target The target
+         * @return          The camera
+         */
+        m3d::Camera& getCamera(m3d::RenderContext::ScreenTarget t_target);
     private:
         void prepare();
         void prepareLights(m3d::RenderContext::ScreenTarget t_target);
 
         /* data */
-        int m_projectionUniform, m_modelViewUniform;
+        int m_projectionUniform, m_modelUniform, m_viewUniform;
         bool m_3dEnabled;
         m3d::Color m_clearColorTop, m_clearColorBottom;
+        m3d::Camera &m_cameraTop, &m_cameraBottom;
 
         // rendertargets
         m3d::RenderTarget *m_targetTopLeft,
@@ -126,7 +141,7 @@ namespace m3d {
         C3D_AttrInfo* m_attributeInfo;
 
         // matrices
-        C3D_Mtx m_projection, m_modelView;
+        C3D_Mtx m_projection, m_model, m_view;
 
         // light
         C3D_LightEnv m_lightEnvTop, m_lightEnvBottom;

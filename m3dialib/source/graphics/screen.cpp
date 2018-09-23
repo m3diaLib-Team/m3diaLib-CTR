@@ -6,13 +6,15 @@
 
 namespace m3d {
     Screen::Screen(bool t_enable3d) :
+            m_3dEnabled(t_enable3d),
             m_clearColorTop(m3d::colors::Black),
-            m_clearColorBottom(m3d::colors::Black) {
+            m_clearColorBottom(m3d::colors::Black),
+            m_cameraTop(m3d::priv::graphics::defaultCamera0),
+            m_cameraBottom(m3d::priv::graphics::defaultCamera1) {
         gfxInitDefault();
         C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
-        gfxSet3D(t_enable3d);
-        m_3dEnabled = t_enable3d;
+        gfxSet3D(m_3dEnabled);
         m_targetTopLeft  = new m3d::RenderTarget(400, 240);
         m_targetTopRight = new m3d::RenderTarget(400, 240);
         m_targetBottom   = new m3d::RenderTarget(320, 240);
@@ -29,17 +31,18 @@ namespace m3d {
 
         // get location of uniforms used in the vertex shader.
         m_projectionUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "projection");
-        m_modelViewUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "modelView");
+        m_modelUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "model");
+        m_viewUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "view");
 
         clear();
     }
 
     Screen::~Screen() {
-        shaderProgramFree(&m_shader);
-        DVLB_Free(m_dvlb);
         C2D_Fini();
         C3D_Fini();
         gfxExit();
+        shaderProgramFree(&m_shader);
+        DVLB_Free(m_dvlb);
         delete m_targetTopLeft;
         delete m_targetTopRight;
         delete m_targetBottom;
@@ -121,6 +124,9 @@ namespace m3d {
             prepare();
             Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioBot, 0.01f, 1000.0f, 0, 2.0f, false);
 
+            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projectionUniform, &m_projection);
+            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_viewUniform, &m_cameraBottom.getViewMatrix());
+
             if(m_drawStackBottom3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetBottom->getRenderTarget());
                 prepareLights(m3d::RenderContext::ScreenTarget::Bottom);
@@ -128,14 +134,12 @@ namespace m3d {
                 for(const auto &entry : m_drawStackBottom3d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
                         drawable->draw(m3d::RenderContext(
-                                m_projectionUniform,   // projectionUniform
-                                m_modelViewUniform,    // modelViewUniform
+                                m_modelUniform, // modelUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Spatial,        // mode
                                 m3d::RenderContext::Stereo3dSide::Left,   // side
                                 m3d::RenderContext::ScreenTarget::Bottom, // target
-                                m_projection, // projection
-                                m_modelView,  // model
+                                m_model,  // model
                                 m_lightEnvBottom, // lightEnv
                                 m_lightBottom,    // light
                                 m_lutPhongBottom  // lutPhong
@@ -157,17 +161,18 @@ namespace m3d {
                     Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, 0, 2.0f, false);
                 }
 
+                C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projectionUniform, &m_projection);
+                C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_viewUniform, &m_cameraTop.getViewMatrix());
+
                 for (const auto &entry : m_drawStackTop3d) { // for every layer
                     for (const auto &drawable : entry.second) { // draw every object
                         drawable->draw(m3d::RenderContext(
-                                m_projectionUniform,   // projectionUniform
-                                m_modelViewUniform,    // modelViewUniform
+                                m_modelUniform, // modelUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Spatial,      // mode
                                 m3d::RenderContext::Stereo3dSide::Left, // side
                                 m3d::RenderContext::ScreenTarget::Top,  // target
-                                m_projection, // projection
-                                m_modelView,  // model
+                                m_model,  // model
                                 m_lightEnvTop, // lightEnv
                                 m_lightTop,    // light
                                 m_lutPhongTop  // lutPhong
@@ -175,7 +180,7 @@ namespace m3d {
                     }
                 }
 
-                if (m_3dEnabled) {
+                if (m_3dEnabled && osGet3DSliderState() < 0.0f) {
                     C3D_FrameDrawOn(m_targetTopRight->getRenderTarget());
 
                     // tilt stereo perspective
@@ -185,17 +190,17 @@ namespace m3d {
                         Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, 0, 2.0f, false);
                     }
 
+                    C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projectionUniform, &m_projection);
+
                     for (const auto &entry : m_drawStackTop3d) { // for every layer
                         for (const auto &drawable : entry.second) { // draw every object
                             drawable->draw(m3d::RenderContext(
-                                    m_projectionUniform,   // projectionUniform
-                                    m_modelViewUniform,    // modelViewUniform
+                                    m_modelUniform, // modelUniform
                                     m_3dEnabled, // 3dEnabled
                                     m3d::RenderContext::Mode::Spatial,       // mode
                                     m3d::RenderContext::Stereo3dSide::Right, // side
                                     m3d::RenderContext::ScreenTarget::Top,   // target
-                                    m_projection, // projection
-                                    m_modelView,  // model
+                                    m_model,  // model
                                     m_lightEnvTop, // lightEnv
                                     m_lightTop,    // light
                                     m_lutPhongTop  // lutPhong
@@ -219,14 +224,12 @@ namespace m3d {
                 for(const auto &entry : m_drawStackBottom2d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
                         drawable->draw(m3d::RenderContext(
-                                m_projectionUniform,   // projectionUniform
-                                m_modelViewUniform,    // modelViewUniform
+                                m_modelUniform, // modelUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Flat,           // mode
                                 m3d::RenderContext::Stereo3dSide::Left,   // side
                                 m3d::RenderContext::ScreenTarget::Bottom, // target
-                                m_projection, // projection
-                                m_modelView,  // model
+                                m_model,  // model
                                 m_lightEnvBottom, // lightEnv
                                 m_lightBottom,    // light
                                 m_lutPhongBottom  // lutPhong
@@ -243,14 +246,12 @@ namespace m3d {
                 for(const auto &entry : m_drawStackTop2d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
                         drawable->draw(m3d::RenderContext(
-                                m_projectionUniform,   // projectionUniform
-                                m_modelViewUniform,    // modelViewUniform
+                                m_modelUniform, // modelUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Flat,         // mode
                                 m3d::RenderContext::Stereo3dSide::Left, // side
                                 m3d::RenderContext::ScreenTarget::Top,  // target
-                                m_projection, // projection
-                                m_modelView,  // model
+                                m_model,  // model
                                 m_lightEnvTop, // lightEnv
                                 m_lightTop,    // light
                                 m_lutPhongTop  // lutPhong
@@ -258,20 +259,18 @@ namespace m3d {
                     }
                 }
 
-                if(m_3dEnabled) {
+                if(m_3dEnabled && osGet3DSliderState() < 0.0f) {
                     C2D_SceneBegin(m_targetTopRight->getRenderTarget());
 
                     for(const auto &entry : m_drawStackTop2d) { // for every layer
                         for(const auto &drawable : entry.second) { // draw every object
                             drawable->draw(m3d::RenderContext(
-                                    m_projectionUniform,   // projectionUniform
-                                    m_modelViewUniform,    // modelViewUniform
+                                    m_modelUniform, // modelUniform
                                     m_3dEnabled, // 3dEnabled
                                     m3d::RenderContext::Mode::Flat,          // mode
                                     m3d::RenderContext::Stereo3dSide::Right, // side
                                     m3d::RenderContext::ScreenTarget::Top,   // target
-                                    m_projection, // projection
-                                    m_modelView,  // model
+                                    m_model,  // model
                                     m_lightEnvTop, // lightEnv
                                     m_lightTop,    // light
                                     m_lutPhongTop  // lutPhong
@@ -299,6 +298,20 @@ namespace m3d {
         C2D_TargetClear(m_targetTopLeft->getRenderTarget(), m_clearColorTop.getRgba8());
         C2D_TargetClear(m_targetTopRight->getRenderTarget(), m_clearColorTop.getRgba8());
         C2D_TargetClear(m_targetBottom->getRenderTarget(), m_clearColorBottom.getRgba8());
+    }
+
+    void Screen::setCamera(m3d::Camera& t_camera, m3d::RenderContext::ScreenTarget t_target) {
+        switch (t_target) {
+            case m3d::RenderContext::ScreenTarget::Top:
+                m_cameraTop = t_camera;
+                break;
+            default:
+                m_cameraBottom = t_camera;
+        }
+    }
+
+    m3d::Camera& Screen::getCamera(m3d::RenderContext::ScreenTarget t_target) {
+        return (t_target == m3d::RenderContext::ScreenTarget::Top ? m_cameraTop : m_cameraBottom);
     }
 
     // private methods
