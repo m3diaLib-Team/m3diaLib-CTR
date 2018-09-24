@@ -196,7 +196,6 @@ namespace m3d {
         if (t_resetMaterial) {
             m_material.setAmbient(125, 125, 125);
             m_material.setDiffuse(255, 255, 255);
-            m_material.setEmission(255, 0, 0);
         }
     }
 
