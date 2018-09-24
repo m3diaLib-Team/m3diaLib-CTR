@@ -168,7 +168,7 @@ namespace m3d {
 
             if(m_drawStackBottom3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetBottom->getRenderTarget());
-                prepareLights(m3d::RenderContext::ScreenTarget::Bottom);
+                // prepareLights(m3d::RenderContext::ScreenTarget::Bottom);
 
                 for(const auto &entry : m_drawStackBottom3d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
@@ -193,7 +193,7 @@ namespace m3d {
 
             if (m_drawStackTop3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetTopLeft->getRenderTarget());
-                prepareLights(m3d::RenderContext::ScreenTarget::Top);
+                // prepareLights(m3d::RenderContext::ScreenTarget::Top);
 
                 // tilt stereo perspective
                 if (m_3dEnabled) {
