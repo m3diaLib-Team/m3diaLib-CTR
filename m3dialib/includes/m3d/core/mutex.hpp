@@ -20,6 +20,13 @@ namespace m3d {
         Mutex();
 
         /**
+         * @brief Destructor
+         *
+         * This automatically unlocks the mutex
+         */
+        ~Mutex();
+
+        /**
          * @brief Locks the mutex
          */
         void lock();

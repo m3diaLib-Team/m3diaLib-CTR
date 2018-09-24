@@ -5,6 +5,10 @@ namespace m3d {
         RecursiveLock_Init(&m_mutex);
     }
 
+    Mutex::~Mutex() {
+        RecursiveLock_Unlock(&m_mutex);
+    }
+
     void Mutex::lock() {
         RecursiveLock_Lock(&m_mutex);
     }
