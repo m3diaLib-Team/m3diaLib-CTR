@@ -15,6 +15,10 @@ namespace m3d {
         m_scaleZ(1.0f),
         m_useTexture(false) { /* do nothing */ }
 
+    Mesh::~Mesh() {
+        linearFree(m_vbo);
+    }
+
     void Mesh::addPolygon(m3d::Mesh::Polygon t_polygon) {
         m3d::Mesh::Polygon::Vertex vertex0 = t_polygon.getVertex(0),
                                    vertex1 = t_polygon.getVertex(1),

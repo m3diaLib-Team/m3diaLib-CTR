@@ -66,10 +66,16 @@ namespace m3d {
             /* data */
             m3d::Mesh::Polygon::Vertex* m_vertices;
         };
+
         /**
          * @brief Initializes the mesh
          */
         Mesh();
+
+        /**
+         * @brief Destructor
+         */
+        ~Mesh();
 
         /**
          * @brief Adds a polygon to the mesh
