@@ -10,7 +10,11 @@ namespace m3d {
             m_clearColorTop(m3d::Color(0, 0, 0)),
             m_clearColorBottom(m3d::Color(0, 0, 0)),
             m_cameraTop(m3d::priv::graphics::defaultCamera0),
-            m_cameraBottom(m3d::priv::graphics::defaultCamera1) {
+            m_cameraBottom(m3d::priv::graphics::defaultCamera1),
+            m_useFogTop(false),
+            m_useFogBottom(false),
+            m_fogDensityTop(0.05),
+            m_fogDensityBottom(0.05) {
         gfxInitDefault();
         C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
@@ -168,7 +172,8 @@ namespace m3d {
 
             if(m_drawStackBottom3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetBottom->getRenderTarget());
-                // prepareLights(m3d::RenderContext::ScreenTarget::Bottom);
+                prepareLights(m3d::RenderContext::ScreenTarget::Bottom);
+                if (m_useFogBottom) prepareFog(m3d::RenderContext::ScreenTarget::Bottom);
 
                 for(const auto &entry : m_drawStackBottom3d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
@@ -193,7 +198,8 @@ namespace m3d {
 
             if (m_drawStackTop3d.size() > 0) {
                 C3D_FrameDrawOn(m_targetTopLeft->getRenderTarget());
-                // prepareLights(m3d::RenderContext::ScreenTarget::Top);
+                prepareLights(m3d::RenderContext::ScreenTarget::Top);
+                if (m_useFogTop) prepareFog(m3d::RenderContext::ScreenTarget::Top);
 
                 // tilt stereo perspective
                 if (m_3dEnabled) {
@@ -365,6 +371,30 @@ namespace m3d {
         return (t_target == m3d::RenderContext::ScreenTarget::Top ? m_cameraTop : m_cameraBottom);
     }
 
+    void Screen::useFog(bool t_useFog, m3d::RenderContext::ScreenTarget t_target) {
+        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
+            m_useFogTop = t_useFog;
+        } else {
+            m_useFogBottom = t_useFog;
+        }
+    }
+
+    bool Screen::getUseFog(m3d::RenderContext::ScreenTarget t_target) {
+        return (t_target == m3d::RenderContext::ScreenTarget::Top ? m_useFogTop : m_useFogBottom);
+    }
+
+    void Screen::setFogDensity(float t_density, m3d::RenderContext::ScreenTarget t_target) {
+        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
+            m_fogDensityTop = t_density;
+        } else {
+            m_fogDensityBottom = t_density;
+        }
+    }
+
+    float Screen::getFogDensity(m3d::RenderContext::ScreenTarget t_target) {
+        return (t_target == m3d::RenderContext::ScreenTarget::Top ? m_fogDensityTop : m_fogDensityBottom);
+    }
+
     // private methods
     void Screen::prepare() {
         C3D_BindProgram(&m_shader);
@@ -385,7 +415,22 @@ namespace m3d {
         C3D_TexEnvFunc(env, C3D_Both, GPU_ADD);
 
         C3D_CullFace(GPU_CULL_BACK_CCW);
-        C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
+    }
+
+    void Screen::prepareFog(m3d::RenderContext::ScreenTarget t_target) {
+        switch (t_target) {
+            case m3d::RenderContext::ScreenTarget::Bottom:
+                FogLut_Exp(&m_fogLutBottom, m_fogDensityBottom, 1.5f, 0.01f, 20.0f);
+                C3D_FogGasMode(GPU_FOG, GPU_PLAIN_DENSITY, false);
+                C3D_FogColor(m_clearColorTop.getRgb8());
+                C3D_FogLutBind(&m_fogLutBottom);
+                break;
+            default:
+                FogLut_Exp(&m_fogLutTop, m_fogDensityTop, 1.5f, 0.01f, 20.0f);
+                C3D_FogGasMode(GPU_FOG, GPU_PLAIN_DENSITY, false);
+                C3D_FogColor(m_clearColorTop.getRgb8());
+                C3D_FogLutBind(&m_fogLutTop);
+        }
     }
 
     void Screen::prepareLights(m3d::RenderContext::ScreenTarget t_target) {

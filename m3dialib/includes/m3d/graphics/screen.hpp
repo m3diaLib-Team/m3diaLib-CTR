@@ -136,8 +136,37 @@ namespace m3d {
          * @return          The camera
          */
         m3d::Camera& getCamera(m3d::RenderContext::ScreenTarget t_target);
+
+        /**
+         * @brief Sets whether fog should be used for the given screen target
+         * @param t_useFog `true` if fog should be used, `false` otherwise for the given screen target
+         * @param t_target The target
+         */
+        void useFog(bool t_useFog, m3d::RenderContext::ScreenTarget t_target);
+
+        /**
+         * @brief Returns whether or not fog is being used on the given screen target
+         * @param t_target The target
+         * @return        `true` if fog is being used, `false` otherwise on the given screen target
+         */
+        bool getUseFog(m3d::RenderContext::ScreenTarget t_target);
+
+        /**
+         * @brief Sets the fog density for the given screen target
+         * @param t_density The fog density for the given screen target
+         * @param t_target The target
+         */
+        void setFogDensity(float t_density,m3d::RenderContext::ScreenTarget t_target);
+
+        /**
+         * @brief Returns the fog density of the given screen target
+         * @param t_target The target
+         * @return         The fog density of the given screen target
+         */
+        float getFogDensity(m3d::RenderContext::ScreenTarget t_target);
     private:
         void prepare();
+        void prepareFog(m3d::RenderContext::ScreenTarget t_target);
         void prepareLights(m3d::RenderContext::ScreenTarget t_target);
 
         /* data */
@@ -171,6 +200,11 @@ namespace m3d {
         C3D_LightEnv m_lightEnvTop, m_lightEnvBottom;
         C3D_Light m_lightTop, m_lightBottom;
         C3D_LightLut m_lutPhongTop, m_lutPhongBottom;
+
+        // fog
+        bool m_useFogTop, m_useFogBottom;
+        float m_fogDensityTop, m_fogDensityBottom;
+        C3D_FogLut m_fogLutTop, m_fogLutBottom;
     };
 } /* m3d */
 
