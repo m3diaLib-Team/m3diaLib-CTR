@@ -22,7 +22,7 @@ namespace m3d {
     }
 
     Applet::~Applet() {
-        ndspExit();
+        if (m3d::priv::ndsp::initialized) ndspExit();
         sdmcExit();
         romfsExit();
         acExit();
