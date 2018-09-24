@@ -147,10 +147,10 @@ namespace m3d {
          */
         void moveZ(float t_delta);
 
-        void moveSideways(float t_delta);
-
-        void moveForward(float t_delta);
-
+        /**
+         * @brief Returns a reference to the view matrix of the camera and applies all calculations to it
+         * @return The view matrix
+         */
         C3D_Mtx& getViewMatrix();
 
     private:
