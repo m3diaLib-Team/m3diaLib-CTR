@@ -63,10 +63,16 @@ namespace m3d {
 
         switch (t_enable) {
             case true:
+                // ambient/diffuse
                 env = C3D_GetTexEnv(0);
                 C3D_TexEnvInit(env);
-                C3D_TexEnvSrc(env, C3D_Both, GPU_FRAGMENT_PRIMARY_COLOR, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
-                C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
+                C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, GPU_FRAGMENT_PRIMARY_COLOR, GPU_PRIMARY_COLOR);
+                C3D_TexEnvFunc(env, C3D_Both, GPU_MODULATE);
+
+                // specular
+                env = C3D_GetTexEnv(1);
+                C3D_TexEnvInit(env);
+                C3D_TexEnvSrc(env, C3D_Both, GPU_PREVIOUS, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
                 C3D_TexEnvFunc(env, C3D_Both, GPU_ADD);
                 break;
             default:
