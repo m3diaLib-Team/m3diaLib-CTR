@@ -105,7 +105,7 @@ namespace m3d {
          * @param t_camera The camera
          * @param t_target The target
          */
-        void setCamera(m3d::Camera& t_camera, m3d::RenderContext::ScreenTarget t_target);
+        void setCamera(m3d::Camera t_camera, m3d::RenderContext::ScreenTarget t_target);
 
         /**
          * @brief Returns the camera of the given screen target

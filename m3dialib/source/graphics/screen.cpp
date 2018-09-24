@@ -299,7 +299,7 @@ namespace m3d {
         C2D_TargetClear(m_targetBottom->getRenderTarget(), m_clearColorBottom.getRgba8());
     }
 
-    void Screen::setCamera(m3d::Camera& t_camera, m3d::RenderContext::ScreenTarget t_target) {
+    void Screen::setCamera(m3d::Camera t_camera, m3d::RenderContext::ScreenTarget t_target) {
         switch (t_target) {
             case m3d::RenderContext::ScreenTarget::Top:
                 m_cameraTop = t_camera;
