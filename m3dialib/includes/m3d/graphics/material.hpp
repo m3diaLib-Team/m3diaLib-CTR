@@ -61,7 +61,7 @@ namespace m3d {
          * @param t_g The green component
          * @param t_b The blue component
          */
-        void setAmbient(float t_r, float t_g, float t_b);
+        void setAmbient(int t_r, int t_g, int t_b);
 
         /**
          * @brief Returns the ambient-color of the material
@@ -81,7 +81,7 @@ namespace m3d {
          * @param t_g The green component
          * @param t_b The blue component
          */
-        void setDiffuse(float t_r, float t_g, float t_b);
+        void setDiffuse(int t_r, int t_g, int t_b);
 
         /**
          * @brief Returns the diffuse-color of the material
@@ -101,7 +101,7 @@ namespace m3d {
          * @param t_g The green component
          * @param t_b The blue component
          */
-        void setSpecular0(float t_r, float t_g, float t_b);
+        void setSpecular0(int t_r, int t_g, int t_b);
 
         /**
          * @brief Returns the specular0-color of the material
@@ -121,7 +121,7 @@ namespace m3d {
          * @param t_g The green component
          * @param t_b The blue component
          */
-        void setSpecular1(float t_r, float t_g, float t_b);
+        void setSpecular1(int t_r, int t_g, int t_b);
 
         /**
          * @brief Returns the specular1-color of the material
@@ -141,7 +141,7 @@ namespace m3d {
          * @param t_g The green component
          * @param t_b The blue component
          */
-        void setEmission(float t_r, float t_g, float t_b);
+        void setEmission(int t_r, int t_g, int t_b);
 
         /**
          * @brief Returns the emission-color of the material

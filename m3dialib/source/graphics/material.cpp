@@ -40,8 +40,8 @@ namespace m3d {
         updateMaterial();
     }
 
-    void Material::setAmbient(float t_r, float t_g, float t_b) {
-        m_ambient = m3d::Color(t_r * 255, t_g * 255, t_b * 255);
+    void Material::setAmbient(int t_r, int t_g, int t_b) {
+        m_ambient = m3d::Color(t_r, t_g, t_b);
         updateMaterial();
     }
 
@@ -54,8 +54,8 @@ namespace m3d {
         updateMaterial();
     }
 
-    void Material::setDiffuse(float t_r, float t_g, float t_b) {
-        m_diffuse = m3d::Color(t_r * 255, t_g * 255, t_b * 255);
+    void Material::setDiffuse(int t_r, int t_g, int t_b) {
+        m_diffuse = m3d::Color(t_r, t_g, t_b);
         updateMaterial();
     }
 
@@ -68,8 +68,8 @@ namespace m3d {
         updateMaterial();
     }
 
-    void Material::setSpecular0(float t_r, float t_g, float t_b) {
-        m_specular0 = m3d::Color(t_r * 255, t_g * 255, t_b * 255);
+    void Material::setSpecular0(int t_r, int t_g, int t_b) {
+        m_specular0 = m3d::Color(t_r, t_g, t_b);
         updateMaterial();
     }
 
@@ -82,8 +82,8 @@ namespace m3d {
         updateMaterial();
     }
 
-    void Material::setSpecular1(float t_r, float t_g, float t_b) {
-        m_specular1 = m3d::Color(t_r * 255, t_g * 255, t_b * 255);
+    void Material::setSpecular1(int t_r, int t_g, int t_b) {
+        m_specular1 = m3d::Color(t_r, t_g, t_b);
         updateMaterial();
     }
 
@@ -96,8 +96,8 @@ namespace m3d {
         updateMaterial();
     }
 
-    void Material::setEmission(float t_r, float t_g, float t_b) {
-        m_emission = m3d::Color(t_r * 255, t_g * 255, t_b * 255);
+    void Material::setEmission(int t_r, int t_g, int t_b) {
+        m_emission = m3d::Color(t_r, t_g, t_b);
         updateMaterial();
     }
 
