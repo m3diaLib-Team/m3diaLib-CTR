@@ -155,7 +155,7 @@ namespace m3d {
 
                 // tilt stereo perspective
                 if (m_3dEnabled) {
-                    Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, osGet3DSliderState() / 3.0f, 2.0f, false);
+                    Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, -(osGet3DSliderState() / 3.0f), 2.0f, false);
                 } else {
                     Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, 0, 2.0f, false);
                 }
@@ -179,12 +179,12 @@ namespace m3d {
                     }
                 }
 
-                if (m_3dEnabled && osGet3DSliderState() < 0.0f) {
+                if (m_3dEnabled && osGet3DSliderState() > 0.0f) {
                     C3D_FrameDrawOn(m_targetTopRight->getRenderTarget());
 
                     // tilt stereo perspective
                     if (m_3dEnabled) {
-                        Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, -(osGet3DSliderState() / 3.0f), 2.0f, false);
+                        Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, osGet3DSliderState() / 3.0f, 2.0f, false);
                     } else {
                         Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, 0, 2.0f, false);
                     }
@@ -258,7 +258,7 @@ namespace m3d {
                     }
                 }
 
-                if(m_3dEnabled && osGet3DSliderState() < 0.0f) {
+                if(m_3dEnabled && osGet3DSliderState() > 0.0f) {
                     C2D_SceneBegin(m_targetTopRight->getRenderTarget());
 
                     for(const auto &entry : m_drawStackTop2d) { // for every layer
