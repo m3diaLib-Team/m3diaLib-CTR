@@ -14,6 +14,7 @@
 ; Outputs
 .out outpos position
 .out outtc0 texcoord0
+.out outtc1 texcoord1
 .out outclr color
 .out outview view
 .out outnq normalquat
@@ -54,6 +55,7 @@
 
 	; outtex = intex
 	mov outtc0, intex
+	mov outtc1, intex
 
 	; Transform the normal vector with the modelView matrix
 	; TODO: use a separate normal matrix that is the transpose of the inverse of modelView
