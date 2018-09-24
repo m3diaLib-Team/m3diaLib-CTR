@@ -7,8 +7,8 @@
 namespace m3d {
     Screen::Screen(bool t_enable3d) :
             m_3dEnabled(t_enable3d),
-            m_clearColorTop(m3d::colors::Black),
-            m_clearColorBottom(m3d::colors::Black),
+            m_clearColorTop(m3d::Color(0, 0, 0)),
+            m_clearColorBottom(m3d::Color(0, 0, 0)),
             m_cameraTop(m3d::priv::graphics::defaultCamera0),
             m_cameraBottom(m3d::priv::graphics::defaultCamera1) {
         gfxInitDefault();
