@@ -185,13 +185,23 @@ namespace m3d {
         return m_material;
     }
 
-    void Mesh::bindTexture(m3d::Texture& t_texture) {
+    void Mesh::bindTexture(m3d::Texture& t_texture, bool t_resetMaterial) {
         m_useTexture = true;
         m_texture = t_texture;
+
+        if (t_resetMaterial) {
+            m_material.setAmbient(125, 125, 125);
+            m_material.setDiffuse(255, 255, 255);
+            m_material.setEmission(255, 0, 0);
+        }
     }
 
-    void Mesh::unbindTexture() {
+    void Mesh::unbindTexture(bool t_resetMaterial) {
         m_useTexture = false;
+
+        if (t_resetMaterial) {
+            m_material = m3d::Material();
+        }
     }
 
     m3d::Texture& Mesh::getTexture() {

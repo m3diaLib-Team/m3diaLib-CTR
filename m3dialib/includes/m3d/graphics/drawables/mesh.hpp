@@ -288,14 +288,16 @@ namespace m3d {
 
         /**
          * @brief Binds a texture to the mesh
-         * @param t_texture The texture to bind
+         * @param t_texture       The texture to bind
+         * @param t_resetMaterial Whether or not to reset the material so that it won't interfere with the texture
          */
-        void bindTexture(m3d::Texture& t_texture);
+        void bindTexture(m3d::Texture& t_texture, bool t_resetMaterial = true);
 
         /**
          * @brief Unbinds the bound texture (disables texture using)
+         * @param t_resetMaterial Whether or not to reset the material to the default material
          */
-        void unbindTexture();
+        void unbindTexture(bool t_resetMaterial = true);
 
         /**
          * @brief Returns a reference to the current texture
