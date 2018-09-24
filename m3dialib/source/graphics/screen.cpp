@@ -71,18 +71,38 @@ namespace m3d {
     void Screen::drawTop(m3d::Drawable& t_object, m3d::RenderContext::Mode t_mode, int t_layer) {
         if (t_mode == m3d::RenderContext::Mode::Flat) {
             if(m_drawStackTop2d.count(t_layer) > 0) {
-                m_drawStackTop2d[t_layer].insert(m_drawStackTop2d[t_layer].end(), &t_object);
+                m_drawStackTop2d[t_layer].insert(m_drawStackTop2d[t_layer].end(), std::make_pair(&t_object, [](){return true;}));
             } else {
-                std::vector<m3d::Drawable*> newStack;
-                newStack.push_back(&t_object);
+                std::vector<std::pair<m3d::Drawable*, std::function<bool()>>> newStack;
+                newStack.push_back(std::make_pair(&t_object, [](){return true;}));
                 m_drawStackTop2d.insert(std::make_pair(t_layer, newStack));
             }
         } else {
             if(m_drawStackTop3d.count(t_layer) > 0) {
-                m_drawStackTop3d[t_layer].insert(m_drawStackTop3d[t_layer].end(), &t_object);
+                m_drawStackTop3d[t_layer].insert(m_drawStackTop3d[t_layer].end(), std::make_pair(&t_object, [](){return true;}));
             } else {
-                std::vector<m3d::Drawable*> newStack;
-                newStack.push_back(&t_object);
+                std::vector<std::pair<m3d::Drawable*, std::function<bool()>>> newStack;
+                newStack.push_back(std::make_pair(&t_object, [](){return true;}));
+                m_drawStackTop3d.insert(std::make_pair(t_layer, newStack));
+            }
+        }
+    }
+
+    void Screen::drawTop(m3d::Drawable& t_object, std::function<bool()> t_shadingFunction, m3d::RenderContext::Mode t_mode, int t_layer) {
+        if (t_mode == m3d::RenderContext::Mode::Flat) {
+            if(m_drawStackTop2d.count(t_layer) > 0) {
+                m_drawStackTop2d[t_layer].insert(m_drawStackTop2d[t_layer].end(), std::make_pair(&t_object, t_shadingFunction));
+            } else {
+                std::vector<std::pair<m3d::Drawable*, std::function<bool()>>> newStack;
+                newStack.push_back(std::make_pair(&t_object, t_shadingFunction));
+                m_drawStackTop2d.insert(std::make_pair(t_layer, newStack));
+            }
+        } else {
+            if(m_drawStackTop3d.count(t_layer) > 0) {
+                m_drawStackTop3d[t_layer].insert(m_drawStackTop3d[t_layer].end(), std::make_pair(&t_object, t_shadingFunction));
+            } else {
+                std::vector<std::pair<m3d::Drawable*, std::function<bool()>>> newStack;
+                newStack.push_back(std::make_pair(&t_object, t_shadingFunction));
                 m_drawStackTop3d.insert(std::make_pair(t_layer, newStack));
             }
         }
@@ -91,18 +111,38 @@ namespace m3d {
     void Screen::drawBottom(m3d::Drawable& t_object, m3d::RenderContext::Mode t_mode, int t_layer) {
         if (t_mode == m3d::RenderContext::Mode::Flat) {
             if(m_drawStackBottom2d.count(t_layer) > 0) {
-                m_drawStackBottom2d[t_layer].insert(m_drawStackBottom2d[t_layer].end(), &t_object);
+                m_drawStackBottom2d[t_layer].insert(m_drawStackBottom2d[t_layer].end(), std::make_pair(&t_object, [](){return true;}));
             } else {
-                std::vector<m3d::Drawable*> newStack;
-                newStack.push_back(&t_object);
+                std::vector<std::pair<m3d::Drawable*, std::function<bool()>>> newStack;
+                newStack.push_back(std::make_pair(&t_object, [](){return true;}));
                 m_drawStackBottom2d.insert(std::make_pair(t_layer, newStack));
             }
         } else {
             if(m_drawStackBottom3d.count(t_layer) > 0) {
-                m_drawStackBottom3d[t_layer].insert(m_drawStackBottom3d [t_layer].end(), &t_object);
+                m_drawStackBottom3d[t_layer].insert(m_drawStackBottom3d[t_layer].end(), std::make_pair(&t_object, [](){return true;}));
             } else {
-                std::vector<m3d::Drawable*> newStack;
-                newStack.push_back(&t_object);
+                std::vector<std::pair<m3d::Drawable*, std::function<bool()>>> newStack;
+                newStack.push_back(std::make_pair(&t_object, [](){return true;}));
+                m_drawStackBottom3d.insert(std::make_pair(t_layer, newStack));
+            }
+        }
+    }
+
+    void Screen::drawBottom(m3d::Drawable& t_object, std::function<bool()> t_shadingFunction, m3d::RenderContext::Mode t_mode, int t_layer) {
+        if (t_mode == m3d::RenderContext::Mode::Flat) {
+            if(m_drawStackBottom2d.count(t_layer) > 0) {
+                m_drawStackBottom2d[t_layer].insert(m_drawStackBottom2d[t_layer].end(), std::make_pair(&t_object, t_shadingFunction));
+            } else {
+                std::vector<std::pair<m3d::Drawable*, std::function<bool()>>> newStack;
+                newStack.push_back(std::make_pair(&t_object, t_shadingFunction));
+                m_drawStackBottom2d.insert(std::make_pair(t_layer, newStack));
+            }
+        } else {
+            if(m_drawStackBottom3d.count(t_layer) > 0) {
+                m_drawStackBottom3d[t_layer].insert(m_drawStackBottom3d[t_layer].end(), std::make_pair(&t_object, t_shadingFunction));
+            } else {
+                std::vector<std::pair<m3d::Drawable*, std::function<bool()>>> newStack;
+                newStack.push_back(std::make_pair(&t_object, t_shadingFunction));
                 m_drawStackBottom3d.insert(std::make_pair(t_layer, newStack));
             }
         }
@@ -132,7 +172,8 @@ namespace m3d {
 
                 for(const auto &entry : m_drawStackBottom3d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
-                        drawable->draw(m3d::RenderContext(
+                        if (drawable.second()) {
+                            drawable.first->draw(m3d::RenderContext(
                                 m_modelUniform, // modelUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Spatial,        // mode
@@ -143,6 +184,7 @@ namespace m3d {
                                 m_lightBottom,    // light
                                 m_lutPhongBottom  // lutPhong
                             ));
+                        }
                     }
                 }
 
@@ -165,7 +207,8 @@ namespace m3d {
 
                 for (const auto &entry : m_drawStackTop3d) { // for every layer
                     for (const auto &drawable : entry.second) { // draw every object
-                        drawable->draw(m3d::RenderContext(
+                        if (drawable.second()) {
+                            drawable.first->draw(m3d::RenderContext(
                                 m_modelUniform, // modelUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Spatial,      // mode
@@ -176,6 +219,7 @@ namespace m3d {
                                 m_lightTop,    // light
                                 m_lutPhongTop  // lutPhong
                             ));
+                        }
                     }
                 }
 
@@ -193,7 +237,8 @@ namespace m3d {
 
                     for (const auto &entry : m_drawStackTop3d) { // for every layer
                         for (const auto &drawable : entry.second) { // draw every object
-                            drawable->draw(m3d::RenderContext(
+                            if (drawable.second()) {
+                                drawable.first->draw(m3d::RenderContext(
                                     m_modelUniform, // modelUniform
                                     m_3dEnabled, // 3dEnabled
                                     m3d::RenderContext::Mode::Spatial,       // mode
@@ -204,6 +249,7 @@ namespace m3d {
                                     m_lightTop,    // light
                                     m_lutPhongTop  // lutPhong
                                 ));
+                            }
                         }
                     }
                 }
@@ -222,7 +268,8 @@ namespace m3d {
 
                 for(const auto &entry : m_drawStackBottom2d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
-                        drawable->draw(m3d::RenderContext(
+                        if (drawable.second()) {
+                            drawable.first->draw(m3d::RenderContext(
                                 m_modelUniform, // modelUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Flat,           // mode
@@ -233,6 +280,7 @@ namespace m3d {
                                 m_lightBottom,    // light
                                 m_lutPhongBottom  // lutPhong
                             ));
+                        }
                     }
                 }
 
@@ -244,7 +292,8 @@ namespace m3d {
 
                 for(const auto &entry : m_drawStackTop2d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
-                        drawable->draw(m3d::RenderContext(
+                        if (drawable.second()) {
+                            drawable.first->draw(m3d::RenderContext(
                                 m_modelUniform, // modelUniform
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Flat,         // mode
@@ -255,6 +304,7 @@ namespace m3d {
                                 m_lightTop,    // light
                                 m_lutPhongTop  // lutPhong
                             ));
+                        }
                     }
                 }
 
@@ -263,7 +313,8 @@ namespace m3d {
 
                     for(const auto &entry : m_drawStackTop2d) { // for every layer
                         for(const auto &drawable : entry.second) { // draw every object
-                            drawable->draw(m3d::RenderContext(
+                            if (drawable.second()) {
+                                drawable.first->draw(m3d::RenderContext(
                                     m_modelUniform, // modelUniform
                                     m_3dEnabled, // 3dEnabled
                                     m3d::RenderContext::Mode::Flat,          // mode
@@ -274,6 +325,7 @@ namespace m3d {
                                     m_lightTop,    // light
                                     m_lutPhongTop  // lutPhong
                                 ));
+                            }
                         }
                     }
                 }

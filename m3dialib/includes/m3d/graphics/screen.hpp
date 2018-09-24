@@ -8,6 +8,7 @@
 #pragma once
 #include <citro2d.h>
 #include <cstring>
+#include <functional>
 #include <map>
 #include <vector>
 #include "camera.hpp"
@@ -69,12 +70,34 @@ namespace m3d {
         void drawTop(m3d::Drawable& t_object, m3d::RenderContext::Mode t_mode = m3d::RenderContext::Mode::Flat, int t_layer = 0);
 
         /**
+         * @brief Draws something on the top screen
+         * @param t_object          The object that should be drawn
+         * @param t_shadingFunction A function to call right before drawing
+         * @param t_mode            The drawing-mode
+         * @param t_layer           The z-inex the object should be drawn at
+         *
+         * @note `t_shadingFunction` allows you to bind your own shaders and to execute your own code. It get's called just before the `draw` method of your drawable gets executed and should return `true` on success. If it returns `false`, the drawable will not be drawn.
+         */
+        void drawTop(m3d::Drawable& t_object, std::function<bool()> t_shadingFunction, m3d::RenderContext::Mode t_mode = m3d::RenderContext::Mode::Flat, int t_layer = 0);
+
+        /**
          * @brief Draws something on the bottom screen
          * @param t_object The object that should be drawn
          * @param t_mode   The drawing-mode
          * @param t_layer The z-inex the object should be drawn at
          */
         void drawBottom(m3d::Drawable& t_object, m3d::RenderContext::Mode t_mode = m3d::RenderContext::Mode::Flat, int t_layer = 0);
+
+        /**
+         * @brief Draws something on the bottom screen
+         * @param t_object          The object that should be drawn
+         * @param t_shadingFunction A function to call right before drawing
+         * @param t_mode            The drawing-mode
+         * @param t_layer           The z-inex the object should be drawn at
+         *
+         * @note `t_shadingFunction` allows you to bind your own shaders and to execute your own code. It get's called just before the `draw` method of your drawable gets executed and should return `true` on success. If it returns `false`, the drawable will not be drawn.
+         */
+        void drawBottom(m3d::Drawable& t_object, std::function<bool()> t_shadingFunction, m3d::RenderContext::Mode t_mode = m3d::RenderContext::Mode::Flat, int t_layer = 0);
 
         /**
          * @brief Renders the current screen
@@ -129,7 +152,7 @@ namespace m3d {
                           *m_targetBottom;
 
         // draw stacks
-        std::map<int, std::vector<m3d::Drawable*>, std::less<int>> m_drawStackTop2d,
+        std::map<int, std::vector<std::pair<m3d::Drawable*, std::function<bool()>>>, std::less<int>> m_drawStackTop2d,
                                                                    m_drawStackTop3d,
                                                                    m_drawStackBottom2d,
                                                                    m_drawStackBottom3d;
