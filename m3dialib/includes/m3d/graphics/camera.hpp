@@ -21,63 +21,63 @@ namespace m3d {
          * @brief Sets the rotation on the X-axis
          * @param t_rotation The absolute rotation
          */
-        void setRotationX(float t_rotation);
+        void setPitch(float t_rotation);
 
         /**
          * @brief Returns the rotation on the X-axis
          * @return The absolute rotation
          */
-        float getRotationX();
+        float getPitch();
 
         /**
          * @brief Sets the rotation on the Y-axis
          * @param t_rotation The absolute rotation
          */
-        void setRotationY(float t_rotation);
+        void setYaw(float t_rotation);
 
         /**
          * @brief Returns the rotation on the Y-axis
          * @return The absolute rotation
          */
-        float getRotationY();
+        float getYaw();
 
         /**
          * @brief Sets the rotation on the Z-axis
          * @param t_rotation The absolute rotation
          */
-        void setRotationZ(float t_rotation);
+        void setRoll(float t_rotation);
 
         /**
          * @brief Returns the rotation on the /-axis
          * @return The absolute rotation
          */
-        float getRotationZ();
+        float getRoll();
 
         /**
          * @brief Sets the rotation of the camera
-         * @param t_rotationX The rotation on the X-axis
-         * @param t_rotationY The rotation on the Y-axis
-         * @param t_rotationZ The rotation on the Z-axis
+         * @param t_pitch The rotation on the X-axis
+         * @param t_yaw   The rotation on the Y-axis
+         * @param t_roll  The rotation on the Z-axis
          */
-        void setRotation(float t_rotationX, float t_rotationY, float t_rotationZ);
+        void setRotation(float t_pitch, float t_yaw, float t_roll);
 
         /**
          * @brief Rotates the camera a given amount on the X-axis
          * @param t_delta The amount to rotate
          */
-        void rotateX(float t_delta);
+        void rotatePitch(float t_delta);
 
         /**
          * @brief Rotates the camera a given amount on the Y-axis
          * @param t_delta The amount to rotate
          */
-        void rotateY(float t_delta);
+        void rotateYaw(float t_delta);
 
         /**
-         * @brief Rotates the camera a given amount on the /-axis
+         * @brief Rotates the camera a given amount on the Z-axis
          * @param t_delta The amount to rotate
          */
-        void rotateZ(float t_delta);
+        void rotateRoll(float t_delta);
 
         /**
          * @brief Sets the position on the X-axis
@@ -146,6 +146,10 @@ namespace m3d {
          * @param t_delta The amount to move
          */
         void moveZ(float t_delta);
+
+        void moveSideways(float t_delta);
+
+        void moveForward(float t_delta);
 
         C3D_Mtx& getViewMatrix();
 

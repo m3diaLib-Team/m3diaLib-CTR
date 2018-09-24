@@ -10,45 +10,45 @@ namespace m3d {
         m_rotationY(0.0f),
         m_rotationZ(0.0f) { /* do nothing */ }
 
-    void Camera::setRotationX(float t_rotation) {
+    void Camera::setPitch(float t_rotation) {
         m_rotationX = t_rotation;
     }
 
-    float Camera::getRotationX() {
+    float Camera::getPitch() {
         return m_rotationX;
     }
 
-    void Camera::setRotationY(float t_rotation) {
+    void Camera::setYaw(float t_rotation) {
         m_rotationY = t_rotation;
     }
 
-    float Camera::getRotationY() {
+    float Camera::getYaw() {
         return m_rotationY;
     }
 
-    void Camera::setRotationZ(float t_rotation) {
+    void Camera::setRoll(float t_rotation) {
         m_rotationZ = t_rotation;
     }
 
-    float Camera::getRotationZ() {
+    float Camera::getRoll() {
         return m_rotationZ;
     }
 
-    void Camera::setRotation(float t_rotationX, float t_rotationY, float t_rotationZ) {
-        m_rotationX = t_rotationX;
-        m_rotationY = t_rotationY;
-        m_rotationZ = t_rotationZ;
+    void Camera::setRotation(float t_pitch, float t_yaw, float t_roll) {
+        m_rotationX = t_pitch;
+        m_rotationY = t_yaw;
+        m_rotationZ = t_roll;
     }
 
-    void Camera::rotateX(float t_delta) {
+    void Camera::rotatePitch(float t_delta) {
         m_rotationX += t_delta;
     }
 
-    void Camera::rotateY(float t_delta) {
+    void Camera::rotateYaw(float t_delta) {
         m_rotationY += t_delta;
     }
 
-    void Camera::rotateZ(float t_delta) {
+    void Camera::rotateRoll(float t_delta) {
         m_rotationZ += t_delta;
     }
 
