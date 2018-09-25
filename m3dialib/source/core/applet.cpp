@@ -1,7 +1,7 @@
 #include <3ds.h>
 #include <cstring>
 #include "m3d/core/applet.hpp"
-#include "m3d/private/private.hpp"
+#include "m3d/private/ndsp.hpp"
 
 namespace m3d {
     Applet::Applet() :

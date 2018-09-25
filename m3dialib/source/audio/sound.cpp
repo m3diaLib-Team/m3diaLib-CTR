@@ -2,7 +2,7 @@
 #include <mpg123.h>
 #include <string>
 #include "m3d/audio/sound.hpp"
-#include "m3d/private/private.hpp"
+#include "m3d/private/ndsp.hpp"
 
 namespace m3d {
     Sound::Sound(const std::string& t_filename) :
