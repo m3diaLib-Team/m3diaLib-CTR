@@ -41,8 +41,6 @@ namespace m3d {
             { vertex2.texcoord[0], vertex2.texcoord[1] },
             { vertex2.normal[0], vertex2.normal[1], vertex2.normal[2] },
         });
-
-        updateVbo();
     }
 
     void Mesh::clearVertices() {
