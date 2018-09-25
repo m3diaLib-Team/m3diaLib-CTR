@@ -1,7 +1,7 @@
 #include <cstring>
 #include <string>
 #include "m3d/audio/music.hpp"
-#include "m3d/private/private.hpp"
+#include "m3d/private/ndsp.hpp"
 
 namespace m3d {
     Music::Music(const std::string& t_filename) :
