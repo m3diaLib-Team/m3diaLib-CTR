@@ -318,6 +318,9 @@ namespace m3d {
         void draw(m3d::RenderContext t_context);
 
     protected:
+        /**
+         * @brief Updates the vertex buffer
+         */
         void updateVbo();
 
     private:
