@@ -1,4 +1,4 @@
-# m3diaLib
+# m3diaLib [![Build Status](https://travis-ci.org/StuntHacks/m3diaLib.svg?branch=master)](https://travis-ci.org/StuntHacks/m3diaLib)
 A fast, extensive and powerful allround media and game library for the Nintendo 3DS, written in C++.
 
 #### Click [here](#installation) to get to the installation instructions.
