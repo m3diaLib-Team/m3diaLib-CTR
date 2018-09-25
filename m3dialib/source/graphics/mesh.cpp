@@ -47,45 +47,45 @@ namespace m3d {
         m_vertices.clear();
     }
 
-    void Mesh::setRotationX(float t_rotation) {
+    void Mesh::setPitch(float t_rotation) {
         m_rotationX = t_rotation;
     }
 
-    float Mesh::getRotationX() {
+    float Mesh::getPitch() {
         return m_rotationX;
     }
 
-    void Mesh::setRotationY(float t_rotation) {
+    void Mesh::setYaw(float t_rotation) {
         m_rotationY = t_rotation;
     }
 
-    float Mesh::getRotationY() {
+    float Mesh::getYaw() {
         return m_rotationY;
     }
 
-    void Mesh::setRotationZ(float t_rotation) {
+    void Mesh::setRoll(float t_rotation) {
         m_rotationZ = t_rotation;
     }
 
-    float Mesh::getRotationZ() {
+    float Mesh::getRoll() {
         return m_rotationZ;
     }
 
-    void Mesh::setRotation(float t_rotationX, float t_rotationY, float t_rotationZ) {
-        m_rotationX = t_rotationX;
-        m_rotationY = t_rotationY;
-        m_rotationZ = t_rotationZ;
+    void Mesh::setRotation(float t_pitch, float t_yaw, float t_roll) {
+        m_rotationX = t_pitch;
+        m_rotationY = t_yaw;
+        m_rotationZ = t_roll;
     }
 
-    void Mesh::rotateX(float t_delta) {
+    void Mesh::rotatePitch(float t_delta) {
         m_rotationX += t_delta;
     }
 
-    void Mesh::rotateY(float t_delta) {
+    void Mesh::rotateYaw(float t_delta) {
         m_rotationY += t_delta;
     }
 
-    void Mesh::rotateZ(float t_delta) {
+    void Mesh::rotateRoll(float t_delta) {
         m_rotationZ += t_delta;
     }
 
