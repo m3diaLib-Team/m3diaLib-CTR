@@ -43,11 +43,6 @@ namespace m3d {
             Polygon(m3d::Mesh::Polygon::Vertex t_vertex0, m3d::Mesh::Polygon::Vertex t_vertex1, m3d::Mesh::Polygon::Vertex t_vertex2);
 
             /**
-             * @brief Destructs the polygon
-             */
-            virtual ~Polygon();
-
-            /**
              * @brief Sets the vertices of the polygon
              * @param t_vertex0 The first vertex
              * @param t_vertex1 The second vertex
@@ -64,7 +59,7 @@ namespace m3d {
 
         private:
             /* data */
-            m3d::Mesh::Polygon::Vertex* m_vertices;
+            m3d::Mesh::Polygon::Vertex m_vertices[3];
         };
 
         /**
