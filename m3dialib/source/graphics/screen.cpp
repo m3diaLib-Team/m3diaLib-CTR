@@ -7,6 +7,7 @@
 namespace m3d {
     Screen::Screen(bool t_enable3d) :
             m_3dEnabled(t_enable3d),
+            m_useCulling(true),
             m_clearColorTop(m3d::Color(0, 0, 0)),
             m_clearColorBottom(m3d::Color(0, 0, 0)),
             m_cameraTop(m3d::priv::graphics::defaultCamera0),
@@ -55,6 +56,14 @@ namespace m3d {
     void Screen::set3d(bool t_enabled) {
         gfxSet3D(t_enabled);
         m_3dEnabled = t_enabled;
+    }
+
+    void Screen::useCulling(bool t_useCulling) {
+        m_useCulling = t_useCulling;
+    }
+
+    bool Screen::isUsingCulling() {
+        return m_useCulling;
     }
 
     void Screen::setClearColor(m3d::Color t_color) {
@@ -414,7 +423,7 @@ namespace m3d {
         C3D_TexEnvSrc(env, C3D_Both, GPU_FRAGMENT_PRIMARY_COLOR, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
         C3D_TexEnvFunc(env, C3D_Both, GPU_ADD);
 
-        C3D_CullFace(GPU_CULL_BACK_CCW);
+        C3D_CullFace(m_useCulling ? GPU_CULL_BACK_CCW : GPU_CULL_NONE);
     }
 
     void Screen::prepareFog(m3d::RenderContext::ScreenTarget t_target) {

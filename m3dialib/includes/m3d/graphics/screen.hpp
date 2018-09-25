@@ -42,6 +42,19 @@ namespace m3d {
         void set3d(bool t_enabled);
 
         /**
+         * @brief Whether or not to use culling
+         * @param t_useCulling Whether to use culling or not
+         * @note By default, culling is enabled
+         */
+        void useCulling(bool t_useCulling);
+
+        /**
+         * @brief Returns whether culling is being used or not
+         * @return `true` if culling is being used, `false` otherwise
+         */
+        bool isUsingCulling();
+
+        /**
          * @brief Sets the clear color for both screens
          * @param t_color The color to clear the screen with
          */
@@ -171,7 +184,7 @@ namespace m3d {
 
         /* data */
         int m_projectionUniform, m_modelUniform, m_viewUniform;
-        bool m_3dEnabled;
+        bool m_3dEnabled, m_useCulling;
         m3d::Color m_clearColorTop, m_clearColorBottom;
         m3d::Camera &m_cameraTop, &m_cameraBottom;
 
