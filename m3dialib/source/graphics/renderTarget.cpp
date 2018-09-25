@@ -5,7 +5,7 @@ namespace m3d {
     RenderTarget::RenderTarget(int t_width, int t_height) :
         m_width(t_width),
         m_height(t_height),
-        m_clearColor(RGBA8(0, 0, 0, 255)) {
+        m_clearColor(m3d::Color::rgba8(0, 0, 0, 255)) {
             m_target = C3D_RenderTargetCreate(t_height, t_width, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);
     }
 

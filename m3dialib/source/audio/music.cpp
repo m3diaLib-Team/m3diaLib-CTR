@@ -26,10 +26,10 @@ namespace m3d {
             m_thread.initialize([](m3d::Parameter){}, nullptr);
             m_thread.start();
         } else {
-            m_thread.join();
+            if (m_status != m3d::Music::Status::Stopped) {
+                m_thread.join();
+            }
         }
-
-        delete m_reader;
     }
 
     void Music::setFile(const std::string& t_filename) {
@@ -39,19 +39,16 @@ namespace m3d {
 
         switch(m_filetype) {
             case m3d::Music::FileType::Mp3:
-                delete m_reader;
                 m_reader = new m3d::Playable::Mp3Reader;
                 m_reader->set(m_decoder);
                 break;
 
             case m3d::Music::FileType::Wav:
-                delete m_reader;
                 m_reader = new m3d::Playable::WavReader;
                 m_reader->set(m_decoder);
                 break;
 
             default:
-                delete m_reader;
                 m_reader = nullptr;
         }
     }

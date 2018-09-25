@@ -2,13 +2,12 @@
 #define GRAPHICS_PRIVATE_H
 
 #pragma once
-#include <citro3d.h>
-#include "m3d/graphics/material.hpp"
+#include "m3d/graphics/camera.hpp"
 
 namespace m3d {
     namespace priv {
         namespace graphics {
-            extern const m3d::Material defaultMaterial;
+            extern m3d::Camera defaultCamera0, defaultCamera1;
         } /* graphics */
     } /* priv */
 } /* m3d */

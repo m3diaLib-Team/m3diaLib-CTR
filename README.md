@@ -125,3 +125,4 @@ To compile a m3diaLib-app, you need the following dependencies installed (instal
  * [ctrulib](https://github.com/smealum/ctrulib/)
  * [citro3d](https://github.com/fincs/citro3d) (zLib)
  * [citro2d](https://github.com/devkitPro/citro2d) (zLib)
+ * [OBJ-Loader](https://github.com/Bly7/OBJ-Loader) (MIT)

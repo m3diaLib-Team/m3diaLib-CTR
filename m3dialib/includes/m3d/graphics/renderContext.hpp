@@ -40,43 +40,33 @@ namespace m3d {
 
         /**
          * @brief Default constructor
-         * @param t_projectionUniform The location of the projection uniform
-         * @param t_modelViewUniform  The location of the model view uniform
-         * @param t_3dEnabled         Whether stereoscopic 3D is enabled
-         * @param t_mode              The current rendering mode
-         * @param t_side              The current side for stereoscopic 3D
-         * @param t_target            The current screen target
-         * @param t_projection        The projection matrix
-         * @param t_modelView         The model view matrix
-         * @param t_lightEnv          The light environment
-         * @param t_light             The light
-         * @param t_lightLut          The light LUT
+         * @param t_modelUniform  The location of the model uniform
+         * @param t_mode          The current rendering mode
+         * @param t_side          The current side for stereoscopic 3D
+         * @param t_target        The current screen target
+         * @param t_projection    The projection matrix
+         * @param t_model         The model matrix
+         * @param t_lightEnv      The light environment
+         * @param t_light         The light
+         * @param t_lightLut      The light LUT
          */
         RenderContext(
-            int t_projectionUniform,
-            int t_modelViewUniform,
+            int t_modelUniform,
             bool t_3dEnabled,
             m3d::RenderContext::Mode t_mode,
             m3d::RenderContext::Stereo3dSide t_side,
             m3d::RenderContext::ScreenTarget t_target,
-            C3D_Mtx& t_projection,
-            C3D_Mtx& t_modelView,
+            C3D_Mtx& t_model,
             C3D_LightEnv& t_lightEnv,
             C3D_Light& t_light,
             C3D_LightLut& t_lightLut
         );
 
         /**
-         * @brief Returns the location of the projection uniform
-         * @return The location of the uniform
-         */
-        int getProjectionUniform();
-
-        /**
          * @brief Returns the location of the model view uniform
          * @return The location of the uniform
          */
-        int getModelViewUniform();
+        int getModelUniform();
 
         /**
          * @brief Returns whether or not stereoscopic 3D is enabled
@@ -103,16 +93,10 @@ namespace m3d {
         m3d::RenderContext::ScreenTarget getScreenTarget();
 
         /**
-         * @brief Returns the projection matrix
-         * @return The projection matrix
+         * @brief Returns the model matrix
+         * @return The model matrix
          */
-        C3D_Mtx& getProjectionMatrix();
-
-        /**
-         * @brief Returns the model view matrix
-         * @return The model view matrix
-         */
-        C3D_Mtx& getModelViewMatrix();
+        C3D_Mtx& getModelMatrix();
 
         /**
          * @brief Returns the light environment
@@ -140,12 +124,12 @@ namespace m3d {
 
     private:
         /* data */
-        int m_projectionUniformLocation, m_modelViewUniformLocation, m_materialUniformLocation;
+        int m_modelUniformLocation;
         bool m_3dEnabled;
         m3d::RenderContext::Mode m_mode;
         m3d::RenderContext::Stereo3dSide m_side;
         m3d::RenderContext::ScreenTarget m_target;
-        C3D_Mtx &m_projection, &m_modelView;
+        C3D_Mtx &m_model;
         C3D_LightEnv& m_lightEnv;
         C3D_Light& m_light;
         C3D_LightLut& m_lightLut;

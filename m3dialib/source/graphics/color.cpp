@@ -7,12 +7,6 @@ namespace m3d {
         m_blue(0),
         m_alpha(255) { /* do nothing */ }
 
-    Color::Color(m3d::colors::Color t_color) :
-        m_red(RGBA8_GET_R(t_color)),
-        m_green(RGBA8_GET_G(t_color)),
-        m_blue(RGBA8_GET_B(t_color)),
-        m_alpha(RGBA8_GET_A(t_color)) { /* do nothing */ }
-
     Color::Color(uint8_t t_r, uint8_t t_g, uint8_t t_b) :
         m_red(t_r),
         m_green(t_g),
@@ -78,6 +72,10 @@ namespace m3d {
     }
 
     u32 Color::getRgba8() {
-        return RGBA8(m_red, m_green, m_blue, m_alpha);
+        return ((((m_alpha)&0xFF)<<24) | (((m_blue)&0xFF)<<16) | (((m_green)&0xFF)<<8) | (((m_red)&0xFF)<<0));
+    }
+
+    u32 Color::getRgb8() {
+        return ((((m_blue)&0xFF)<<16) | (((m_green)&0xFF)<<8) | (((m_red)&0xFF)<<0));
     }
 } /* m3d */

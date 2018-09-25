@@ -43,11 +43,6 @@ namespace m3d {
             Polygon(m3d::Mesh::Polygon::Vertex t_vertex0, m3d::Mesh::Polygon::Vertex t_vertex1, m3d::Mesh::Polygon::Vertex t_vertex2);
 
             /**
-             * @brief Destructs the polygon
-             */
-            virtual ~Polygon();
-
-            /**
              * @brief Sets the vertices of the polygon
              * @param t_vertex0 The first vertex
              * @param t_vertex1 The second vertex
@@ -64,12 +59,18 @@ namespace m3d {
 
         private:
             /* data */
-            m3d::Mesh::Polygon::Vertex* m_vertices;
+            m3d::Mesh::Polygon::Vertex m_vertices[3];
         };
+
         /**
          * @brief Initializes the mesh
          */
         Mesh();
+
+        /**
+         * @brief Destructor
+         */
+        ~Mesh();
 
         /**
          * @brief Adds a polygon to the mesh
@@ -84,65 +85,75 @@ namespace m3d {
 
         /**
          * @brief Sets the rotation on the X-axis
+         * @param t_radians  Whether to use radians instead of degrees
          * @param t_rotation The absolute rotation
          */
-        void setRotationX(float t_rotation);
+        void setPitch(float t_rotation, bool t_radians = false);
 
         /**
          * @brief Returns the rotation on the X-axis
+         * @param t_radians Whether to use radians instead of degrees
          * @return The absolute rotation
          */
-        float getRotationX();
+        float getPitch(bool t_radians = false);
 
         /**
          * @brief Sets the rotation on the Y-axis
+         * @param t_radians  Whether to use radians instead of degrees
          * @param t_rotation The absolute rotation
          */
-        void setRotationY(float t_rotation);
+        void setYaw(float t_rotation, bool t_radians = false);
 
         /**
          * @brief Returns the rotation on the Y-axis
+         * @param t_radians Whether to use radians instead of degrees
          * @return The absolute rotation
          */
-        float getRotationY();
+        float getYaw(bool t_radians = false);
 
         /**
          * @brief Sets the rotation on the Z-axis
+         * @param t_radians  Whether to use radians instead of degrees
          * @param t_rotation The absolute rotation
          */
-        void setRotationZ(float t_rotation);
+        void setRoll(float t_rotation, bool t_radians = false);
 
         /**
          * @brief Returns the rotation on the /-axis
+         * @param t_radians Whether to use radians instead of degrees
          * @return The absolute rotation
          */
-        float getRotationZ();
+        float getRoll(bool t_radians = false);
 
         /**
          * @brief Sets the rotation of the mesh
-         * @param t_rotationX The rotation on the X-axis
-         * @param t_rotationY The rotation on the Y-axis
-         * @param t_rotationZ The rotation on the Z-axis
+         * @param t_pitch    The rotation on the X-axis
+         * @param t_yaw      The rotation on the Y-axis
+         * @param t_roll     The rotation on the Z-axis
+         * @param t_radians  Whether to use radians instead of degrees
          */
-        void setRotation(float t_rotationX, float t_rotationY, float t_rotationZ);
+        void setRotation(float t_pitch, float t_yaw, float t_roll, bool t_radians = false);
 
         /**
          * @brief Rotates the mesh a given amount on the X-axis
-         * @param t_delta The amount to rotate
+         * @param t_delta   The amount to rotate
+         * @param t_radians Whether to use radians instead of degrees
          */
-        void rotateX(float t_delta);
+        void rotatePitch(float t_delta, bool t_radians = false);
 
         /**
          * @brief Rotates the mesh a given amount on the Y-axis
-         * @param t_delta The amount to rotate
+         * @param t_delta   The amount to rotate
+         * @param t_radians Whether to use radians instead of degrees
          */
-        void rotateY(float t_delta);
+        void rotateYaw(float t_delta, bool t_radians = false);
 
         /**
          * @brief Rotates the mesh a given amount on the /-axis
-         * @param t_delta The amount to rotate
+         * @param t_delta   The amount to rotate
+         * @param t_radians Whether to use radians instead of degrees
          */
-        void rotateZ(float t_delta);
+        void rotateRoll(float t_delta, bool t_radians = false);
 
         /**
          * @brief Sets the position on the X-axis
@@ -195,19 +206,19 @@ namespace m3d {
         void setPosition(m3d::Vector3f t_position);
 
         /**
-         * @brief Moves the sprite along the X-axis
+         * @brief Moves the mesh along the X-axis
          * @param t_delta The amount to move
          */
         void moveX(float t_delta);
 
         /**
-         * @brief Moves the sprite along the Y-axis
+         * @brief Moves the mesh along the Y-axis
          * @param t_delta The amount to move
          */
         void moveY(float t_delta);
 
         /**
-         * @brief Moves the sprite along the Z-axis
+         * @brief Moves the mesh along the Z-axis
          * @param t_delta The amount to move
          */
         void moveZ(float t_delta);
@@ -288,14 +299,16 @@ namespace m3d {
 
         /**
          * @brief Binds a texture to the mesh
-         * @param t_texture The texture to bind
+         * @param t_texture       The texture to bind
+         * @param t_resetMaterial Whether or not to reset the material so that it won't interfere with the texture
          */
-        void bindTexture(m3d::Texture& t_texture);
+        void bindTexture(m3d::Texture& t_texture, bool t_resetMaterial = true);
 
         /**
          * @brief Unbinds the bound texture (disables texture using)
+         * @param t_resetMaterial Whether or not to reset the material to the default material
          */
-        void unbindTexture();
+        void unbindTexture(bool t_resetMaterial = true);
 
         /**
          * @brief Returns a reference to the current texture
@@ -304,12 +317,15 @@ namespace m3d {
         m3d::Texture& getTexture();
 
         /**
-         * @brief Draws the shape
+         * @brief Draws the mesh
          * @param t_context The RenderContext
          */
         void draw(m3d::RenderContext t_context);
 
     protected:
+        /**
+         * @brief Updates the vertex buffer
+         */
         void updateVbo();
 
     private:

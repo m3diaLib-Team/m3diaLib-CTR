@@ -2,15 +2,7 @@
 
 namespace m3d {
     Mesh::Polygon::Polygon(m3d::Mesh::Polygon::Vertex t_vertex0, m3d::Mesh::Polygon::Vertex t_vertex1, m3d::Mesh::Polygon::Vertex t_vertex2) {
-        m_vertices = new m3d::Mesh::Polygon::Vertex[3];
         setVertices(t_vertex0, t_vertex1, t_vertex2);
-    }
-
-    /**
-     * @brief Destructs the polygon
-     */
-    Mesh::Polygon::~Polygon() {
-        delete m_vertices;
     }
 
     /**

@@ -12,7 +12,6 @@
 #include "m3d/graphics/drawable.hpp"
 #include "m3d/graphics/texture.hpp"
 #include "m3d/graphics/vertex.hpp"
-#include <string>
 
 namespace m3d {
     /**

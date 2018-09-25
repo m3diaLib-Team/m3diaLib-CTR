@@ -1,7 +1,6 @@
 #include <citro3d.h>
 #include <cstring>
 #include "m3d/graphics/drawables/mesh.hpp"
-#include "m3d/private/graphics.hpp"
 
 namespace m3d {
     Mesh::Mesh() :
@@ -15,6 +14,10 @@ namespace m3d {
         m_scaleY(1.0f),
         m_scaleZ(1.0f),
         m_useTexture(false) { /* do nothing */ }
+
+    Mesh::~Mesh() {
+        linearFree(m_vbo);
+    }
 
     void Mesh::addPolygon(m3d::Mesh::Polygon t_polygon) {
         m3d::Mesh::Polygon::Vertex vertex0 = t_polygon.getVertex(0),
@@ -38,54 +41,58 @@ namespace m3d {
             { vertex2.texcoord[0], vertex2.texcoord[1] },
             { vertex2.normal[0], vertex2.normal[1], vertex2.normal[2] },
         });
-
-        updateVbo();
     }
 
     void Mesh::clearVertices() {
         m_vertices.clear();
     }
 
-    void Mesh::setRotationX(float t_rotation) {
-        m_rotationX = t_rotation;
+    void Mesh::setPitch(float t_rotation, bool t_radians) {
+        m_rotationX = (t_radians ? t_rotation : C3D_AngleFromDegrees(t_rotation));
     }
 
-    float Mesh::getRotationX() {
-        return m_rotationX;
+    float Mesh::getPitch(bool t_radians) {
+        return (t_radians ? m_rotationX : C3D_AngleFromDegrees(m_rotationX));
     }
 
-    void Mesh::setRotationY(float t_rotation) {
-        m_rotationY = t_rotation;
+    void Mesh::setYaw(float t_rotation, bool t_radians) {
+        m_rotationY = (t_radians ? t_rotation : C3D_AngleFromDegrees(t_rotation));
     }
 
-    float Mesh::getRotationY() {
-        return m_rotationY;
+    float Mesh::getYaw(bool t_radians) {
+        return (t_radians ? m_rotationY : C3D_AngleFromDegrees(m_rotationY));
     }
 
-    void Mesh::setRotationZ(float t_rotation) {
-        m_rotationZ = t_rotation;
+    void Mesh::setRoll(float t_rotation, bool t_radians) {
+        m_rotationZ = (t_radians ? t_rotation : C3D_AngleFromDegrees(t_rotation));
     }
 
-    float Mesh::getRotationZ() {
-        return m_rotationZ;
+    float Mesh::getRoll(bool t_radians) {
+        return (t_radians ? m_rotationZ : C3D_AngleFromDegrees(m_rotationZ));
     }
 
-    void Mesh::setRotation(float t_rotationX, float t_rotationY, float t_rotationZ) {
-        m_rotationX = t_rotationX;
-        m_rotationY = t_rotationY;
-        m_rotationZ = t_rotationZ;
+    void Mesh::setRotation(float t_pitch, float t_yaw, float t_roll, bool t_radians) {
+        if (t_radians) {
+            m_rotationX = t_pitch;
+            m_rotationY = t_yaw;
+            m_rotationZ = t_roll;
+        } else {
+            m_rotationX = C3D_AngleFromDegrees(t_pitch);
+            m_rotationY = C3D_AngleFromDegrees(t_yaw);
+            m_rotationZ = C3D_AngleFromDegrees(t_roll);
+        }
     }
 
-    void Mesh::rotateX(float t_delta) {
-        m_rotationX += t_delta;
+    void Mesh::rotatePitch(float t_delta, bool t_radians) {
+        m_rotationX += (t_radians ? t_delta : C3D_AngleFromDegrees(t_delta));
     }
 
-    void Mesh::rotateY(float t_delta) {
-        m_rotationY += t_delta;
+    void Mesh::rotateYaw(float t_delta, bool t_radians) {
+        m_rotationY += (t_radians ? t_delta : C3D_AngleFromDegrees(t_delta));
     }
 
-    void Mesh::rotateZ(float t_delta) {
-        m_rotationZ += t_delta;
+    void Mesh::rotateRoll(float t_delta, bool t_radians) {
+        m_rotationZ += (t_radians ? t_delta : C3D_AngleFromDegrees(t_delta));
     }
 
     void Mesh::setPositionX(float t_position) {
@@ -186,13 +193,22 @@ namespace m3d {
         return m_material;
     }
 
-    void Mesh::bindTexture(m3d::Texture& t_texture) {
+    void Mesh::bindTexture(m3d::Texture& t_texture, bool t_resetMaterial) {
         m_useTexture = true;
         m_texture = t_texture;
+
+        if (t_resetMaterial) {
+            m_material.setAmbient(125, 125, 125);
+            m_material.setDiffuse(255, 255, 255);
+        }
     }
 
-    void Mesh::unbindTexture() {
+    void Mesh::unbindTexture(bool t_resetMaterial) {
         m_useTexture = false;
+
+        if (t_resetMaterial) {
+            m_material = m3d::Material();
+        }
     }
 
     m3d::Texture& Mesh::getTexture() {
@@ -201,15 +217,13 @@ namespace m3d {
 
     void Mesh::draw(m3d::RenderContext t_context) {
         if (t_context.getMode() == m3d::RenderContext::Mode::Spatial) {
-            // Mtx_Translate(&t_context.getProjectionMatrix(), posX, 0.0, , true);
-
             // manipulate modelview matrix
-            Mtx_Identity(&t_context.getModelViewMatrix());
-            Mtx_Translate(&t_context.getModelViewMatrix(), m_posX, m_posY,  -1.87 - m_posZ, true);
-            Mtx_RotateX(&t_context.getModelViewMatrix(), m_rotationX, true);
-            Mtx_RotateY(&t_context.getModelViewMatrix(), m_rotationY, true);
-            Mtx_RotateZ(&t_context.getModelViewMatrix(), m_rotationZ, true);
-            Mtx_Scale(&t_context.getModelViewMatrix(), m_scaleX, m_scaleY, m_scaleZ);
+            Mtx_Identity(&t_context.getModelMatrix());
+            Mtx_Translate(&t_context.getModelMatrix(), m_posX, m_posY,  -1.87 - m_posZ, true);
+            Mtx_RotateX(&t_context.getModelMatrix(), m_rotationX, true);
+            Mtx_RotateY(&t_context.getModelMatrix(), m_rotationY, true);
+            Mtx_RotateZ(&t_context.getModelMatrix(), m_rotationZ, true);
+            Mtx_Scale(&t_context.getModelMatrix(), m_scaleX, m_scaleY, m_scaleZ);
 
             // set material
             C3D_LightEnvMaterial(&t_context.getLightEnvironment(), m_material.getMaterial());
@@ -232,8 +246,7 @@ namespace m3d {
             BufInfo_Add(bufInfo, m_vbo, sizeof(m3d::Mesh::Polygon::Vertex), 3, 0x210);
 
             // update the uniforms
-            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getProjectionUniform(), &t_context.getProjectionMatrix());
-            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getModelViewUniform(),  &t_context.getModelViewMatrix());
+            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getModelUniform(),  &t_context.getModelMatrix());
 
             // draw the VBO
             C3D_DrawArrays(GPU_TRIANGLES, 0, m_vertices.size());

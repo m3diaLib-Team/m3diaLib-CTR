@@ -13,8 +13,6 @@ namespace m3d {
     Texture::~Texture() {
         if (m_texture != nullptr) {
             unloadImage(m_image);
-            free(m_image.tex);
-            free((Tex3DS_SubTexture*) m_image.subtex);
         }
     }
 
