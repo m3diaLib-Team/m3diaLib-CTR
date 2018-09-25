@@ -19,6 +19,10 @@ namespace m3d {
             if (!res) {
                 m3d::priv::ndsp::initialized = true;
             }
+
+            if (isNew3ds()) {
+                osSetSpeedupEnable(true);
+            }
     }
 
     Applet::~Applet() {
@@ -197,5 +201,9 @@ namespace m3d {
     int Applet::getCurrentFrame() {
         m_currentFrame = m_currentFrame % 60;
         return m_currentFrame;
+    }
+
+    inline void Applet::enableSpeedup(bool t_enable) {
+        osSetSpeedupEnable(t_enable);
     }
 } /* m3d */
