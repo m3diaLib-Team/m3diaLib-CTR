@@ -85,65 +85,75 @@ namespace m3d {
 
         /**
          * @brief Sets the rotation on the X-axis
+         * @param t_radians  Whether to use radians instead of degrees
          * @param t_rotation The absolute rotation
          */
-        void setPitch(float t_rotation);
+        void setPitch(float t_rotation, bool t_radians = false);
 
         /**
          * @brief Returns the rotation on the X-axis
+         * @param t_radians Whether to use radians instead of degrees
          * @return The absolute rotation
          */
-        float getPitch();
+        float getPitch(bool t_radians = false);
 
         /**
          * @brief Sets the rotation on the Y-axis
+         * @param t_radians  Whether to use radians instead of degrees
          * @param t_rotation The absolute rotation
          */
-        void setYaw(float t_rotation);
+        void setYaw(float t_rotation, bool t_radians = false);
 
         /**
          * @brief Returns the rotation on the Y-axis
+         * @param t_radians Whether to use radians instead of degrees
          * @return The absolute rotation
          */
-        float getYaw();
+        float getYaw(bool t_radians = false);
 
         /**
          * @brief Sets the rotation on the Z-axis
+         * @param t_radians  Whether to use radians instead of degrees
          * @param t_rotation The absolute rotation
          */
-        void setRoll(float t_rotation);
+        void setRoll(float t_rotation, bool t_radians = false);
 
         /**
          * @brief Returns the rotation on the /-axis
+         * @param t_radians Whether to use radians instead of degrees
          * @return The absolute rotation
          */
-        float getRoll();
+        float getRoll(bool t_radians = false);
 
         /**
          * @brief Sets the rotation of the mesh
-         * @param t_pitch The rotation on the X-axis
-         * @param t_yaw   The rotation on the Y-axis
-         * @param t_roll  The rotation on the Z-axis
+         * @param t_pitch    The rotation on the X-axis
+         * @param t_yaw      The rotation on the Y-axis
+         * @param t_roll     The rotation on the Z-axis
+         * @param t_radians  Whether to use radians instead of degrees
          */
-        void setRotation(float t_pitch, float t_yaw, float t_roll);
+        void setRotation(float t_pitch, float t_yaw, float t_roll, bool t_radians = false);
 
         /**
          * @brief Rotates the mesh a given amount on the X-axis
-         * @param t_delta The amount to rotate
+         * @param t_delta   The amount to rotate
+         * @param t_radians Whether to use radians instead of degrees
          */
-        void rotatePitch(float t_delta);
+        void rotatePitch(float t_delta, bool t_radians = false);
 
         /**
          * @brief Rotates the mesh a given amount on the Y-axis
-         * @param t_delta The amount to rotate
+         * @param t_delta   The amount to rotate
+         * @param t_radians Whether to use radians instead of degrees
          */
-        void rotateYaw(float t_delta);
+        void rotateYaw(float t_delta, bool t_radians = false);
 
         /**
          * @brief Rotates the mesh a given amount on the /-axis
-         * @param t_delta The amount to rotate
+         * @param t_delta   The amount to rotate
+         * @param t_radians Whether to use radians instead of degrees
          */
-        void rotateRoll(float t_delta);
+        void rotateRoll(float t_delta, bool t_radians = false);
 
         /**
          * @brief Sets the position on the X-axis

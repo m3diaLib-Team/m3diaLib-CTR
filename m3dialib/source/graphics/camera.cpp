@@ -10,46 +10,52 @@ namespace m3d {
         m_rotationY(0.0f),
         m_rotationZ(0.0f) { /* do nothing */ }
 
-    void Camera::setPitch(float t_rotation) {
-        m_rotationX = t_rotation;
+    void Camera::setPitch(float t_rotation, bool t_radians) {
+        m_rotationX = (t_radians ? t_rotation : C3D_AngleFromDegrees(t_rotation));
     }
 
-    float Camera::getPitch() {
-        return m_rotationX;
+    float Camera::getPitch(bool t_radians) {
+        return (t_radians ? m_rotationX : C3D_AngleFromDegrees(m_rotationX));
     }
 
-    void Camera::setYaw(float t_rotation) {
-        m_rotationY = t_rotation;
+    void Camera::setYaw(float t_rotation, bool t_radians) {
+        m_rotationY = (t_radians ? t_rotation : C3D_AngleFromDegrees(t_rotation));
     }
 
-    float Camera::getYaw() {
-        return m_rotationY;
+    float Camera::getYaw(bool t_radians) {
+        return (t_radians ? m_rotationY : C3D_AngleFromDegrees(m_rotationY));
     }
 
-    void Camera::setRoll(float t_rotation) {
-        m_rotationZ = t_rotation;
+    void Camera::setRoll(float t_rotation, bool t_radians) {
+        m_rotationZ = (t_radians ? t_rotation : C3D_AngleFromDegrees(t_rotation));
     }
 
-    float Camera::getRoll() {
-        return m_rotationZ;
+    float Camera::getRoll(bool t_radians) {
+        return (t_radians ? m_rotationZ : C3D_AngleFromDegrees(m_rotationZ));
     }
 
-    void Camera::setRotation(float t_pitch, float t_yaw, float t_roll) {
-        m_rotationX = t_pitch;
-        m_rotationY = t_yaw;
-        m_rotationZ = t_roll;
+    void Camera::setRotation(float t_pitch, float t_yaw, float t_roll, bool t_radians) {
+        if (t_radians) {
+            m_rotationX = t_pitch;
+            m_rotationY = t_yaw;
+            m_rotationZ = t_roll;
+        } else {
+            m_rotationX = C3D_AngleFromDegrees(t_pitch);
+            m_rotationY = C3D_AngleFromDegrees(t_yaw);
+            m_rotationZ = C3D_AngleFromDegrees(t_roll);
+        }
     }
 
-    void Camera::rotatePitch(float t_delta) {
-        m_rotationX += t_delta;
+    void Camera::rotatePitch(float t_delta, bool t_radians) {
+        m_rotationX += (t_radians ? t_delta : C3D_AngleFromDegrees(t_delta));
     }
 
-    void Camera::rotateYaw(float t_delta) {
-        m_rotationY += t_delta;
+    void Camera::rotateYaw(float t_delta, bool t_radians) {
+        m_rotationY += (t_radians ? t_delta : C3D_AngleFromDegrees(t_delta));
     }
 
-    void Camera::rotateRoll(float t_delta) {
-        m_rotationZ += t_delta;
+    void Camera::rotateRoll(float t_delta, bool t_radians) {
+        m_rotationZ += (t_radians ? t_delta : C3D_AngleFromDegrees(t_delta));
     }
 
     void Camera::setPositionX(float t_position) {
