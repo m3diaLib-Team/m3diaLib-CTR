@@ -1,6 +1,8 @@
 #include <3ds.h>
 #include <cstring>
 #include "m3d/core/applet.hpp"
+#include "m3d/core/ledPattern.hpp"
+#include "m3d/private/core.hpp"
 #include "m3d/private/ndsp.hpp"
 
 namespace m3d {
@@ -20,12 +22,17 @@ namespace m3d {
                 m3d::priv::ndsp::initialized = true;
             }
 
+            srvInit();
+            srvGetServiceHandle(&m3d::priv::core::ptmsysmHandle, "ptm:sysm");
+            srvExit();
+
             if (isNew3ds()) {
                 osSetSpeedupEnable(true);
             }
     }
 
     Applet::~Applet() {
+        m3d::LEDPattern::stop();
         if (m3d::priv::ndsp::initialized) ndspExit();
         sdmcExit();
         romfsExit();
