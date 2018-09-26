@@ -21,15 +21,7 @@ namespace m3d {
 
     Music::~Music() {
         stop();
-
-        if (!m_started) {
-            m_thread.initialize([](m3d::Parameter){}, nullptr);
-            m_thread.start();
-        } else {
-            if (m_status != m3d::Music::Status::Stopped) {
-                m_thread.join();
-            }
-        }
+        m_thread.join();
     }
 
     void Music::setFile(const std::string& t_filename) {
