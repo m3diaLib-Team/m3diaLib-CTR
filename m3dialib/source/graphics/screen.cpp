@@ -39,6 +39,25 @@ namespace m3d {
         m_modelUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "model");
         m_viewUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "view");
 
+        // light
+        C3D_FVec lightVec;
+
+        C3D_LightEnvInit(&m_lightEnvTop);
+        LightLut_Phong(&m_lutPhongTop, 30);
+        C3D_LightEnvLut(&m_lightEnvTop, GPU_LUT_D0, GPU_LUTINPUT_LN, false, &m_lutPhongTop);
+        lightVec = FVec4_New(0.0f, 0.0f, -0.5f, 1.0f);
+        C3D_LightInit(&m_lightTop, &m_lightEnvTop);
+        C3D_LightColor(&m_lightTop, 1.0, 1.0, 1.0);
+        C3D_LightPosition(&m_lightTop, &lightVec);
+
+        C3D_LightEnvInit(&m_lightEnvBottom);
+        LightLut_Phong(&m_lutPhongBottom, 30);
+        C3D_LightEnvLut(&m_lightEnvBottom, GPU_LUT_D0, GPU_LUTINPUT_LN, false, &m_lutPhongBottom);
+        lightVec = FVec4_New(0.0f, 0.0f, -0.5f, 1.0f);
+        C3D_LightInit(&m_lightBottom, &m_lightEnvBottom);
+        C3D_LightColor(&m_lightBottom, 1.0, 1.0, 1.0);
+        C3D_LightPosition(&m_lightBottom, &lightVec);
+
         clear();
     }
 
@@ -443,34 +462,12 @@ namespace m3d {
     }
 
     void Screen::prepareLights(m3d::RenderContext::ScreenTarget t_target) {
-        C3D_FVec lightVec;
-
         switch (t_target) {
             case m3d::RenderContext::ScreenTarget::Bottom:
-                C3D_LightEnvInit(&m_lightEnvBottom);
                 C3D_LightEnvBind(&m_lightEnvBottom);
-
-                LightLut_Phong(&m_lutPhongBottom, 30);
-                C3D_LightEnvLut(&m_lightEnvBottom, GPU_LUT_D0, GPU_LUTINPUT_LN, false, &m_lutPhongBottom);
-
-                lightVec = FVec4_New(0.0f, 0.0f, -0.5f, 1.0f);
-
-                C3D_LightInit(&m_lightBottom, &m_lightEnvBottom);
-                C3D_LightColor(&m_lightBottom, 1.0, 1.0, 1.0);
-                C3D_LightPosition(&m_lightBottom, &lightVec);
                 break;
             default:
-                C3D_LightEnvInit(&m_lightEnvTop);
                 C3D_LightEnvBind(&m_lightEnvTop);
-
-                LightLut_Phong(&m_lutPhongTop, 30);
-                C3D_LightEnvLut(&m_lightEnvTop, GPU_LUT_D0, GPU_LUTINPUT_LN, false, &m_lutPhongTop);
-
-                lightVec = FVec4_New(0.0f, 0.0f, -0.5f, 1.0f);
-
-                C3D_LightInit(&m_lightTop, &m_lightEnvTop);
-                C3D_LightColor(&m_lightTop, 1.0, 1.0, 1.0);
-                C3D_LightPosition(&m_lightTop, &lightVec);
         }
     }
 } /* m3d */
