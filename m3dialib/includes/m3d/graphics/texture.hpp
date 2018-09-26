@@ -23,6 +23,12 @@ namespace m3d {
         Texture();
 
         /**
+         * @brief Copy constructor
+         * @param t_texture The texture to copy
+         */
+        Texture(m3d::Texture& t_texture);
+
+        /**
          * @brief Destroys the texture
          */
         ~Texture();

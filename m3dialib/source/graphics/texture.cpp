@@ -10,6 +10,10 @@ namespace m3d {
     m_path(""),
     m_texture(nullptr) { /* do nothing */ }
 
+    Texture::Texture(m3d::Texture& t_texture) {
+        operator=(t_texture);
+    }
+
     Texture::~Texture() {
         if (m_texture != nullptr) {
             unloadImage(m_image);
