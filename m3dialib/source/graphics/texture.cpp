@@ -1,3 +1,4 @@
+#include <cstring>
 #include <fstream>
 #include <png.h>
 #include <vector>
@@ -70,9 +71,11 @@ namespace m3d {
 
         if (m_texture) C3D_TexDelete(m_texture);
 
-        m_texture = static_cast<C3D_Tex*>(malloc(sizeof(C3D_Tex)));
-        C3D_TexInit(m_texture, getNextPow2(rhs.getTexture()->width), getNextPow2(rhs.getTexture()->height), GPU_RGBA8);
-        *m_texture = *rhs.getTexture();
+        if (rhs.getTexture() != nullptr) {
+            m_texture = static_cast<C3D_Tex*>(malloc(sizeof(C3D_Tex)));
+            C3D_TexInit(m_texture, getNextPow2(rhs.getTexture()->width), getNextPow2(rhs.getTexture()->height), GPU_RGBA8);
+            memcpy(m_texture, rhs.getTexture(), sizeof(C3D_Tex));
+        }
 
         return *this;
     }
