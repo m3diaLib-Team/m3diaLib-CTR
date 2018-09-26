@@ -258,7 +258,7 @@ namespace m3d {
     }
 
     // protected methods
-    void Mesh::updateVbo() {
+    void Mesh::updateVBO() {
         linearFree(m_vbo);
         m_vbo = static_cast<m3d::Mesh::Polygon::Vertex*>(linearAlloc(m_vertices.size() * sizeof(m3d::Mesh::Polygon::Vertex)));
 

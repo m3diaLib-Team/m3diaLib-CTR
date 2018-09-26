@@ -332,7 +332,7 @@ namespace m3d {
         /**
          * @brief Updates the vertex buffer
          */
-        void updateVbo();
+        void updateVBO();
 
     private:
         /* data */

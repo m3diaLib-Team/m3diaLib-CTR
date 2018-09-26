@@ -56,7 +56,7 @@ namespace m3d {
                 }
             }
 
-            updateVbo();
+            updateVBO();
 
             return true;
         }

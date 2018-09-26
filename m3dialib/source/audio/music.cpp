@@ -31,12 +31,12 @@ namespace m3d {
 
         switch(m_filetype) {
             case m3d::Music::FileType::Mp3:
-                m_reader = new m3d::Playable::Mp3Reader;
+                m_reader = new m3d::Playable::MP3Reader;
                 m_reader->set(m_decoder);
                 break;
 
             case m3d::Music::FileType::Wav:
-                m_reader = new m3d::Playable::WavReader;
+                m_reader = new m3d::Playable::WAVReader;
                 m_reader->set(m_decoder);
                 break;
 
