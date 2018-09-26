@@ -215,6 +215,10 @@ namespace m3d {
         return m_texture;
     }
 
+    bool Mesh::isTextureBound() {
+        return m_useTexture;
+    }
+
     void Mesh::draw(m3d::RenderContext t_context) {
         if (t_context.getMode() == m3d::RenderContext::Mode::Spatial) {
             // manipulate modelview matrix
@@ -253,7 +257,7 @@ namespace m3d {
         }
     }
 
-    // private methods
+    // protected methods
     void Mesh::updateVbo() {
         linearFree(m_vbo);
         m_vbo = static_cast<m3d::Mesh::Polygon::Vertex*>(linearAlloc(m_vertices.size() * sizeof(m3d::Mesh::Polygon::Vertex)));
