@@ -289,7 +289,7 @@ namespace m3d {
          * @brief Sets the material of the mesh
          * @param t_material The material
          */
-        void setMaterial(m3d::Material t_material);
+        void setMaterial(m3d::Material& t_material);
 
         /**
          * @brief Returns the material of the mesh

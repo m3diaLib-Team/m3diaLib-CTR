@@ -185,7 +185,7 @@ namespace m3d {
         m_scaleZ += t_delta;
     }
 
-    void Mesh::setMaterial(m3d::Material t_material) {
+    void Mesh::setMaterial(m3d::Material& t_material) {
         m_material = t_material;
     }
 
