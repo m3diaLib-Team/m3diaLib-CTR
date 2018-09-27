@@ -6,12 +6,12 @@ namespace m3d {
         m_message(""),
         m_callbackResult(SWKBD_CALLBACK_OK) { /* do nothing */ }
 
-    void SoftwareKeyboard::KeyboardEvent::error(const std::string t_message) {
+    void SoftwareKeyboard::KeyboardEvent::error(const char* t_message) {
         m_message = t_message;
         m_callbackResult = SWKBD_CALLBACK_CONTINUE;
     }
 
-    void SoftwareKeyboard::KeyboardEvent::close(const std::string t_message) {
+    void SoftwareKeyboard::KeyboardEvent::close(const char* t_message) {
         m_message = t_message;
         m_callbackResult = SWKBD_CALLBACK_CLOSE;
     }
@@ -25,11 +25,12 @@ namespace m3d {
         return m_text;
     }
 
+    // undocumented methods
     SwkbdCallbackResult SoftwareKeyboard::KeyboardEvent::getResult() {
         return m_callbackResult;
     }
 
-    std::string SoftwareKeyboard::KeyboardEvent::getMessage() {
+    const char* SoftwareKeyboard::KeyboardEvent::getMessage() {
         return m_message;
     }
 } /* m3d */

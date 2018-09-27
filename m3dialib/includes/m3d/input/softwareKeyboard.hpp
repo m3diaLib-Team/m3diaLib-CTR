@@ -58,13 +58,13 @@ namespace m3d {
              * @brief Displays an error message and then continues the text input
              * @param t_message The message to display
              */
-            void error(const std::string t_message);
+            void error(const char* t_message);
 
             /**
              * @brief Displays an error message and then closes the text input
              * @param t_message The message to display
              */
-            void close(const std::string t_message);
+            void close(const char* t_message);
 
             /**
              * @brief Marks the input as valid and closes the text input
@@ -79,12 +79,13 @@ namespace m3d {
 
             #ifndef DOXYGEN_SKIP
             SwkbdCallbackResult getResult();
-            std::string getMessage();
+            const char* getMessage();
             #endif
 
         private:
             /* data */
-            std::string m_text, m_message;
+            std::string m_text;
+            const char* m_message;
             SwkbdCallbackResult m_callbackResult;
         };
 
@@ -95,6 +96,10 @@ namespace m3d {
         void setButtonNumber(int t_number);
 
         int getButtonNumber();
+
+        void setFixedLength(int t_length);
+
+        int getFixedLength();
 
         void allowEmpty(bool t_allow);
 
@@ -154,7 +159,7 @@ namespace m3d {
         static SwkbdCallbackResult callback(void* t_user, const char** t_ppMessage, const char* t_text, size_t t_textlen);
 
         /* data */
-        int m_numButtons;
+        int m_numButtons, m_fixedLength;
         bool m_allowEmpty, m_allowBlank, m_predictive, m_multiline, m_darkenTop, m_allowHome, m_leftButtonSubmit, m_middleButtonSubmit, m_rightButtonSubmit;
         std::string m_initialText, m_hintText, m_buttonLeftText, m_buttonMiddleText, m_buttonRightText;
         m3d::SoftwareKeyboard::KeyboardType m_keyboardType;
