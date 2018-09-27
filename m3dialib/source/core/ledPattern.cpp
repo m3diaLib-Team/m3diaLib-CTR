@@ -26,10 +26,13 @@ namespace m3d {
 
     void LEDPattern::clearKeyframes() {
         m_keyFrames.clear();
+        addKeyFrame(0, m3d::Color(0, 0, 0));
     }
 
     void LEDPattern::setTime(float t_time) {
-        m_time = t_time;
+        if (t_time < 0.25f) m_time = 0.25f;
+        else if (t_time > 16.f) m_time = 16.f;
+        else m_time = t_time;
     }
 
     float LEDPattern::getTime() {
@@ -37,7 +40,7 @@ namespace m3d {
     }
 
     void LEDPattern::setDelay(float t_delay) {
-        m_delay = t_delay;
+        m_delay = (t_delay >= 0 ? t_delay : 0.f);
     }
 
     float LEDPattern::getDelay() {
