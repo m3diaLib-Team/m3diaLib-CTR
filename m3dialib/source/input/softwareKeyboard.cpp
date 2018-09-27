@@ -5,6 +5,7 @@
 namespace m3d {
     SoftwareKeyboard::SoftwareKeyboard() :
         m_numButtons(3),
+        m_fixedLength(-1),
         m_allowEmpty(true),
         m_allowBlank(true),
         m_predictive(false),
@@ -34,6 +35,14 @@ namespace m3d {
 
     int SoftwareKeyboard::getButtonNumber() {
         return m_numButtons;
+    }
+
+    void SoftwareKeyboard::setFixedLength(int t_length) {
+        m_fixedLength = t_length;
+    }
+
+    int SoftwareKeyboard::getFixedLength() {
+        return m_fixedLength;
     }
 
     void SoftwareKeyboard::allowEmpty(bool t_allow) {
@@ -184,7 +193,21 @@ namespace m3d {
         SwkbdState swkbd;
         char buffer[2048];
 
-        swkbdInit(&swkbd, SWKBD_TYPE_NORMAL, 3, -1);
+        switch (m_keyboardType) {
+            case m3d::SoftwareKeyboard::KeyboardType::Normal:
+                swkbdInit(&swkbd, SWKBD_TYPE_NORMAL, m_numButtons, m_fixedLength);
+                break;
+            case m3d::SoftwareKeyboard::KeyboardType::Qwerty:
+                swkbdInit(&swkbd, SWKBD_TYPE_QWERTY, m_numButtons, m_fixedLength);
+                break;
+            case m3d::SoftwareKeyboard::KeyboardType::Western:
+                swkbdInit(&swkbd, SWKBD_TYPE_WESTERN, m_numButtons, m_fixedLength);
+                break;
+            case m3d::SoftwareKeyboard::KeyboardType::Numpad:
+                swkbdInit(&swkbd, SWKBD_TYPE_NUMPAD, m_numButtons, m_fixedLength);
+                break;
+        }
+
         swkbdSetHintText(&swkbd, m_hintText.c_str());
         swkbdSetInitialText(&swkbd, m_initialText.c_str());
 
@@ -196,7 +219,8 @@ namespace m3d {
             (m_predictive ? SWKBD_PREDICTIVE_INPUT : 0) |
             (m_darkenTop ? SWKBD_DARKEN_TOP_SCREEN : 0) |
             (m_multiline ? SWKBD_MULTILINE : 0) |
-            (m_allowHome ? SWKBD_ALLOW_HOME : 0)
+            (m_allowHome ? SWKBD_ALLOW_HOME : 0) |
+            (m_fixedLength > 0 ? SWKBD_FIXED_WIDTH : 0)
         );
 
         if (!m_allowBlank && !m_allowEmpty) {
@@ -249,8 +273,7 @@ namespace m3d {
     SwkbdCallbackResult SoftwareKeyboard::callback(void* t_user, const char** t_ppMessage, const char* t_text, size_t t_textlen) {
         m3d::SoftwareKeyboard::KeyboardEvent evt(t_text);
         m3d::priv::input::keyboardValidator(evt);
-        *t_ppMessage = evt.getMessage().c_str();
-        printf("Result: %s\n", evt.getResult() == SWKBD_CALLBACK_OK ? "OK" : (evt.getResult() == SWKBD_CALLBACK_CONTINUE ? "Continue" : "Close"));
+        *t_ppMessage = evt.getMessage();
         return evt.getResult();
     }
 } /* m3d */
