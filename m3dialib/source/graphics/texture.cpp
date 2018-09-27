@@ -1,3 +1,4 @@
+#include <cstring>
 #include <fstream>
 #include <png.h>
 #include <vector>
@@ -10,11 +11,13 @@ namespace m3d {
     m_path(""),
     m_texture(nullptr) { /* do nothing */ }
 
+    Texture::Texture(m3d::Texture& t_texture) {
+        operator=(t_texture);
+    }
+
     Texture::~Texture() {
         if (m_texture != nullptr) {
             unloadImage(m_image);
-            free(m_image.tex);
-            free((Tex3DS_SubTexture*) m_image.subtex);
         }
     }
 
@@ -65,8 +68,14 @@ namespace m3d {
         m_width = rhs.getWidth();
         m_height = rhs.getHeight();
         m_path = rhs.getPath();
-        C3D_TexDelete(m_texture);
-        m_texture = rhs.getTexture();
+
+        if (m_texture) C3D_TexDelete(m_texture);
+
+        if (rhs.getTexture() != nullptr) {
+            m_texture = static_cast<C3D_Tex*>(malloc(sizeof(C3D_Tex)));
+            C3D_TexInit(m_texture, getNextPow2(rhs.getTexture()->width), getNextPow2(rhs.getTexture()->height), GPU_RGBA8);
+            memcpy(m_texture, rhs.getTexture(), sizeof(C3D_Tex));
+        }
 
         return *this;
     }
@@ -148,7 +157,6 @@ namespace m3d {
         png_destroy_read_struct(&png, &info, NULL);
 
         unloadImage(m_image);
-        C3D_TexSetFilter(m_texture, GPU_LINEAR, GPU_LINEAR);
 
         m_texture = static_cast<C3D_Tex*>(malloc(sizeof(C3D_Tex)));
         m_image.tex = m_texture;
@@ -174,8 +182,9 @@ namespace m3d {
             }
         }
 
-        m_image.tex->border = 0xFFFFFFFF;
+        // C3D_TexSetFilter(m_texture, GPU_LINEAR, GPU_LINEAR);
         C3D_TexSetWrap(m_image.tex, GPU_CLAMP_TO_BORDER, GPU_CLAMP_TO_BORDER);
+        m_image.tex->border = 0xFFFFFFFF;
 
         return true;
     }

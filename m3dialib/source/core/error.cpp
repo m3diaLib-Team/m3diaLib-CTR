@@ -16,9 +16,6 @@ namespace m3d {
             case m3d::Error::ErrorType::Text:
                 type = ERROR_TEXT;
                 break;
-            case m3d::Error::ErrorType::Eula:
-                type = ERROR_EULA;
-                break;
             case m3d::Error::ErrorType::WordWrap:
                 type = ERROR_TEXT_WORD_WRAP;
                 break;
@@ -62,7 +59,7 @@ namespace m3d {
         return m_text;
     }
 
-    void Error::setAllowHomebutton(bool t_allowed) {
+    void Error::allowHomebutton(bool t_allowed) {
         m_allowHomeButton = t_allowed;
     }
 
@@ -70,7 +67,7 @@ namespace m3d {
         return m_allowHomeButton;
     }
 
-    void Error::setShowErrorCode(bool t_show) {
+    void Error::showErrorCode(bool t_show) {
         m_showErrorCode = t_show;
     }
 

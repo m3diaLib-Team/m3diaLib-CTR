@@ -9,63 +9,7 @@
 #include <cstdint>
 #include <3ds.h>
 
-/**
- * @brief Creates a new RGBA8 color
- * @param r the red component of the color to create
- * @param g the green component of the color to create
- * @param b the blue component of the color to create
- * @param a the alpha component of the color to create
- */
-#define RGBA8(r, g, b, a) ((((a)&0xFF)<<24) | (((b)&0xFF)<<16) | (((g)&0xFF)<<8) | (((r)&0xFF)<<0))
-
-/**
- * @brief Gets the red value of a RGBA8 color
- * @param  c The RGBA8 color
- * @return   The red value
- */
-#define RGBA8_GET_R(c) (((c) >>  0) & 0xFF)
-
-/**
- * @brief Gets the green value of a RGBA8 color
- * @param  c The RGBA8 color
- * @return   The green value
- */
-#define RGBA8_GET_G(c) (((c) >>  8) & 0xFF)
-
-/**
- * @brief Gets the blue value of a RGBA8 color
- * @param  c The RGBA8 color
- * @return   The blue value
- */
-#define RGBA8_GET_B(c) (((c) >> 16) & 0xFF)
-
-/**
- * @brief Gets the alpha value of a RGBA8 color
- * @param  c The RGBA8 color
- * @return   The alpha value
- */
-#define RGBA8_GET_A(c) (((c) >> 24) & 0xFF)
-
 namespace m3d {
-    /**
-     * @brief Namespace used for pre-defined colors
-     */
-    namespace colors {
-        /**
-         * @brief Pre-defined colors
-         */
-        enum Color {
-            Red = RGBA8(255, 0, 0, 255),        ///< FF0000
-            Green = RGBA8(0, 255, 0, 255),      ///< 00FF00
-            Blue = RGBA8(0, 0, 255, 255),       ///< 0000FF
-            Yellow = RGBA8(255, 255, 0, 255),   ///< FFFF00
-            Magenta = RGBA8(255, 0, 255, 255),    ///< FF00FF
-            Cyan = RGBA8(0, 255, 255, 255),     ///< 00FFFF
-            White = RGBA8(255, 255, 255, 255),  ///< FFFFFF
-            Black = RGBA8(0, 0, 0, 255)         ///< 000000
-        };
-    } /* colors */
-
     /**
      * @brief The color class
      */
@@ -75,12 +19,6 @@ namespace m3d {
          * @brief Creates a color using an opaque black as the default color
          */
         Color();
-
-        /**
-         * @brief Creates a color from an m3d::colors::Color enum
-         * @param t_color The color to use
-         */
-        Color(m3d::colors::Color t_color);
 
         /**
          * @brief Creates a color using a red, green and blue value
@@ -178,6 +116,24 @@ namespace m3d {
          * @return The color in RGBA8 format
          */
         u32 getRgba8();
+
+        /**
+         * @brief Returns the color as an RGB8 integer
+         * @return The color in RGB8 format
+         */
+        u32 getRgb8();
+
+        /**
+         * @brief Converts four color components to RGBA8 format
+         * @param  t_red   The red component
+         * @param  t_green The green component
+         * @param  t_blue  The blue component
+         * @param  t_alpha The alpha component
+         * @return         The color in RGBA8 format
+         */
+        static inline u32 rgba8(int t_red, int t_green, int t_blue, int t_alpha = 255) {
+            return ((((t_alpha)&0xFF)<<24) | (((t_blue)&0xFF)<<16) | (((t_green)&0xFF)<<8) | (((t_red)&0xFF)<<0));
+        }
 
     private:
         /* data */

@@ -192,10 +192,9 @@ namespace m3d {
 
         /**
          * @brief Draws the text
-         * @param t_3dEnabled Whether stereoscopic 3D is enabled or not
-         * @param t_side      The current 3D side (0 = left, 1 = right)
+         * @param t_context the RenderContext
          */
-        void draw(bool t_3dEnabled = false, int t_side = 0);
+        void draw(m3d::RenderContext t_context);
 
     private:
         /* data */

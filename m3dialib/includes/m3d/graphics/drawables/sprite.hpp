@@ -12,7 +12,6 @@
 #include "m3d/graphics/drawable.hpp"
 #include "m3d/graphics/texture.hpp"
 #include "m3d/graphics/vertex.hpp"
-#include <string>
 
 namespace m3d {
     /**
@@ -259,10 +258,9 @@ namespace m3d {
 
         /**
          * @brief Draws the shape
-         * @param t_3dEnabled Whether stereoscopic 3D is enabled or not
-         * @param t_side      The current 3D side (0 = left, 1 = right)
+         * @param t_context the RenderContext
          */
-        void draw(bool t_3dEnabled = false, int t_side = 0);
+        void draw(m3d::RenderContext t_context);
 
     private:
         void updateTint();
@@ -279,4 +277,3 @@ namespace m3d {
 } /* m3d */
 
 #endif /* end of include guard: SPRITE_H */
-

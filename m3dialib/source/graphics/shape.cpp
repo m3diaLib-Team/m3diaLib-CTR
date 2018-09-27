@@ -21,7 +21,7 @@ namespace m3d {
         m_changed = true;
     }
 
-    void Shape::draw(bool, int) {
+    void Shape::draw(m3d::RenderContext t_context) {
         if (m_changed) {
             m_changed = false;
 

@@ -94,9 +94,9 @@ namespace m3d {
             virtual void reset() = 0;
         };
 
-        class Mp3Reader: public m3d::Playable::Reader {
+        class MP3Reader: public m3d::Playable::Reader {
         public:
-            virtual ~Mp3Reader();
+            virtual ~MP3Reader();
             void set(m3d::Playable::Decoder& t_decoder);
             int init(const std::string& t_file);
             uint32_t getRate();
@@ -116,7 +116,7 @@ namespace m3d {
             uint8_t m_channels;
         };
 
-        class WavReader: public m3d::Playable::Reader {
+        class WAVReader: public m3d::Playable::Reader {
         public:
             void set(m3d::Playable::Decoder& t_decoder);
             int init(const std::string& t_file);

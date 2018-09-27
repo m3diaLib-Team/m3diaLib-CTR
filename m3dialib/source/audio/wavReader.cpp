@@ -1,20 +1,20 @@
 #include "m3d/audio/playable.hpp"
 
 namespace m3d {
-    void Playable::WavReader::set(m3d::Playable::Decoder& t_decoder) {
-        t_decoder.init = std::bind(&m3d::Playable::WavReader::init, this, std::placeholders::_1);
-        t_decoder.getRate = std::bind(&m3d::Playable::WavReader::getRate, this);
-        t_decoder.getChannels = std::bind(&m3d::Playable::WavReader::getChannels, this);
+    void Playable::WAVReader::set(m3d::Playable::Decoder& t_decoder) {
+        t_decoder.init = std::bind(&m3d::Playable::WAVReader::init, this, std::placeholders::_1);
+        t_decoder.getRate = std::bind(&m3d::Playable::WAVReader::getRate, this);
+        t_decoder.getChannels = std::bind(&m3d::Playable::WAVReader::getChannels, this);
         t_decoder.m_buffSize = m_buffSize;
-        t_decoder.setPosition = std::bind(&m3d::Playable::WavReader::setPosition, this, std::placeholders::_1);
-        t_decoder.getPosition = std::bind(&m3d::Playable::WavReader::getPosition, this);
-        t_decoder.getLength = std::bind(&m3d::Playable::WavReader::getLength, this);
-        t_decoder.decode = std::bind(&m3d::Playable::WavReader::decode, this, std::placeholders::_1);
-        t_decoder.exit = std::bind(&m3d::Playable::WavReader::exit, this);
-        t_decoder.reset = std::bind(&m3d::Playable::WavReader::reset, this);
+        t_decoder.setPosition = std::bind(&m3d::Playable::WAVReader::setPosition, this, std::placeholders::_1);
+        t_decoder.getPosition = std::bind(&m3d::Playable::WAVReader::getPosition, this);
+        t_decoder.getLength = std::bind(&m3d::Playable::WAVReader::getLength, this);
+        t_decoder.decode = std::bind(&m3d::Playable::WAVReader::decode, this, std::placeholders::_1);
+        t_decoder.exit = std::bind(&m3d::Playable::WAVReader::exit, this);
+        t_decoder.reset = std::bind(&m3d::Playable::WAVReader::reset, this);
     }
 
-    int Playable::WavReader::init(const std::string& t_file) {
+    int Playable::WAVReader::init(const std::string& t_file) {
         m_file = fopen(t_file.c_str(), "rb");
 
         if(m_file == NULL)
@@ -40,35 +40,35 @@ namespace m3d {
         return 0;
     }
 
-    uint32_t Playable::WavReader::getRate() {
+    uint32_t Playable::WAVReader::getRate() {
         return (m_header[27] << 24) + (m_header[26] << 16) + (m_header[25] << 8) + (m_header[24]);
     }
 
-    uint8_t Playable::WavReader::getChannels() {
+    uint8_t Playable::WAVReader::getChannels() {
         return m_channels;
     }
 
-    void Playable::WavReader::setPosition(int t_position) {
+    void Playable::WAVReader::setPosition(int t_position) {
         fseek(m_file, 44 + t_position, SEEK_SET);
     }
 
-    int Playable::WavReader::getPosition() {
+    int Playable::WAVReader::getPosition() {
         return m_length;
     }
 
-    int Playable::WavReader::getLength() {
+    int Playable::WAVReader::getLength() {
         return ftell(m_file) - 44;
     }
 
-    uint64_t Playable::WavReader::decode(void* t_buffer) {
+    uint64_t Playable::WAVReader::decode(void* t_buffer) {
         return fread(t_buffer, 1, m_buffSize, m_file) / sizeof(int16_t);
     }
 
-    void Playable::WavReader::exit() {
+    void Playable::WAVReader::exit() {
         fclose(m_file);
     }
 
-    void Playable::WavReader::reset() {
+    void Playable::WAVReader::reset() {
         fseek(m_file, 44, SEEK_SET);
     }
 } /* m3d */

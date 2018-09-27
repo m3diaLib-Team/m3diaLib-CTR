@@ -215,7 +215,7 @@ namespace m3d {
         return m_spriteSheetPath;
     }
 
-    void Sprite::draw(bool t_3dEnabled, int t_side) {
+    void Sprite::draw(m3d::RenderContext t_context) {
         C2D_DrawSpriteTinted(&m_sprite, &m_imageTint);
     }
 
