@@ -193,6 +193,7 @@ namespace m3d {
         // draw 3d
         if(m_drawStackTop3d.size() > 0 || m_drawStackBottom3d.size() > 0) {
             prepare();
+            C3D_DepthTest(true, GPU_GEQUAL, GPU_WRITE_ALL);
             Mtx_PerspStereoTilt(&m_projection, C3D_AngleFromDegrees(40.0f), C3D_AspectRatioBot, 0.01f, 1000.0f, 0, 2.0f, false);
 
             C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projectionUniform, &m_projection);
