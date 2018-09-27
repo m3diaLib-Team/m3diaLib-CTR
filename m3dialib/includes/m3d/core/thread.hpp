@@ -7,6 +7,7 @@
 
 #pragma once
 #include <3ds.h>
+#include <atomic>
 #include <functional>
 #include <string>
 #include "parameter.hpp"
@@ -74,6 +75,8 @@ namespace m3d {
          */
         void join(long long unsigned int t_timeout = U64_MAX);
 
+        bool isRunning();
+
         /**
          * @brief Puts the thread to sleep
          *
@@ -91,12 +94,14 @@ namespace m3d {
         struct ThreadData {
             m3d::Parameter m_parameter;
             std::function<void(m3d::Parameter)> m_function;
+            std::atomic<bool>* m_running;
         };
 
         static void threadFunction(void* t_arg);
         /* data */
         int m_priority, m_stackSize;
-        bool m_running, m_started;
+        bool m_started;
+        std::atomic<bool> m_running;
         m3d::Thread::ThreadData m_data;
         CTRU_Thread m_thread;
     };

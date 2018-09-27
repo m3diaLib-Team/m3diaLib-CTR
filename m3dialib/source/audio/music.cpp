@@ -1,7 +1,7 @@
 #include <cstring>
 #include <string>
 #include "m3d/audio/music.hpp"
-#include "m3d/private/private.hpp"
+#include "m3d/private/ndsp.hpp"
 
 namespace m3d {
     Music::Music(const std::string& t_filename) :
@@ -21,15 +21,7 @@ namespace m3d {
 
     Music::~Music() {
         stop();
-
-        if (!m_started) {
-            m_thread.initialize([](m3d::Parameter){}, nullptr);
-            m_thread.start();
-        } else {
-            if (m_status != m3d::Music::Status::Stopped) {
-                m_thread.join();
-            }
-        }
+        m_thread.join();
     }
 
     void Music::setFile(const std::string& t_filename) {
@@ -39,12 +31,12 @@ namespace m3d {
 
         switch(m_filetype) {
             case m3d::Music::FileType::Mp3:
-                m_reader = new m3d::Playable::Mp3Reader;
+                m_reader = new m3d::Playable::MP3Reader;
                 m_reader->set(m_decoder);
                 break;
 
             case m3d::Music::FileType::Wav:
-                m_reader = new m3d::Playable::WavReader;
+                m_reader = new m3d::Playable::WAVReader;
                 m_reader->set(m_decoder);
                 break;
 

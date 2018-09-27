@@ -1,4 +1,4 @@
-# m3diaLib
+# m3diaLib [![Build Status](https://travis-ci.org/StuntHacks/m3diaLib.svg?branch=master)](https://travis-ci.org/StuntHacks/m3diaLib)
 A fast, extensive and powerful allround media and game library for the Nintendo 3DS, written in C++.
 
 #### Click [here](#installation) to get to the installation instructions.
@@ -102,7 +102,9 @@ This module isn't availiable at the moment. However, it's planned features are:
 ...and anything that strikes my mind in the future.
 
 ## Installation
-To install the library, download the latest release and then execute the following commands:
+To install the library, download the latest build and then execute the command `make install`.
+
+If you want to build it from the source, download the latest release and then execute the following commands:
 
 ```
 make
@@ -126,3 +128,4 @@ To compile a m3diaLib-app, you need the following dependencies installed (instal
  * [citro3d](https://github.com/fincs/citro3d) (zLib)
  * [citro2d](https://github.com/devkitPro/citro2d) (zLib)
  * [OBJ-Loader](https://github.com/Bly7/OBJ-Loader) (MIT)
+ * [ctr-led-brary](https://github.com/mariohackandglitch/ctr-led-brary)

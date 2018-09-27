@@ -10,6 +10,7 @@
 #include "applet.hpp"
 #include "clock.hpp"
 #include "error.hpp"
+#include "ledPattern.hpp"
 #include "thread.hpp"
 #include "time.hpp"
 

@@ -1,7 +1,9 @@
 #include <3ds.h>
 #include <cstring>
 #include "m3d/core/applet.hpp"
-#include "m3d/private/private.hpp"
+#include "m3d/core/ledPattern.hpp"
+#include "m3d/private/core.hpp"
+#include "m3d/private/ndsp.hpp"
 
 namespace m3d {
     Applet::Applet() :
@@ -19,9 +21,18 @@ namespace m3d {
             if (!res) {
                 m3d::priv::ndsp::initialized = true;
             }
+
+            srvInit();
+            srvGetServiceHandle(&m3d::priv::core::ptmsysmHandle, "ptm:sysm");
+            srvExit();
+
+            if (isNew3ds()) {
+                osSetSpeedupEnable(true);
+            }
     }
 
     Applet::~Applet() {
+        m3d::LEDPattern::stop();
         if (m3d::priv::ndsp::initialized) ndspExit();
         sdmcExit();
         romfsExit();
@@ -197,5 +208,9 @@ namespace m3d {
     int Applet::getCurrentFrame() {
         m_currentFrame = m_currentFrame % 60;
         return m_currentFrame;
+    }
+
+    inline void Applet::enableSpeedup(bool t_enable) {
+        osSetSpeedupEnable(t_enable);
     }
 } /* m3d */

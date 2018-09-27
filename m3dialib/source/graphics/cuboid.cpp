@@ -114,6 +114,6 @@ namespace m3d {
             { {-(m_width / 2), -(m_height / 2), -(m_length / 2)}, {0.0f, 0.0f}, {0.0f, -1.0f, 0.0f} }
         ));
 
-        updateVbo();
+        updateVBO();
     }
 } /* m3d */

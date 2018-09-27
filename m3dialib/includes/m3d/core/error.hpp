@@ -20,8 +20,7 @@ namespace m3d {
          */
         enum class ErrorType {
             Text,      ///< Displays text passed to this applet
-            Eula,      ///< Displays the EULA
-            WordWrap  ///< Displays the custom error message passed to this applet with automatic line wrapping
+            WordWrap   ///< Displays the custom error message passed to this applet with automatic line wrapping
         };
 
         /**
@@ -74,7 +73,7 @@ namespace m3d {
          * @brief Sets whether to allow the use of the home button
          * @param t_allowed Whether the use of the home button is allowed or not
          */
-        void setAllowHomebutton(bool t_allowed);
+        void allowHomebutton(bool t_allowed);
 
         /**
          * @brief Returns whether the use of the home button is allowed
@@ -86,7 +85,7 @@ namespace m3d {
          * @brief Sets whether to show an error code
          * @param t_show Whether to show an error code or not
          */
-        void setShowErrorCode(bool t_show);
+        void showErrorCode(bool t_show);
 
         /**
          * @brief Returns whether to show an error code

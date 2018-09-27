@@ -1,5 +1,5 @@
 #include "m3d/audio/playable.hpp"
-#include "m3d/private/private.hpp"
+#include "m3d/private/ndsp.hpp"
 
 namespace m3d {
     void m3d::Playable::onPlay(std::function<void()> t_callback) {

@@ -7,8 +7,9 @@
 
 #pragma once
 
-#include "softwareKeyboard.hpp"
 #include "buttons.hpp"
+#include "circlepad.hpp"
+#include "softwareKeyboard.hpp"
 #include "touch.hpp"
 
 

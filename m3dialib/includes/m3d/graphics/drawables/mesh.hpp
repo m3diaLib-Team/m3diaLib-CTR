@@ -317,6 +317,12 @@ namespace m3d {
         m3d::Texture& getTexture();
 
         /**
+         * @brief Returns whether a texture was bound or not
+         * @return `true` if a texture was bound, `false` otherwise
+         */
+        bool isTextureBound();
+
+        /**
          * @brief Draws the mesh
          * @param t_context The RenderContext
          */
@@ -326,7 +332,7 @@ namespace m3d {
         /**
          * @brief Updates the vertex buffer
          */
-        void updateVbo();
+        void updateVBO();
 
     private:
         /* data */

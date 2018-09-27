@@ -152,7 +152,7 @@ namespace m3d {
         * @brief Returns the model of the system
         * @return The system model
         */
-       m3d::Applet::ConsoleModel getConsoleModel();
+       static m3d::Applet::ConsoleModel getConsoleModel();
 
        /**
         * @brief Returns whether the system is connected to a wifi network
@@ -183,6 +183,13 @@ namespace m3d {
         * @return The currently drawn frame (ranging from 0 to 59)
         */
        int getCurrentFrame();
+
+       /**
+        * @brief Whether to enable the New 3DS speedup or not
+        * @param t_enable Whether or not to enable the speedup
+        * @note By default, the speedup is enabled on New 3DS consoles
+        */
+       static inline void enableSpeedup(bool t_enable);
 
    private:
        /* data */
