@@ -39,6 +39,11 @@ namespace m3d {
         m_modelUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "model");
         m_viewUniform = shaderInstanceGetUniformLocation(m_shader.vertexShader, "view");
 
+        AttrInfo_Init(&m_attributeInfo);
+        AttrInfo_AddLoader(&m_attributeInfo, 0, GPU_FLOAT, 3); // v0=position
+        AttrInfo_AddLoader(&m_attributeInfo, 1, GPU_FLOAT, 2); // v1=texcoord
+        AttrInfo_AddLoader(&m_attributeInfo, 2, GPU_FLOAT, 3); // v2=normal
+
         // light
         C3D_FVec lightVec;
 
@@ -429,11 +434,7 @@ namespace m3d {
         C3D_BindProgram(&m_shader);
 
         // initialize and configure attributes
-        m_attributeInfo = C3D_GetAttrInfo();
-        AttrInfo_Init(m_attributeInfo);
-        AttrInfo_AddLoader(m_attributeInfo, 0, GPU_FLOAT, 3); // v0=position
-        AttrInfo_AddLoader(m_attributeInfo, 1, GPU_FLOAT, 2); // v1=texcoord
-        AttrInfo_AddLoader(m_attributeInfo, 2, GPU_FLOAT, 3); // v2=normal
+        C3D_SetAttrInfo(&m_attributeInfo);
 
         // Configure the first fragment shading substage to blend the fragment primary color
         // with the fragment secondary color.
