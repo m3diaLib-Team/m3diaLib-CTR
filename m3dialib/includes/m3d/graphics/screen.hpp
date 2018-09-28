@@ -204,7 +204,7 @@ namespace m3d {
         shaderProgram_s m_shader;
 
         // attribute information
-        C3D_AttrInfo* m_attributeInfo;
+        C3D_AttrInfo m_attributeInfo;
 
         // matrices
         C3D_Mtx m_projection, m_model, m_view;
