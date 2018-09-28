@@ -106,19 +106,25 @@ namespace m3d {
        /**
         * @brief Reboots the system
         */
-       static inline void reboot();
+       static inline void reboot() {
+           APT_HardwareResetAsync();
+       }
 
        /**
         * @brief Sets whether stand-by mode is allowed
         * @param t_allowed Stand-by mode allowed?
         */
-       static inline void setSleepAllowed(bool t_allowed);
+       static inline void setSleepAllowed(bool t_allowed) {
+           aptSetSleepAllowed(t_allowed);
+       }
 
        /**
         * @brief Gets whether stand-by mode is allowed
         * @return Stand-by mode allowed?
         */
-       static inline bool getSleepAllowed();
+       static inline bool getSleepAllowed() {
+           return aptIsSleepAllowed();
+       }
 
        /**
         * @brief Launches a system app
@@ -140,13 +146,21 @@ namespace m3d {
         * @brief Returns whether the system is a New3DS
         * @return Whether the system is a New3DS or not
         */
-       static inline bool isNew3ds();
+       static inline bool isNew3ds() {
+           bool state;
+           APT_CheckNew3DS(&state);
+           return state;
+       }
 
        /**
         * @brief Returns whether the system is a 2DS
         * @return Whether the system is a 2DS or not
         */
-       static inline bool is2ds();
+       static inline bool is2ds() {
+           u8 state;
+           CFGU_GetModelNintendo2DS(&state);
+           return (state == 0);
+       }
 
        /**
         * @brief Returns the model of the system
@@ -158,25 +172,41 @@ namespace m3d {
         * @brief Returns whether the system is connected to a wifi network
         * @return The state of whether the system is connected to a wifi network or not
         */
-       static inline bool wifiConnected();
+       static inline bool wifiConnected() {
+           u32 state;
+           ACU_GetWifiStatus(&state);
+           return (state > 0);
+       }
 
        /**
         * @brief Returns whether the power adapter is plugged in
         * @return The state whether the power adapter is plugged in or not
         */
-       static inline bool adapterPluggedIn();
+       static inline bool adapterPluggedIn() {
+           bool state;
+           PTMU_GetAdapterState(&state);
+           return state;
+       }
 
        /**
         * @brief Returns whether the system is charging or not
         * @return The charging state of the console
         */
-       static inline bool isCharging();
+       static inline bool isCharging() {
+           u8 state;
+           PTMU_GetBatteryChargeState(&state);
+           return (state == 1);
+       }
 
        /**
         * @brief Returns the current battery level of the console
         * @return The battery level of the console (0-5)
         */
-       static inline int getBatteryLevel();
+       static inline int getBatteryLevel() {
+           u8 state;
+           PTMU_GetBatteryLevel(&state);
+           return (state <= 5 && state >= 0 ? state : 0);
+       }
 
        /**
         * @brief Returns the current frame
@@ -189,7 +219,9 @@ namespace m3d {
         * @param t_enable Whether or not to enable the speedup
         * @note By default, the speedup is enabled on New 3DS consoles
         */
-       static inline void enableSpeedup(bool t_enable);
+       static inline void enableSpeedup(bool t_enable) {
+           osSetSpeedupEnable(t_enable);
+       }
 
    private:
        /* data */

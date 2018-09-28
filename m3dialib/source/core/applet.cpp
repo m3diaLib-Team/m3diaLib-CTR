@@ -52,18 +52,6 @@ namespace m3d {
         m_running = false;
     }
 
-    inline void Applet::reboot() {
-        APT_HardwareResetAsync();
-    }
-
-    inline void Applet::setSleepAllowed(bool t_allowed) {
-        aptSetSleepAllowed(t_allowed);
-    }
-
-    inline bool Applet::getSleepAllowed() {
-        return aptIsSleepAllowed();
-    }
-
     void Applet::launchSystemApp(u64 t_appId) {
         u8 param[0x300];
         u8 hmac[0x20];
@@ -140,31 +128,13 @@ namespace m3d {
                 id = APPID_NONE;
         }
 
-        u32 aptbuf[0x400/4];
+        u32 aptbuf[0x400 / 4];
 
         memset(aptbuf, 0, sizeof(aptbuf));
         if (!aptLaunchLibraryApplet(id, aptbuf, sizeof(aptbuf), 0))
             return false;
 
         return true;
-    }
-
-    inline bool Applet::isNew3ds() {
-        bool state;
-        APT_CheckNew3DS(&state);
-        return state;
-    }
-
-    inline bool Applet::is2ds() {
-        u8 state;
-        CFGU_GetModelNintendo2DS(&state);
-        return (state == 0);
-    }
-
-    inline bool Applet::wifiConnected() {
-        u32 state;
-        ACU_GetWifiStatus(&state);
-        return (state > 0);
     }
 
     m3d::Applet::ConsoleModel Applet::getConsoleModel() {
@@ -187,30 +157,8 @@ namespace m3d {
         }
     }
 
-    inline bool Applet::adapterPluggedIn() {
-        bool state;
-        PTMU_GetAdapterState(&state);
-        return state;
-    }
-
-    inline bool Applet::isCharging() {
-        u8 state;
-        PTMU_GetBatteryChargeState(&state);
-        return (state == 1);
-    }
-
-    inline int Applet::getBatteryLevel() {
-        u8 state;
-        PTMU_GetBatteryLevel(&state);
-        return (state <= 5 && state >= 0 ? state : 0);
-    }
-
     int Applet::getCurrentFrame() {
         m_currentFrame = m_currentFrame % 60;
         return m_currentFrame;
-    }
-
-    inline void Applet::enableSpeedup(bool t_enable) {
-        osSetSpeedupEnable(t_enable);
     }
 } /* m3d */
