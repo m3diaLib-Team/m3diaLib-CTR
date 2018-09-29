@@ -5,3 +5,10 @@ m3dialib/lib
 releases/
 build/
 html/
+assets/
+examples/
+*.3dsx
+*.elf
+*.smdh
+MakefileLocal
+main.cpp
