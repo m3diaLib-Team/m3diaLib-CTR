@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include "buttons.hpp"
-#include "circlepad.hpp"
+// #include "buttons.hpp"
+// #include "circlepad.hpp"
 #include "softwareKeyboard.hpp"
-#include "touch.hpp"
+// #include "touch.hpp"
 
 
 #endif /* end of include guard: INPUT_H */
