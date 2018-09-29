@@ -2,6 +2,8 @@
  * @file input.hpp
  * @brief Defines the Input class
  */
+#include "m3d/input/buttons.hpp"
+
 #ifndef INPUT_H
 #define INPUT_H
 
