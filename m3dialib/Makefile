@@ -100,6 +100,7 @@ docs:
 	@doxygen Doxyfile
 
 ifeq ($(OS),Windows_NT)
+install:
 	@cp -rf lib/* $(DEVKITPRO)/portlibs/3ds/lib/
 	@cp -rf includes/* $(DEVKITPRO)/portlibs/3ds/include/
 else
