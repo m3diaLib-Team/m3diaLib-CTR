@@ -127,7 +127,7 @@ To compile a m3diaLib-app, you need the following dependencies installed (instal
 
 Use this command to automatically install all necessary dependencies:
 
-`sudo dkp-pacman -S 3ds-dev`
+`sudo dkp-pacman -S 3ds-dev 3ds-zlib 3ds-tinyxml2 3ds-mpg123 3ds-libpng`
 
 ## Credits
  * [ctrulib](https://github.com/smealum/ctrulib/)
