@@ -3,8 +3,8 @@
  * @brief Defines the Input class
  */
 
-#ifndef INPUT_H
-#define INPUT_H
+#ifndef CORE_INPUT_H
+#define CORE_INPUT_H
 
 namespace m3d {
 
@@ -75,6 +75,14 @@ namespace m3d {
          * @return          Whether the button was released or not
          */
         static bool buttonReleased(Button t_button);
+
+        static int getCirclePadX();
+
+        static int getCirclePadY();
+
+        static int getTouchX();
+
+        static int getTouchY();
     };
 }
 

@@ -26,4 +26,28 @@ namespace m3d {
     bool Input::buttonReleased(Button t_button) {
         return (buttonsReleased() & t_button);
     }
+
+    int Input::getCirclePadX() {
+        circlePosition circle;
+        hidCircleRead(&circle);
+        return circle.dx;
+    }
+
+    int Input::getCirclePadY() {
+        circlePosition circle;
+        hidCircleRead(&circle);
+        return circle.dy;
+    }
+
+    int Input::getTouchX() {
+        touchPosition touch;
+        hidTouchRead(&touch);
+        return touch.px;
+    }
+
+    int Input::getTouchY() {
+        touchPosition touch;
+        hidTouchRead(&touch);
+        return touch.py;
+    }
 }
