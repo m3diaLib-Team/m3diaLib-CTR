@@ -46,35 +46,35 @@ namespace m3d {
          * @brief Gets the buttons down in bits
          * @return Button values in bits 
          */
-        u32 buttonsDown();
+        static u32 buttonsDown();
         /**
          * @brief Gets the buttons pressed in bits
          * @return Button values in bits
          */
-        u32 buttonsPressed();
+        static u32 buttonsPressed();
         /**
          * @brief Gets the buttons released in bits
          * @return Button values in bits
          */
-        u32 buttonsReleased();
+        static u32 buttonsReleased();
         /**
          * Returns whether the given button is pressed this frame but wasn't pressed in the last frame
          * @param  t_button The button
          * @return          Whether the button is pressed or not
          */
-        bool buttonPressed(Button t_button);
+        static bool buttonPressed(Button t_button);
         /**
          * @brief Returns whether the given button is pressed this frame regardless whether it was pressed in the last frame
          * @param  t_button The button
          * @return          Whether the button is pressed or not
          */
-        bool buttonDown(Button t_button);
+        static bool buttonDown(Button t_button);
         /**
          * @brief Returns whether the given button was released (i.e. isn't pressed this frame but was in the last frame)
          * @param  t_button The button
          * @return          Whether the button was released or not
          */
-        bool buttonReleased(Button t_button);
+        static bool buttonReleased(Button t_button);
     };
 }
 
