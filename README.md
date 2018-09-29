@@ -111,8 +111,12 @@ make
 make install
 ```
 
+**Note:** Make sure, to have the latest version of the devkitPro-toolchain installed, before building the lib or any examples.
+
 ## Dependencies
 To compile a m3diaLib-app, you need the following dependencies installed (install via [devkitPro-pacman](https://devkitpro.org/wiki/devkitPro_pacman)):
+ * 3dstools
+ * picasso
  * libctru
  * citro3d
  * citro2d
@@ -122,6 +126,10 @@ To compile a m3diaLib-app, you need the following dependencies installed (instal
  * 3ds-libpng
  * 3ds-freetype
  * tex3ds (if you want to use spritesheets)
+
+Use this command to automatically install all necessary dependencies:
+
+`sudo dkp-pacman -S 3ds-dev 3ds-zlib 3ds-tinyxml2 3ds-mpg123 3ds-libpng`
 
 ## Credits
  * [ctrulib](https://github.com/smealum/ctrulib/)
