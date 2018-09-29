@@ -99,9 +99,14 @@ all: lib/libm3dia.a lib/libm3diad.a
 docs:
 	@doxygen Doxyfile
 
+ifeq ($(OS),Windows_NT)
+	@cp -rf lib/* $(DEVKITPRO)/portlibs/3ds/lib/
+	@cp -rf includes/* $(DEVKITPRO)/portlibs/3ds/include/
+else
 install:
 	@sudo cp -rf lib/* $(DEVKITPRO)/portlibs/3ds/lib/
 	@sudo cp -rf includes/* $(DEVKITPRO)/portlibs/3ds/include/
+endif
 
 lib:
 	@[ -d $@ ] || mkdir -p $@
