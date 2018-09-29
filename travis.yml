@@ -7,7 +7,7 @@ os:
 before_install:
   - wget https://github.com/devkitPro/pacman/releases/download/devkitpro-pacman-1.0.1/devkitpro-pacman.deb
   - sudo dpkg -i devkitpro-pacman.deb
-  - dkp-pacman -S devkitARM picasso tex3ds general-tools 3dstools devkit-env libctru citro3d citro2d 3ds-zlib 3ds-tinyxml2 3ds-mpg123 3ds-libpng
+  - dkp-pacman -S 3ds-dev
 script:
   - make -C m3dialib/
 branches:
