@@ -7,7 +7,9 @@
 #define CORE_INPUT_H
 
 namespace m3d {
-
+    /**
+     * @brief Handles user input
+     */
     class Input {
     public:
         /**
@@ -44,7 +46,7 @@ namespace m3d {
         };
         /**
          * @brief Gets the buttons down in bits
-         * @return Button values in bits 
+         * @return Button values in bits
          */
         static u32 buttonsDown();
         /**
@@ -76,12 +78,28 @@ namespace m3d {
          */
         static bool buttonReleased(Button t_button);
 
+        /**
+         * @brief Returns the position on the circlepad on the x-axis
+         * @return The x-position of the circlepad (ranging from -155 for completely to the left to +155 for completely to the right)
+         */
         static int getCirclePadX();
 
+        /**
+         * @brief Returns the position on the circlepad on the y-axis
+         * @return The y-position of the circlepad (ranging from -155 for completely at the top to +155 for completely at the bottom)
+         */
         static int getCirclePadY();
 
+        /**
+         * @brief Returns the touch position on the x-axis
+         * @return The x-position of the touch input
+         */
         static int getTouchX();
 
+        /**
+         * @brief Returns the touch position on the <-axis
+         * @return The <-position of the touch input
+         */
         static int getTouchY();
     };
 }
