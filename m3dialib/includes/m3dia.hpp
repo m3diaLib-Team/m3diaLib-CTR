@@ -42,12 +42,12 @@
 /**
  * @brief The current major version of the library
  */
-#define M3D_VERSION_MAJOR 1
+#define M3D_VERSION_MAJOR 0
 
 /**
  * @brief The current minor version of the library
  */
-#define M3D_VERSION_MINOR 0
+#define M3D_VERSION_MINOR 2
 
 /**
  * @brief The current revision of the library
