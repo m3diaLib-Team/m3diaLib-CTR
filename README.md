@@ -111,6 +111,8 @@ make
 make install
 ```
 
+**Note:** Make sure, to have the latest version of the devkitPro-toolchain installed, before building the lib or any examples.
+
 ## Dependencies
 To compile a m3diaLib-app, you need the following dependencies installed (install via [devkitPro-pacman](https://devkitpro.org/wiki/devkitPro_pacman)):
  * 3dstools
