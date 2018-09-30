@@ -127,6 +127,18 @@ namespace m3d {
        }
 
        /**
+        * @brief Gets the 3D slider state on 3DS systems
+        * @return 3D slider state
+        */
+       static inline float get3dSliderState() {
+           if (getConsoleModel() != ConsoleModel::Old2DS || getConsoleModel() != ConsoleModel::Unknown) {
+               return osGet3DSliderState();
+           } else {
+               return 0.0;
+           }
+       }
+
+       /**
         * @brief Launches a system app
         * @param  t_appId The app id of the
         * @return         The success state of the launch
