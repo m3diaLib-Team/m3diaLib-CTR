@@ -14,6 +14,7 @@
 #include "thread.hpp"
 #include "time.hpp"
 #include "input.hpp"
+#include "mcu.hpp"
 
 
 #endif /* end of include guard: CORE_H */

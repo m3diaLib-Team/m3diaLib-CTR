@@ -15,6 +15,7 @@ namespace m3d {
             acInit();
             romfsInit();
             sdmcInit();
+            mcuHwcInit();
 
             Result res;
             res = ndspInit();
