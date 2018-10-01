@@ -16,6 +16,7 @@ namespace m3d {
 
     void Text::setText(const std::string& t_text) {
         m_text = t_text;
+        C2D_TextBufClear(m_textBuffer);
         C2D_TextParse(&m_textObject, m_textBuffer, m_text.c_str());
         C2D_TextOptimize(&m_textObject);
     }
@@ -26,6 +27,7 @@ namespace m3d {
 
     void Text::appendText(const std::string& t_text) {
         m_text += t_text;
+        C2D_TextBufClear(m_textBuffer);
         C2D_TextParse(&m_textObject, m_textBuffer, m_text.c_str());
         C2D_TextOptimize(&m_textObject);
     }
