@@ -23,7 +23,7 @@
  */
 #define M3D_BREAKPOINT() \
         std::cout << "\u001b[33;1mBreakpoint reached: \n" << (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__) << ":" << __LINE__ << "\u001b[0m\n"; \
-        while (true) { hidScanInput(); if (m3d::buttons::buttonPressed(m3d::buttons::Button::A)) break; }
+        while (true) { hidScanInput(); if (m3d::Input::buttonPressed(m3d::Input::Button::A)) break; }
 
 /**
  * @brief Breaks the execution and waits for the A-button to be pressed
@@ -33,7 +33,7 @@
  */
 #define M3D_DEBUGPOINT(msg) \
     std::cout << "\u001b[33;1mBreakpoint reached: \n" << (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__) << ":" << __LINE__ << ": " << msg << "\u001b[0m\n"; \
-    while (true) { hidScanInput(); if (m3d::buttons::buttonPressed(m3d::buttons::Button::A)) break; }
+    while (true) { hidScanInput(); if (m3d::Input::buttonPressed(m3d::Input::Button::A)) break; }
 #else
 #define M3D_BREAKPOINT()
 #define M3D_DEBUGPOINT(msg)
