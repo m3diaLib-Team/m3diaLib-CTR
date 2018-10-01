@@ -33,7 +33,7 @@ namespace m3d {
         }
     }
 
-    FWVersion MCU::getFWVersion() {
+    m3d::MCU::FWVersion MCU::getFWVersion() {
         u8 *high = 0;
         u8 *low = 0;
         FWVersion fw;
@@ -48,31 +48,33 @@ namespace m3d {
         MCUHWC_SetWifiLedState(t_state);
     }
 
-    void MCU::setPowerLed(powerLed t_state) {
+    void MCU::setPowerLed(m3d::MCU::PowerLed t_state) {
         powerLedState f_state;
+
         switch(t_state) {
-            case powerLed::LED_BLINK_RED:
+            case m3d::MCU::PowerLed::BlinkingRed:
                 f_state = powerLedState::LED_BLINK_RED;
                 break;
-            case powerLed::LED_BLUE:
+            case m3d::MCU::PowerLed::Blue:
                 f_state = powerLedState::LED_BLUE;
                 break;
-            case powerLed::LED_NORMAL:
+            case m3d::MCU::PowerLed::Normal:
                 f_state = powerLedState::LED_NORMAL;
                 break;
-            case powerLed::LED_OFF:
+            case m3d::MCU::PowerLed::Off:
                 f_state = powerLedState::LED_OFF;
                 break;
-            case powerLed::LED_RED:
+            case m3d::MCU::PowerLed::Red:
                 f_state = powerLedState::LED_RED;
                 break;
-            case powerLed::LED_SLEEP_MODE:
+            case m3d::MCU::PowerLed::SleepMode:
                 f_state = powerLedState::LED_SLEEP_MODE;
                 break;
             default:
                 f_state = powerLedState::LED_NORMAL;
                 break;
         }
+
         MCUHWC_SetPowerLedState(f_state);
     }
 }
