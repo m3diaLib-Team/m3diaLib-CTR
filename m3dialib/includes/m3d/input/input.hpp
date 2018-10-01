@@ -1,5 +1,5 @@
 /**
- * @file input.hpp
+ * @file input/input.hpp
  * @brief Includes all files related to user input
  */
 #ifndef INPUT_H

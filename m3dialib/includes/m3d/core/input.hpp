@@ -1,5 +1,5 @@
 /**
- * @file input.hpp
+ * @file core/input.hpp
  * @brief Defines the Input class
  */
 #ifndef CORE_INPUT_H
