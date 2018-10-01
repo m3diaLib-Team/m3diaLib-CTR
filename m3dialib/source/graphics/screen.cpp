@@ -448,6 +448,7 @@ namespace m3d {
         C3D_TexEnvSrc(env, C3D_Both, GPU_FRAGMENT_PRIMARY_COLOR, GPU_FRAGMENT_SECONDARY_COLOR, GPU_PRIMARY_COLOR);
         C3D_TexEnvFunc(env, C3D_Both, GPU_ADD);
 
+        C3D_TexEnvInit(C3D_GetTexEnv(1));
         C3D_TexEnvInit(C3D_GetTexEnv(2));
         C3D_TexEnvInit(C3D_GetTexEnv(3));
         C3D_TexEnvInit(C3D_GetTexEnv(4));
