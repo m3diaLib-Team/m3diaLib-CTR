@@ -190,8 +190,11 @@ namespace m3d {
         C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 
         if (t_clear) {
+            C2D_SceneBegin(m_targetTopLeft->getRenderTarget());
             m_targetTopLeft->clear();
+            C2D_SceneBegin(m_targetTopRight->getRenderTarget());
             m_targetTopRight->clear();
+            C2D_SceneBegin(m_targetBottom->getRenderTarget());
             m_targetBottom->clear();
             clear();
         }
