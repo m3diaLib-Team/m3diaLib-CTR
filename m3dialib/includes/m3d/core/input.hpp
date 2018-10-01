@@ -50,64 +50,92 @@ namespace m3d {
          * @brief Gets the buttons down in bits
          * @return Button values in bits
          */
-        static u32 buttonsDown();
+        static inline u32 buttonsDown() {
+            return hidKeysHeld();
+        }
 
         /**
          * @brief Gets the buttons pressed in bits
          * @return Button values in bits
          */
-        static u32 buttonsPressed();
+        static inline u32 buttonsPressed() {
+            return hidKeysDown();
+        }
 
         /**
          * @brief Gets the buttons released in bits
          * @return Button values in bits
          */
-        static u32 buttonsReleased();
+        static inline u32 buttonsReleased() {
+            return hidKeysUp();
+        }
 
         /**
          * Returns whether the given button is pressed this frame but wasn't pressed in the last frame
          * @param  t_button The button
          * @return          Whether the button is pressed or not
          */
-        static bool buttonPressed(Button t_button);
+        static inline bool buttonPressed(Button t_button) {
+            return (buttonsPressed() & t_button);
+        }
 
         /**
          * @brief Returns whether the given button is pressed this frame regardless whether it was pressed in the last frame
          * @param  t_button The button
          * @return          Whether the button is pressed or not
          */
-        static bool buttonDown(Button t_button);
+        static inline bool buttonDown(Button t_button) {
+            return (buttonsDown() & t_button);
+        }
 
         /**
          * @brief Returns whether the given button was released (i.e. isn't pressed this frame but was in the last frame)
          * @param  t_button The button
          * @return          Whether the button was released or not
          */
-        static bool buttonReleased(Button t_button);
+        static inline bool buttonReleased(Button t_button) {
+            return (buttonsReleased() & t_button);
+        }
 
         /**
          * @brief Returns the position on the circlepad on the x-axis
          * @return The x-position of the circlepad (ranging from -155 for completely to the left to +155 for completely to the right)
          */
-        static int getCirclePadX();
+        static inline int getCirclePadX() {
+            circlePosition circle;
+            hidCircleRead(&circle);
+            return circle.dx;
+        }
 
         /**
          * @brief Returns the position on the circlepad on the y-axis
          * @return The y-position of the circlepad (ranging from -155 for completely at the top to +155 for completely at the bottom)
          */
-        static int getCirclePadY();
+        static inline int getCirclePadY() {
+            circlePosition circle;
+            hidCircleRead(&circle);
+            return circle.dy;
+        }
 
         /**
          * @brief Returns the touch position on the x-axis
          * @return The x-position of the touch input
          */
-        static int getTouchX();
+        static inline int getTouchX() {
+            touchPosition touch;
+            hidTouchRead(&touch);
+            return touch.px;
+        }
 
         /**
          * @brief Returns the touch position on the <-axis
          * @return The y-position of the touch input
          */
-        static int getTouchY();
+        static inline int getTouchY() {
+            touchPosition touch;
+            hidTouchRead(&touch);
+            return touch.py;
+        }
     };
 }
 
