@@ -2,9 +2,10 @@
  * @file input.hpp
  * @brief Defines the Input class
  */
-
 #ifndef CORE_INPUT_H
 #define CORE_INPUT_H
+
+#pragma once
 
 namespace m3d {
     /**
@@ -44,33 +45,39 @@ namespace m3d {
             Left       = DPadLeft  | CPadLeft,  ///< D-Pad Left or Circle Pad Left
             Right      = DPadRight | CPadRight, ///< D-Pad Right or Circle Pad Right
         };
+
         /**
          * @brief Gets the buttons down in bits
          * @return Button values in bits
          */
         static u32 buttonsDown();
+
         /**
          * @brief Gets the buttons pressed in bits
          * @return Button values in bits
          */
         static u32 buttonsPressed();
+
         /**
          * @brief Gets the buttons released in bits
          * @return Button values in bits
          */
         static u32 buttonsReleased();
+
         /**
          * Returns whether the given button is pressed this frame but wasn't pressed in the last frame
          * @param  t_button The button
          * @return          Whether the button is pressed or not
          */
         static bool buttonPressed(Button t_button);
+
         /**
          * @brief Returns whether the given button is pressed this frame regardless whether it was pressed in the last frame
          * @param  t_button The button
          * @return          Whether the button is pressed or not
          */
         static bool buttonDown(Button t_button);
+
         /**
          * @brief Returns whether the given button was released (i.e. isn't pressed this frame but was in the last frame)
          * @param  t_button The button
@@ -98,7 +105,7 @@ namespace m3d {
 
         /**
          * @brief Returns the touch position on the <-axis
-         * @return The <-position of the touch input
+         * @return The y-position of the touch input
          */
         static int getTouchY();
     };
