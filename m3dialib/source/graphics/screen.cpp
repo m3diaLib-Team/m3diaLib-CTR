@@ -3,6 +3,7 @@
 #include "m3d/graphics/screen.hpp"
 #include "m3d/graphics/color.hpp"
 #include "m3d/private/graphics.hpp"
+#include "m3d/private/core.hpp"
 #include "render3d_shbin.h"
 
 namespace m3d {
@@ -94,12 +95,20 @@ namespace m3d {
     void Screen::setClearColor(m3d::Color t_color) {
         m_clearColorTop = t_color;
         m_clearColorBottom = t_color;
+        m_targetTopLeft->setClearColor(t_color.getRgb8());
+        m_targetTopRight->setClearColor(t_color.getRgb8());
+        m_targetBottom->setClearColor(t_color.getRgb8());
     }
 
     void Screen::setClearColor(m3d::Color t_color, m3d::RenderContext::ScreenTarget t_target) {
-        t_target == m3d::RenderContext::ScreenTarget::Top ?
-                    m_clearColorTop = t_color :
-                    m_clearColorBottom = t_color;
+        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
+            m_clearColorTop = t_color;
+            m_targetTopLeft->setClearColor(t_color.getRgb8());
+            m_targetTopRight->setClearColor(t_color.getRgb8());
+        } else {
+            m_clearColorBottom = t_color;
+            m_targetBottom->setClearColor(t_color.getRgb8());
+        }
     }
 
     m3d::Color Screen::getClearColor(m3d::RenderContext::ScreenTarget t_target) {
@@ -190,12 +199,6 @@ namespace m3d {
         C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 
         if (t_clear) {
-            C2D_SceneBegin(m_targetTopLeft->getRenderTarget());
-            m_targetTopLeft->clear();
-            C2D_SceneBegin(m_targetTopRight->getRenderTarget());
-            m_targetTopRight->clear();
-            C2D_SceneBegin(m_targetBottom->getRenderTarget());
-            m_targetBottom->clear();
             clear();
         }
 
@@ -390,9 +393,17 @@ namespace m3d {
     }
 
     void Screen::clear() {
-        C2D_TargetClear(m_targetTopLeft->getRenderTarget(), m_clearColorTop.getRgba8());
-        C2D_TargetClear(m_targetTopRight->getRenderTarget(), m_clearColorTop.getRgba8());
-        C2D_TargetClear(m_targetBottom->getRenderTarget(), m_clearColorBottom.getRgba8());
+        if (!m3d::priv::core::consoleTop) {
+            C2D_SceneBegin(m_targetTopLeft->getRenderTarget());
+            m_targetTopLeft->clear();
+            C2D_SceneBegin(m_targetTopRight->getRenderTarget());
+            m_targetTopRight->clear();
+        }
+
+        if (!m3d::priv::core::consoleBottom) {
+            C2D_SceneBegin(m_targetBottom->getRenderTarget());
+            m_targetBottom->clear();
+        }
     }
 
     void Screen::setCamera(m3d::Camera t_camera, m3d::RenderContext::ScreenTarget t_target) {
