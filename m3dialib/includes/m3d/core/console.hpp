@@ -40,7 +40,6 @@ namespace m3d {
             };
 
             static void enableConsole(m3d::RenderContext::ScreenTarget t_target);
-            static void disableConsole(m3d::RenderContext::ScreenTarget t_target);
 
             m3d::Console& operator<<(const std::string& t_string);
             m3d::Console& operator<<(m3d::Console::ConsoleCode t_char);
