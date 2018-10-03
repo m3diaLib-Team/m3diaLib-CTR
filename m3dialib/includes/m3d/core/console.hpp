@@ -1,26 +1,35 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
 
+#pragma once
+
 #include <3ds.h>
+#include <string>
+#include "m3d/graphics/renderContext.hpp"
 
 namespace m3d {
     class Console {
         public:
-            enum class ConsoleColor : const char {
-                RED     = *"\x1b[31m",
-                GREEN   = *"\x1b[32m",
-                YELLOW  = *"\x1b[33m",
-                BLUE    = *"\x1b[34m",
-                MAGENTA = *"\x1b[35m",
-                CYAN    = *"\x1b[36m",
-                RESET   = *"\x1b[0m"
+            // gotta use an old-school enum so that one can use `m3d::Console::Red`
+            enum ConsoleCode {
+                Red = 0,
+                Green,
+                Yellow,
+                Blue,
+                Magenta,
+                Cyan,
+                Reset,
+                Endl
             };
 
-            void print(const char* t_data);
-            void print(const char* t_data, ConsoleColor t_color);
+            static void enableConsole(m3d::RenderContext::ScreenTarget t_target);
+            static void disableConsole(m3d::RenderContext::ScreenTarget t_target);
 
-            void println(const char* t_data);
-            void println(const char* t_data, ConsoleColor t_color);
+            m3d::Console& operator<<(const std::string& t_string);
+            m3d::Console& operator<<(m3d::Console::ConsoleCode t_char);
+
+        private:
+            static const char* m_codeLUT[];
     };
 }
 
