@@ -32,20 +32,28 @@ namespace m3d {
             "\n"        // Endl
     };
 
-    void Console::enableConsole(m3d::RenderContext::ScreenTarget t_target) {
-        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
-            m3d::priv::core::consoleTop = true;
-        } else {
-            m3d::priv::core::consoleBottom = true;
-        }
+    Console::Console() {
+
     }
 
-    void Console::disableConsole(m3d::RenderContext::ScreenTarget t_target) {
+    const std::string Console::useScreen(m3d::RenderContext::ScreenTarget t_target) {
         if (t_target == m3d::RenderContext::ScreenTarget::Top) {
-            m3d::priv::core::consoleTop = false;
+            m3d::priv::core::consoleTop = true;
+            consoleInit(GFX_TOP, &m_console);
         } else {
-            m3d::priv::core::consoleBottom = false;
+            m3d::priv::core::consoleBottom = true;
+            consoleInit(GFX_BOTTOM, &m_console);
         }
+
+        return "";
+    }
+
+    void Console::clear() {
+        consoleClear();
+    }
+
+    void Console::setWindow(int t_x, int t_y, int t_width, int t_height) {
+        consoleSetWindow(&m_console, t_x, t_y, t_width, t_height);
     }
 
     m3d::Console& Console::operator<<(const std::string& t_string) {
