@@ -39,6 +39,16 @@ namespace m3d {
                 Endl
             };
 
+
+            static void print(const std::string& t_data);
+            static void print(const std::string& t_data, m3d::Console::ConsoleCode t_color);
+
+            static void println(const std::string& t_data);
+            static void println(const std::string& t_data, m3d::Console::ConsoleCode t_color);
+
+            static void printAt(const std::string& t_data);
+            static void printAt(const std::string& t_data, m3d::Console::ConsoleCode t_color);
+
             static void enableConsole(m3d::RenderContext::ScreenTarget t_target);
 
             m3d::Console& operator<<(const std::string& t_string);
