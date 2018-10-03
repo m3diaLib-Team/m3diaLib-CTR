@@ -1,6 +1,6 @@
-m3dialib/release
-m3dialib/debug
-m3dialib/lib
+release/
+debug/
+lib/
 .vscode/
 releases/
 build/
