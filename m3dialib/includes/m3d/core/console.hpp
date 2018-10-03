@@ -39,6 +39,9 @@ namespace m3d {
                 Endl
             };
 
+            static inline const std::string position(int t_x, int t_y) {
+                return "\x1b[" + std::to_string(t_y) + ";" + std::to_string(t_x) + "H";
+            }
 
             static void print(const std::string& t_data);
             static void print(const std::string& t_data, m3d::Console::ConsoleCode t_color);
