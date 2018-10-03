@@ -95,12 +95,20 @@ namespace m3d {
     void Screen::setClearColor(m3d::Color t_color) {
         m_clearColorTop = t_color;
         m_clearColorBottom = t_color;
+        m_targetTopLeft->setClearColor(t_color.getRgb8());
+        m_targetTopRight->setClearColor(t_color.getRgb8());
+        m_targetBottom->setClearColor(t_color.getRgb8());
     }
 
     void Screen::setClearColor(m3d::Color t_color, m3d::RenderContext::ScreenTarget t_target) {
-        t_target == m3d::RenderContext::ScreenTarget::Top ?
-                    m_clearColorTop = t_color :
-                    m_clearColorBottom = t_color;
+        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
+            m_clearColorTop = t_color;
+            m_targetTopLeft->setClearColor(t_color.getRgb8());
+            m_targetTopRight->setClearColor(t_color.getRgb8());
+        } else {
+            m_clearColorBottom = t_color;
+            m_targetBottom->setClearColor(t_color.getRgb8());
+        }
     }
 
     m3d::Color Screen::getClearColor(m3d::RenderContext::ScreenTarget t_target) {
