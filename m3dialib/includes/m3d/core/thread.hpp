@@ -75,6 +75,10 @@ namespace m3d {
          */
         void join(long long unsigned int t_timeout = U64_MAX);
 
+        /**
+         * @brief Returns whether the thread is still running or not
+         * @return `true` if the thread is running, `false` otherwise
+         */
         bool isRunning();
 
         /**
