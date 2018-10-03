@@ -8,7 +8,7 @@
 namespace m3d {
     namespace priv {
         namespace core {
-            extern std::atomic<bool> ledPatternRunning;
+            extern std::atomic<bool> ledPatternRunning, consoleTop, consoleBottom;
             extern Handle ptmsysmHandle;
         } /* core */
     } /* priv */
