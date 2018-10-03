@@ -12,12 +12,29 @@ namespace m3d {
         public:
             // gotta use an old-school enum so that one can use `m3d::Console::Red`
             enum ConsoleCode {
-                Red = 0,
-                Green,
-                Yellow,
-                Blue,
-                Magenta,
-                Cyan,
+                BlackFG = 0,
+                RedFG,
+                GreenFG,
+                YellowFG,
+                BlueFG,
+                MagentaFG,
+                CyanFG,
+                WhiteFG,
+
+                BlackBG,
+                RedBG,
+                GreenBG,
+                YellowBG,
+                BlueBG,
+                MagentaBG,
+                CyanBG,
+                WhiteBG,
+
+                Bold,
+                Faint,
+                Underline,
+                Strikethrough,
+
                 Reset,
                 Endl
             };
