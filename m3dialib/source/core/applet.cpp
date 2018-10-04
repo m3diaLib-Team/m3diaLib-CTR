@@ -1,5 +1,6 @@
 #include <3ds.h>
 #include <cstring>
+#include <malloc.h>
 #include "m3d/core/applet.hpp"
 #include "m3d/core/ledPattern.hpp"
 #include "m3d/private/core.hpp"
@@ -27,6 +28,13 @@ namespace m3d {
             srvGetServiceHandle(&m3d::priv::core::ptmsysmHandle, "ptm:sysm");
             srvExit();
 
+            m3d::priv::core::socubuf = (u32*) memalign(0x1000, 0x100000);
+            if (m3d::priv::core::socubuf) {
+                if (!R_FAILED(socInit(m3d::priv::core::socubuf, 0x100000))) {
+                    m3d::priv::core::socuInitialized = true;
+                }
+            }
+
             if (isNew3ds()) {
                 osSetSpeedupEnable(true);
             }
@@ -34,7 +42,9 @@ namespace m3d {
 
     Applet::~Applet() {
         m3d::LEDPattern::stop();
+        // socExit();
         if (m3d::priv::ndsp::initialized) ndspExit();
+        mcuHwcExit();
         sdmcExit();
         romfsExit();
         acExit();
