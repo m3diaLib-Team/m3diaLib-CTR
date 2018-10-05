@@ -23,8 +23,9 @@ namespace m3d {
 
     const std::string HTTPClient::get(const std::string& t_url) {
         if (m_finished) {
-            getFunction((m3d::HTTPClient::Context) {
+            callFunction((m3d::HTTPClient::Context) {
                 t_url,
+                false,
                 "",
                 false,
                 ""
@@ -38,8 +39,9 @@ namespace m3d {
 
     void HTTPClient::getAsync(const std::string& t_url) {
         if (m_finished) {
-            m_thread.initialize(std::bind(&m3d::HTTPClient::getFunction, this, std::placeholders::_1), (m3d::HTTPClient::Context) {
+            m_thread.initialize(std::bind(&m3d::HTTPClient::callFunction, this, std::placeholders::_1), (m3d::HTTPClient::Context) {
                                     t_url,
+                                    false,
                                     "",
                                     false,
                                     ""
@@ -51,8 +53,9 @@ namespace m3d {
 
     void HTTPClient::getToFile(const std::string& t_url, const std::string& t_filename) {
         if (m_finished) {
-            getFunction((m3d::HTTPClient::Context) {
+            callFunction((m3d::HTTPClient::Context) {
                 t_url,
+                false,
                 "",
                 true,
                 t_filename
@@ -62,8 +65,9 @@ namespace m3d {
 
     void HTTPClient::getToFileAsync(const std::string& t_url, const std::string& t_filename) {
         if (m_finished) {
-            m_thread.initialize(std::bind(&m3d::HTTPClient::getFunction, this, std::placeholders::_1), (m3d::HTTPClient::Context) {
+            m_thread.initialize(std::bind(&m3d::HTTPClient::callFunction, this, std::placeholders::_1), (m3d::HTTPClient::Context) {
                                     t_url,
+                                    false,
                                     "",
                                     false,
                                     ""
@@ -74,19 +78,59 @@ namespace m3d {
     }
 
     const std::string HTTPClient::post(const std::string& t_url, const std::string& t_parameters) {
+        if (m_finished) {
+            callFunction((m3d::HTTPClient::Context) {
+                t_url,
+                true,
+                t_parameters,
+                false,
+                ""
+            });
 
+            return getResponse();
+        } else {
+            return "";
+        }
     }
 
     void HTTPClient::postAsync(const std::string& t_url, const std::string& t_parameters) {
+        if (m_finished) {
+            m_thread.initialize(std::bind(&m3d::HTTPClient::callFunction, this, std::placeholders::_1), (m3d::HTTPClient::Context) {
+                                    t_url,
+                                    true,
+                                    t_parameters,
+                                    false,
+                                    ""
+                                }, false, false, 8 * 1024);
 
+            m_thread.start();
+        }
     }
 
     void HTTPClient::postToFile(const std::string& t_url, const std::string& t_parameters, const std::string& t_filename) {
-
+        if (m_finished) {
+            callFunction((m3d::HTTPClient::Context) {
+                t_url,
+                true,
+                t_parameters,
+                true,
+                t_filename
+            });
+        }
     }
 
     void HTTPClient::postToFileAsync(const std::string& t_url, const std::string& t_parameters, const std::string& t_filename) {
+        if (m_finished) {
+            m_thread.initialize(std::bind(&m3d::HTTPClient::callFunction, this, std::placeholders::_1), (m3d::HTTPClient::Context) {
+                                    t_url,
+                                    true,
+                                    t_parameters,
+                                    false,
+                                    ""
+                                }, false, false, 8 * 1024);
 
+            m_thread.start();
+        }
     }
 
     void HTTPClient::waitForFinish() {
@@ -169,7 +213,7 @@ namespace m3d {
         return 0;
     }
 
-    void HTTPClient::getFunction(m3d::Parameter t_context) {
+    void HTTPClient::callFunction(m3d::Parameter t_context) {
         m_finished = false;
         m_cancel = false;
         m_response = "";
@@ -189,6 +233,10 @@ namespace m3d {
             curl_easy_setopt(m_handle, CURLOPT_NOPROGRESS, 0L);
             curl_easy_setopt(m_handle, CURLOPT_PROGRESSFUNCTION, m3d::HTTPClient::xferProgressFunction);
             curl_easy_setopt(m_handle, CURLOPT_PROGRESSDATA, this);
+
+            if (ctx.m_post) {
+                curl_easy_setopt(m_handle, CURLOPT_POSTFIELDS, ctx.m_parameters.c_str());
+            }
 
             if (ctx.m_toFile) {
                 FILE* fp = fopen(ctx.m_filename.c_str(), "wb");

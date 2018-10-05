@@ -82,6 +82,7 @@ namespace m3d {
         struct Context {
             /* data */
             const std::string& m_url;
+            bool m_post;
             const std::string m_parameters;
             bool m_toFile;
             const std::string& m_filename;
@@ -93,7 +94,7 @@ namespace m3d {
         static size_t xferWriteFunction(char* t_ptr, size_t t_size, size_t t_nmemb, void* t_userdata);
         size_t writeFunction(char* t_ptr, size_t t_size, size_t t_nmemb);
 
-        void getFunction(m3d::Parameter t_context);
+        void callFunction(m3d::Parameter t_context);
 
         /* data */
         std::atomic<bool> m_finished, m_cancel;
