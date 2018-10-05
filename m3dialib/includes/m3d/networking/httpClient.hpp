@@ -64,7 +64,7 @@ namespace m3d {
         void getToFile(const std::string& t_url, const std::string& t_filename);
 
         /**
-         * @brief Starts a asynchronous get request and saves the response to a file
+         * @brief Starts an asynchronous get request and saves the response to a file
          * @param t_url      The url to request
          * @param t_filename The file to save to
          */
@@ -79,10 +79,9 @@ namespace m3d {
         const std::string post(const std::string& t_url, const std::string& t_parameters);
 
         /**
-         * @brief Starts a post request and saves the response to a file
+         * @brief Starts an asynchronous post request
          * @param t_url        The url to request
          * @param t_parameters The post-parameters
-         * @param t_filename   The file to save to
          */
         void postAsync(const std::string& t_url, const std::string& t_parameters);
 
@@ -95,7 +94,7 @@ namespace m3d {
         void postToFile(const std::string& t_url, const std::string& t_parameters, const std::string& t_filename);
 
         /**
-         * @brief Starts a asynchronous post request and saves the response to a file
+         * @brief Starts an asynchronous post request and saves the response to a file
          * @param t_url        The url to request
          * @param t_parameters The post-parameters
          * @param t_filename   The file to save to
