@@ -12,6 +12,7 @@
 #include "m3d/core/core.hpp"
 #include "m3d/graphics/graphics.hpp"
 #include "m3d/input/input.hpp"
+#include "m3d/networking/networking.hpp"
 #include "m3d/utils/utils.hpp"
 
 #ifdef M3D_DEBUG

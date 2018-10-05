@@ -1,6 +1,4 @@
 #include "m3d/audio/playable.hpp"
-#define M3D_DEBUG
-#include "m3dia.hpp"
 
 namespace m3d {
     Playable::MP3Reader::~MP3Reader() {

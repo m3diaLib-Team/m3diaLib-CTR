@@ -38,7 +38,7 @@ namespace m3d {
             m_running = true;
             s32 prio;
             svcGetThreadPriority(&prio, CUR_THREAD_HANDLE);
-            m_thread = threadCreate(threadFunction, &m_data, m_stackSize, prio + 1, -2, t_detached);
+            m_thread = threadCreate(threadFunction, &m_data, m_stackSize, prio - 1, -2, t_detached);
         }
     }
 

@@ -9,7 +9,10 @@ namespace m3d {
     namespace priv {
         namespace core {
             extern std::atomic<bool> ledPatternRunning, consoleTop, consoleBottom;
+            extern bool socuInitialized;
+            extern std::atomic<bool> ledPatternRunning;
             extern Handle ptmsysmHandle;
+            extern u32* socubuf;
         } /* core */
     } /* priv */
 } /* m3d */
