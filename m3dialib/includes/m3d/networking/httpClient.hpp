@@ -7,6 +7,7 @@
 
 #pragma once
 #include <3ds.h>
+#include <curl/curl.h>
 #include <string>
 #include "m3d/core/thread.hpp"
 
@@ -97,14 +98,11 @@ namespace m3d {
         /* data */
         std::atomic<bool> m_finished, m_cancel;
         m3d::Thread m_thread;
+        CURL* m_handle;
 
         // size/progress
         std::atomic<double> m_progress, m_progressSize, m_totalSize;
-
-        // size/response
-        char* m_resultBuffer;
         std::string m_response;
-        size_t m_resultSize, m_resultWritten;
 
         // response status
         std::atomic<int> m_statusCode;
