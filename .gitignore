@@ -1,0 +1,14 @@
+release/
+debug/
+lib/
+.vscode/
+releases/
+build/
+html/
+assets/
+examples/
+*.3dsx
+*.elf
+*.smdh
+MakefileLocal
+main.cpp
