@@ -12,6 +12,7 @@ namespace m3d {
             m_response(""),
             m_statusCode(-1),
             m_status(m3d::HTTPClient::Status::NotStarted) {
+                if (!m3d::priv::core::curlInitialized) curl_global_init(CURL_GLOBAL_ALL);
                 m_handle = curl_easy_init();
             }
 

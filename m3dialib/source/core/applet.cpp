@@ -35,7 +35,6 @@ namespace m3d {
             m3d::priv::core::socubuf = (u32*) memalign(0x1000, 0x100000);
             if (m3d::priv::core::socubuf) {
                 if (!R_FAILED(socInit(m3d::priv::core::socubuf, 0x100000))) {
-                    curl_global_init(CURL_GLOBAL_ALL);
                     m3d::priv::core::socuInitialized = true;
                 }
             }
