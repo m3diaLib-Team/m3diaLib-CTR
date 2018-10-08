@@ -36,13 +36,33 @@ namespace m3d {
 
     }
 
+    Console::Console(m3d::RenderContext::ScreenTarget t_screen) {
+        Console::useScreen(t_screen);
+    }
+
     const std::string Console::useScreen(m3d::RenderContext::ScreenTarget t_target) {
-        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
-            m3d::priv::core::consoleTop = true;
-            consoleInit(GFX_TOP, &m_console);
-        } else {
-            m3d::priv::core::consoleBottom = true;
-            consoleInit(GFX_BOTTOM, &m_console);
+        // if (t_target == m3d::RenderContext::ScreenTarget::Top) {
+        //     m3d::priv::core::consoleTop = true;
+        //     consoleInit(GFX_TOP, &m_console);
+        // } else {
+        //     m3d::priv::core::consoleBottom = true;
+        //     consoleInit(GFX_BOTTOM, &m_console);
+        // }
+
+        // return "";
+        switch(t_target) {
+            case m3d::RenderContext::ScreenTarget::Top:
+                m3d::priv::core::consoleTop = true;
+                consoleInit(GFX_TOP, &m_console);
+                break;
+            case m3d::RenderContext::ScreenTarget::Bottom:
+                m3d::priv::core::consoleBottom = true;
+                consoleInit(GFX_BOTTOM, &m_console);
+                break;
+            default:
+                m3d::priv::core::consoleTop = true;
+                consoleInit(GFX_TOP, &m_console);
+                break;
         }
 
         return "";
@@ -52,17 +72,31 @@ namespace m3d {
         consoleClear();
     }
 
-    void Console::setWindow(int t_x, int t_y, int t_width, int t_height) {
-        consoleSetWindow(&m_console, t_x, t_y, t_width, t_height);
+    void Console::setWindow(m3d::Console::Window t_window) {
+        consoleSetWindow(&m_console, t_window.x, t_window.y, t_window.width, t_window.height);
     }
 
     m3d::Console& Console::operator<<(const std::string& t_string) {
+        consoleSelect(&m_console);
         printf(t_string.c_str());
         return *this;
     }
 
     m3d::Console& Console::operator<<(m3d::Console::ConsoleCode t_char) {
+        consoleSelect(&m_console);
         printf(m_codeLUT[(int) t_char]);
         return *this;
+    }
+
+    void m3d::Console::print(const std::string& t_string) {
+        *this << t_string;
+    }
+
+    void m3d::Console::println(const std::string& t_string) {
+        *this << t_string << m3d::Console::Endl;
+    }
+
+    void m3d::Console::printAt(int t_x, int t_y, const std::string& t_string) {
+        *this << Console::position(t_x, t_y) << t_string << m3d::Console::Endl;
     }
 }
