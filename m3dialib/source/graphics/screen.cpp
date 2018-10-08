@@ -16,8 +16,6 @@ namespace m3d {
             m_useFogBottom(false),
             m_fogDensityTop(0.05),
             m_fogDensityBottom(0.05) {
-        gfxInitDefault();
-        C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
         gfxSet3D(m_3dEnabled);
         m_targetTopLeft  = new m3d::RenderTarget(400, 240);
@@ -68,8 +66,6 @@ namespace m3d {
 
     Screen::~Screen() {
         C2D_Fini();
-        C3D_Fini();
-        gfxExit();
         shaderProgramFree(&m_shader);
         DVLB_Free(m_dvlb);
         delete m_targetTopLeft;
