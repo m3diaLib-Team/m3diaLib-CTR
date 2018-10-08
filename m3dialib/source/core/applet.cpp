@@ -1,4 +1,5 @@
 #include <3ds.h>
+#include <citro3d.h>
 #include <cstring>
 #include "m3d/core/applet.hpp"
 #include "m3d/core/ledPattern.hpp"
@@ -15,6 +16,8 @@ namespace m3d {
             acInit();
             romfsInit();
             sdmcInit();
+            gfxInitDefault();
+            C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
 
             Result res;
             res = ndspInit();
@@ -34,6 +37,8 @@ namespace m3d {
     Applet::~Applet() {
         m3d::LEDPattern::stop();
         if (m3d::priv::ndsp::initialized) ndspExit();
+        C3D_Fini();
+        gfxExit();
         sdmcExit();
         romfsExit();
         acExit();
@@ -43,7 +48,10 @@ namespace m3d {
     }
 
     bool Applet::isRunning() {
+        if (!aptMainLoop()) return false;
+
         hidScanInput(); // scan input since this gets called every frame
+        C3D_FrameEnd(0);
         m_currentFrame++;
         return m_running;
     }
