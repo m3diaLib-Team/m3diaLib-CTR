@@ -1,5 +1,6 @@
 #include <3ds.h>
 #include <curl/curl.h>
+#include <citro3d.h>
 #include <cstring>
 #include <malloc.h>
 #include "m3d/core/applet.hpp"
@@ -18,6 +19,8 @@ namespace m3d {
             romfsInit();
             sdmcInit();
             mcuHwcInit();
+            gfxInitDefault();
+            C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
 
             Result res;
             res = ndspInit();
@@ -46,6 +49,8 @@ namespace m3d {
         m3d::LEDPattern::stop();
         // socExit();
         if (m3d::priv::ndsp::initialized) ndspExit();
+        C3D_Fini();
+        gfxExit();
         mcuHwcExit();
         sdmcExit();
         romfsExit();
@@ -56,7 +61,10 @@ namespace m3d {
     }
 
     bool Applet::isRunning() {
+        if (!aptMainLoop()) return false;
+
         hidScanInput(); // scan input since this gets called every frame
+        C3D_FrameEnd(0);
         m_currentFrame++;
         return m_running;
     }
