@@ -41,15 +41,6 @@ namespace m3d {
     }
 
     const std::string Console::useScreen(m3d::RenderContext::ScreenTarget t_target) {
-        // if (t_target == m3d::RenderContext::ScreenTarget::Top) {
-        //     m3d::priv::core::consoleTop = true;
-        //     consoleInit(GFX_TOP, &m_console);
-        // } else {
-        //     m3d::priv::core::consoleBottom = true;
-        //     consoleInit(GFX_BOTTOM, &m_console);
-        // }
-
-        // return "";
         switch(t_target) {
             case m3d::RenderContext::ScreenTarget::Top:
                 m3d::priv::core::consoleTop = true;

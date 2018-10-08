@@ -139,7 +139,7 @@ namespace m3d {
 
         /**
          * @brief Returns a touchPosition of the current touch position
-         * @return touchPosition object containing touch info
+         * @return libctru touchPosition object containing touch info
          */
         static inline touchPosition getTouch() {
             touchPosition touch;
@@ -156,10 +156,6 @@ namespace m3d {
             hidGyroRead(&rate);
             return rate;
         }
-
-        // getGyroX();
-
-        // getGyroY();
     };
 }
 
