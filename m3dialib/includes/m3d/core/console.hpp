@@ -17,6 +17,8 @@ namespace m3d {
      */
     class Console {
         public:
+            #define MAX_TOP_WIDTH 50
+            #define MAX_TOP_HEIGHT 30
             // gotta use an old-school enum so that one can use `m3d::Console::Red`
             /**
              * @brief Different control characters for usage in streams
@@ -49,10 +51,19 @@ namespace m3d {
                 Endl           ///< Ends the line and starts a new one
             };
 
+            struct Window {
+                int x;
+                int y;
+                int width;
+                int height;
+            };
+
             /**
              * @brief Default constructor
              */
             Console();
+
+            Console(m3d::RenderContext::ScreenTarget t_screen);
 
             /**
              * @brief Returns the escape code to position the text at the given position
@@ -67,13 +78,10 @@ namespace m3d {
             }
 
             void print(const std::string& t_data);
-            void print(const std::string& t_data, m3d::Console::ConsoleCode t_color);
 
             void println(const std::string& t_data);
-            void println(const std::string& t_data, m3d::Console::ConsoleCode t_color);
 
-            void printAt(const std::string& t_data);
-            void printAt(const std::string& t_data, m3d::Console::ConsoleCode t_color);
+            void printAt(int t_x, int t_y, const std::string& t_data);
 
             /**
              * @brief Tells the console which screen to draw on
@@ -92,7 +100,7 @@ namespace m3d {
              * @param t_height The height of the window
              * @note Positions are measured in cells, not pixels
              */
-            void setWindow(int t_x, int t_y, int t_width, int t_height);
+            void setWindow(Window t_window);
 
             /**
              * @brief Overloads the streaming operator
