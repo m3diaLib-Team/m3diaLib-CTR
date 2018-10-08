@@ -128,7 +128,7 @@ namespace m3d {
         }
 
         /**
-         * @brief Returns the touch position on the <-axis
+         * @brief Returns the touch position on the y-axis
          * @return The y-position of the touch input
          */
         static inline int getTouchY() {
@@ -136,6 +136,30 @@ namespace m3d {
             hidTouchRead(&touch);
             return touch.py;
         }
+
+        /**
+         * @brief Returns a touchPosition of the current touch position
+         * @return touchPosition object containing touch info
+         */
+        static inline touchPosition getTouch() {
+            touchPosition touch;
+            hidTouchRead(&touch);
+            return touch;
+        }
+
+        /**
+         * @brief Returns current angular rate of gyroscope
+         * @return libctru angularRate object containing gyro info
+         */
+        static inline angularRate getGyro() {
+            angularRate rate;
+            hidGyroRead(&rate);
+            return rate;
+        }
+
+        // getGyroX();
+
+        // getGyroY();
     };
 }
 
