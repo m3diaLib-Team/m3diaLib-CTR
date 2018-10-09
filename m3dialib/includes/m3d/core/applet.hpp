@@ -161,7 +161,7 @@ namespace m3d {
        static inline bool isNew3ds() {
            bool state;
            APT_CheckNew3DS(&state);
-           return state;
+           return (state == 0);
        }
 
        /**
@@ -218,6 +218,16 @@ namespace m3d {
            u8 state;
            PTMU_GetBatteryLevel(&state);
            return (state <= 5 && state >= 0 ? state : 0);
+       }
+
+       /**
+        * @brief Returns the current sound volume of the console
+        * @return The sound slider level (0-63)
+        */
+       static inline int getSoundVolume() {
+           u8 state;
+           HIDUSER_GetSoundVolume(&state);
+           return (state || 5);
        }
 
        /**
