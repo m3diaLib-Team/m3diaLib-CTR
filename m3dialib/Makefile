@@ -24,8 +24,7 @@ VERSION	:=	$(M3D_MAJOR).$(M3D_MINOR).$(M3D_PATCH)
 TARGET		:=	$(notdir $(CURDIR))
 SOURCES		:=	$(sort $(dir $(wildcard source/*/)))
 DATA		:=	data
-INCLUDES	:=	$(sort $(dir $(wildcard includes/*/))) \
-				$(sort $(dir $(wildcard source/private/*/)))
+INCLUDES	:=	$(sort $(dir $(wildcard includes/*/)))
 
 #---------------------------------------------------------------------------------
 # options for code generation
