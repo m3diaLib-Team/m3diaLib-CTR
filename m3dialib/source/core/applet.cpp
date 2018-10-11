@@ -177,6 +177,32 @@ namespace m3d {
         }
     }
 
+    m3d::Applet::Region Applet::getConsoleRegion() {
+        u8 region;
+        Result res = CFGU_SecureInfoGetRegion(&region);
+        if (res) {
+            region = -1; // mark to return error
+        }
+        if (region > 6 || region < 0) { // upper-limit is 6, lower is 0, error is -1
+            return static_cast<m3d::Applet::Region>(region);
+        } else {
+            return Region::Unknown;
+        }
+    }
+
+    m3d::Applet::Language Applet::getSystemLanguage() {
+        u8 lang;
+        Result res = CFGU_GetSystemLanguage(&lang);
+        if (res) {
+            lang = -1; // mark to return error
+        }
+        if (lang > 11 || lang < 0) { // upper-limit is 11, lower is 0, error is -1
+            return static_cast<m3d::Applet::Language>(lang);
+        } else {
+            return Language::Unknown;
+        }
+    }
+
     int Applet::getCurrentFrame() {
         m_currentFrame = m_currentFrame % 60;
         return m_currentFrame;

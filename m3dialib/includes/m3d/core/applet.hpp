@@ -18,13 +18,15 @@ namespace m3d {
         * @brief Region values
         */
        enum class Region {
-           Japan,     ///< Japan
-           Usa,       ///< USA
+           Japan = 0, ///< Japan
+           USA,       ///< USA
            Europe,    ///< Europe
            Australia, ///< Australia
            China,     ///< China
            Korea,     ///< Korea
-           Taiwan     ///< Taiwan
+           Taiwan,    ///< Taiwan
+           Error = -1,
+           Unknown = 10
        };
 
        /**
@@ -42,7 +44,9 @@ namespace m3d {
            Dutch,             ///< Dutch
            Portugese,         ///< Portugese
            Russian,           ///< Russian
-           ChineseTraditional ///< Traditional chinese
+           ChineseTraditional,///< Traditional chinese
+           Error = -1,
+           Unknown = 20
        };
 
        /**
@@ -179,6 +183,10 @@ namespace m3d {
         * @return The system model
         */
        static m3d::Applet::ConsoleModel getConsoleModel();
+
+       static m3d::Applet::Region getConsoleRegion();
+
+       static m3d::Applet::Language getSystemLanguage();
 
        /**
         * @brief Returns whether the system is connected to a wifi network
