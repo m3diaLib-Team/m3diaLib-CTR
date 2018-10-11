@@ -10,6 +10,9 @@
 #include "vertex.hpp"
 
 namespace m3d {
+    /**
+     * @brief The Camera-class, used for navigatin in 3D-space
+     */
     class Camera {
     public:
         /**
