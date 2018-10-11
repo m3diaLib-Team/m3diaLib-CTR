@@ -50,6 +50,7 @@ namespace m3d {
          * @brief A keyboard event which will get passed to a validator
          */
         class KeyboardEvent {
+        friend class m3d::SoftwareKeyboard;
         public:
             /**
              * @brief Constructs the KeyboardEvent with the given text
@@ -80,12 +81,10 @@ namespace m3d {
              */
             std::string getText();
 
-            #ifndef DOXYGEN_SKIP
+        private:
             SwkbdCallbackResult getResult();
             const char* getMessage();
-            #endif
 
-        private:
             /* data */
             std::string m_text;
             const char* m_message;
