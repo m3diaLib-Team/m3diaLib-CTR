@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include "drawables/circle.hpp"
 #include "drawables/mesh.hpp"
 #include "drawables/rectangle.hpp"
 #include "drawables/shape.hpp"
