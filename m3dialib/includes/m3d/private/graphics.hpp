@@ -18,7 +18,6 @@ namespace m3d {
             };
 
             extern m3d::Camera defaultCamera0, defaultCamera1;
-
             extern Vertex *vertexBuffer2d, *vertexBuffer3d;
         } /* graphics */
     } /* priv */
