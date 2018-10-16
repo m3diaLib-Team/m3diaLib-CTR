@@ -12,8 +12,8 @@ namespace m3d {
             m_useCulling(true),
             m_clearColorTop(m3d::Color(0, 0, 0)),
             m_clearColorBottom(m3d::Color(0, 0, 0)),
-            m_cameraTop(m3d::priv::graphics::defaultCamera0),
-            m_cameraBottom(m3d::priv::graphics::defaultCamera1),
+            m_cameraTop(priv::graphics::defaultCamera0),
+            m_cameraBottom(priv::graphics::defaultCamera1),
             m_useFogTop(false),
             m_useFogBottom(false),
             m_fogDensityTop(0.05),
@@ -213,7 +213,7 @@ namespace m3d {
             C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_projectionUniform, &m_projection);
             C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, m_viewUniform, &m_cameraBottom.getViewMatrix());
 
-            if(m_drawStackBottom3d.size() > 0 && !m3d::priv::core::consoleBottom) {
+            if(m_drawStackBottom3d.size() > 0 && !priv::core::consoleBottom) {
                 C3D_FrameDrawOn(m_targetBottom->getRenderTarget());
                 prepareLights(m3d::RenderContext::ScreenTarget::Bottom);
                 if (m_useFogBottom) prepareFog(m3d::RenderContext::ScreenTarget::Bottom);
@@ -239,7 +239,7 @@ namespace m3d {
                 m_drawStackBottom3d.clear();
             }
 
-            if (m_drawStackTop3d.size() > 0 && !m3d::priv::core::consoleTop) {
+            if (m_drawStackTop3d.size() > 0 && !priv::core::consoleTop) {
                 C3D_FrameDrawOn(m_targetTopLeft->getRenderTarget());
                 prepareLights(m3d::RenderContext::ScreenTarget::Top);
                 if (m_useFogTop) prepareFog(m3d::RenderContext::ScreenTarget::Top);
@@ -312,7 +312,7 @@ namespace m3d {
             C2D_Prepare();
             C3D_DepthTest(true, GPU_ALWAYS, GPU_WRITE_ALL);
 
-            if(m_drawStackBottom2d.size() > 0 && !m3d::priv::core::consoleBottom) {
+            if(m_drawStackBottom2d.size() > 0 && !priv::core::consoleBottom) {
                 C2D_SceneBegin(m_targetBottom->getRenderTarget());
 
                 for(const auto &entry : m_drawStackBottom2d) { // for every layer
@@ -336,7 +336,7 @@ namespace m3d {
                 m_drawStackBottom2d.clear();
             }
 
-            if(m_drawStackTop2d.size() > 0 && !m3d::priv::core::consoleTop) {
+            if(m_drawStackTop2d.size() > 0 && !priv::core::consoleTop) {
                 C2D_SceneBegin(m_targetTopLeft->getRenderTarget());
 
                 for(const auto &entry : m_drawStackTop2d) { // for every layer
@@ -395,14 +395,14 @@ namespace m3d {
     }
 
     void Screen::clear() {
-        if (!m3d::priv::core::consoleTop) {
+        if (!priv::core::consoleTop) {
             C2D_SceneBegin(m_targetTopLeft->getRenderTarget());
             m_targetTopLeft->clear();
             C2D_SceneBegin(m_targetTopRight->getRenderTarget());
             m_targetTopRight->clear();
         }
 
-        if (!m3d::priv::core::consoleBottom) {
+        if (!priv::core::consoleBottom) {
             C2D_SceneBegin(m_targetBottom->getRenderTarget());
             m_targetBottom->clear();
         }
