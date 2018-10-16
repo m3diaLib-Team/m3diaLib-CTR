@@ -20,6 +20,10 @@ namespace m3d {
             m_fogDensityBottom(0.05) {
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
         gfxSet3D(m_3dEnabled);
+
+        priv::graphics::vertexBuffer2d = (priv::graphics::Vertex*) linearAlloc(6 * 4096 * sizeof(priv::graphics::Vertex));
+        priv::graphics::vertexBuffer3d = (priv::graphics::Vertex*) linearAlloc(6 * 4096 * sizeof(priv::graphics::Vertex));
+
         m_targetTopLeft  = new m3d::RenderTarget(400, 240);
         m_targetTopRight = new m3d::RenderTarget(400, 240);
         m_targetBottom   = new m3d::RenderTarget(320, 240);
