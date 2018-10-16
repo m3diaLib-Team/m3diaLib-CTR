@@ -47,6 +47,8 @@ namespace m3d {
         AttrInfo_AddLoader(&m_attributeInfo, 0, GPU_FLOAT, 3); // v0=position
         AttrInfo_AddLoader(&m_attributeInfo, 1, GPU_FLOAT, 2); // v1=texcoord
         AttrInfo_AddLoader(&m_attributeInfo, 2, GPU_FLOAT, 3); // v2=normal
+        AttrInfo_AddLoader(&m_attributeInfo, 3, GPU_FLOAT, 2); // v3=blend
+        AttrInfo_AddLoader(&m_attributeInfo, 4, GPU_UNSIGNED_BYTE, 4); // v4=color
 
         // light
         C3D_FVec lightVec;
