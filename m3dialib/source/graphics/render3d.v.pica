@@ -20,9 +20,11 @@
 .out outnq normalquat
 
 ; Inputs (defined as aliases for convenience)
-.alias inpos v0 ; Goes with AttrInfo_AddLoader register ID value.
-.alias intex v1 ; Same for v1 and v2.
-.alias innrm v2 ; v0: Position, v1: Texture Coordinates, v2: Normals.
+; v3 and v4 aren't used in the 3D shader
+; (blend is useless and color is material-dependent)
+.alias inpos v0 ; position
+.alias intex v1 ; texture coordinates
+.alias innrm v2 ; normals
 
 .proc main
 	; Vertex position vectors.
