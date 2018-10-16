@@ -1,6 +1,7 @@
 #include <citro3d.h>
 #include <cstring>
 #include "m3d/graphics/drawables/mesh.hpp"
+#include "m3d/private/graphics.hpp"
 
 namespace m3d {
     Mesh::Mesh() :
@@ -247,7 +248,7 @@ namespace m3d {
             // create buffer
             C3D_BufInfo* bufInfo = C3D_GetBufInfo();
             BufInfo_Init(bufInfo);
-            BufInfo_Add(bufInfo, m_vbo, sizeof(m3d::Mesh::Polygon::Vertex), 3, 0x210);
+            BufInfo_Add(bufInfo, m_vbo, sizeof(m3d::priv::graphics::Vertex), 5, 0x43210);
 
             // update the uniforms
             C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getModelUniform(),  &t_context.getModelMatrix());
@@ -260,7 +261,7 @@ namespace m3d {
     // protected methods
     void Mesh::updateVBO() {
         linearFree(m_vbo);
-        m_vbo = static_cast<m3d::Mesh::Polygon::Vertex*>(linearAlloc(m_vertices.size() * sizeof(m3d::Mesh::Polygon::Vertex)));
+        m_vbo = static_cast<priv::graphics::Vertex*>(linearAlloc(m_vertices.size() * sizeof(priv::graphics::Vertex)));
 
         for (unsigned int i = 0; i < m_vertices.size(); i++) {
             float x = m_vertices[i].position[0],
@@ -272,7 +273,7 @@ namespace m3d {
                  ny = m_vertices[i].normal[1],
                  nz = m_vertices[i].normal[2];
 
-            m_vbo[i] = (m3d::Mesh::Polygon::Vertex) { { x, y, z }, { u, v }, { nx, ny, nz } };
+            m_vbo[i] = (priv::graphics::Vertex) { { x, y, z }, { u, v }, { nx, ny, nz }, { 0.0, 0.0 }, 0x00000000 };
         }
     }
 } /* m3d */

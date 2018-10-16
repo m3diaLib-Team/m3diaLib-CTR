@@ -15,6 +15,12 @@
 #include "m3d/graphics/vertex.hpp"
 
 namespace m3d {
+    namespace priv {
+        namespace graphics {
+            struct Vertex;
+        }
+    }
+
     /**
      * @brief The base class for all meshes
      */
@@ -341,7 +347,7 @@ namespace m3d {
 
         // polygons
         std::vector<m3d::Mesh::Polygon::Vertex> m_vertices;
-        m3d::Mesh::Polygon::Vertex* m_vbo;
+        priv::graphics::Vertex* m_vbo;
 
         // display properties
         m3d::Texture m_texture;
