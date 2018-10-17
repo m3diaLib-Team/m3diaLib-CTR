@@ -5,6 +5,7 @@
 
 namespace m3d {
     Mesh::Mesh() :
+        m_opacity(255),
         m_rotationX(0.0f),
         m_rotationY(0.0f),
         m_rotationZ(0.0f),
@@ -186,6 +187,21 @@ namespace m3d {
         m_scaleZ += t_delta;
     }
 
+    void Mesh::setOpacity(unsigned int t_opacity) {
+        if (t_opacity > 255) {
+            m_opacity = 255;
+        } else {
+            if (t_opacity != m_opacity) {
+                m_opacity = t_opacity;
+                updateVBO();
+            }
+        }
+    }
+
+    unsigned int Mesh::getOpacity() {
+        return m_opacity;
+    }
+
     void Mesh::setMaterial(m3d::Material& t_material) {
         m_material = t_material;
     }
@@ -261,7 +277,7 @@ namespace m3d {
     // protected methods
     void Mesh::updateVBO() {
         linearFree(m_vbo);
-        m_vbo = static_cast<priv::graphics::Vertex*>(linearAlloc(m_vertices.size() * sizeof(priv::graphics::Vertex)));
+        m_vbo = reinterpret_cast<priv::graphics::Vertex*>(linearAlloc(m_vertices.size() * sizeof(priv::graphics::Vertex)));
 
         for (unsigned int i = 0; i < m_vertices.size(); i++) {
             float x = m_vertices[i].position[0],
@@ -273,7 +289,7 @@ namespace m3d {
                  ny = m_vertices[i].normal[1],
                  nz = m_vertices[i].normal[2];
 
-            m_vbo[i] = (priv::graphics::Vertex) { { x, y, z }, { u, v }, { nx, ny, nz }, { 0.0, 0.0 }, 0x00000000 };
+            m_vbo[i] = (priv::graphics::Vertex) { { x, y, z }, { u, v }, { nx, ny, nz }, { 0.0, 0.0 }, m3d::Color::rgba8(0, 0, 0, m_opacity) };
         }
     }
 } /* m3d */

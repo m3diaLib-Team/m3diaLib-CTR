@@ -292,6 +292,18 @@ namespace m3d {
         void scaleZ(float t_delta);
 
         /**
+         * @brief Sets the opacity for the mesh
+         * @param t_opacity The opacity, ranging from 0 to 255
+         */
+        void setOpacity(unsigned int t_opacity);
+
+        /**
+         * @brief Returns the opacity of the mesh
+         * @return The opacity, ranging from 0 to 255
+         */
+        unsigned int getOpacity();
+
+        /**
          * @brief Sets the material of the mesh
          * @param t_material The material
          */
@@ -342,6 +354,7 @@ namespace m3d {
 
     private:
         /* data */
+        unsigned int m_opacity;
         float m_rotationX, m_rotationY, m_rotationZ, m_posX, m_posY, m_posZ, m_scaleX, m_scaleY, m_scaleZ;
         bool m_useTexture;
 
