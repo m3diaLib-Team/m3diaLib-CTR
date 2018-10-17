@@ -1,15 +1,12 @@
-; Example PICA200 vertex shader
-; For more in-depth information, see the following Manual:
-; https://github.com/fincs/picasso/blob/master/Manual.md
-
 ; Uniforms
 .fvec projection[4], model[4], view[4]
 
 ; Constants
-.constf myconst(0.0, 1.0, -1.0, 0.5)
-.alias  zeros myconst.xxxx ; Vector full of zeros
-.alias  ones  myconst.yyyy ; Vector full of ones
-.alias  half  myconst.wwww ; Vector full of 0.5
+.constf common_const(0.0, 1.0, 0.5, 0.003921568393707275390625)
+.alias  zeros  common_const.xxxx ; Vector full of 0.0
+.alias  ones   common_const.yyyy ; Vector full of 1.0
+.alias  half   common_const.zzzz ; Vector full of 0.5
+.alias  clrdiv common_const.wwww ; Vector full of 1/255 (float24 approximation)
 
 ; Outputs
 .out outpos position
@@ -20,27 +17,24 @@
 .out outnq normalquat
 
 ; Inputs (defined as aliases for convenience)
-; v3 and v4 aren't used in the 3D shader
-; (blend is useless and color is material-dependent)
-.alias inpos v0 ; position
-.alias intex v1 ; texture coordinates
-.alias innrm v2 ; normals
+; v3 isn't used in the 3D shader since blend is useless here
+.in inpos v0 ; position
+.in intex v1 ; texture coordinates
+.in innrm v2 ; normals
+.in inclr v4 ; color
 
 .proc main
 	; Vertex position vectors.
 	mov r0.xyz, inpos.xyz
-	mov r0.w, myconst.y     ; This is how you set the variables with a constant.
-	                        ; Homeogeneous coordinates:
-                            ; If w == 1, then the vector is a position. Else if w == 0, it's a direction.
+	mov r0.w, common_const.y
 
-	; r1 = modelview matrix, (model matrix * vertex positions)
+	; r1 = model matrix, (model matrix * vertex positions)
 	dp4 r2.x, model[0], r0
 	dp4 r2.y, model[1], r0
 	dp4 r2.z, model[2], r0
 	dp4 r2.w, model[3], r0
 
-
-	; r1 = modelview matrix, (view * results)
+	; r1 = view matrix, (view * results)
 	dp4 r1.x, view[0], r2
 	dp4 r1.y, view[1], r2
 	dp4 r1.z, view[2], r2
@@ -49,7 +43,7 @@
 	; outview = -r1
 	mov outview, -r1
 
-	; outpos = modelview projection matrix, (projection * results)
+	; outpos = model projection matrix, (projection * results)
 	dp4 outpos.x, projection[0], r1
 	dp4 outpos.y, projection[1], r1
 	dp4 outpos.z, projection[2], r1
@@ -59,8 +53,7 @@
 	mov outtc0, intex
 	mov outtc1, intex
 
-	; Transform the normal vector with the modelView matrix
-	; TODO: use a separate normal matrix that is the transpose of the inverse of modelView
+	; Transform the normal vector with the model matrix
 	dp3 r14.x, model[0], innrm
 	dp3 r14.y, model[1], innrm
 	dp3 r14.z, model[2], innrm
@@ -68,7 +61,7 @@
 	rsq r6.x, r6.x
 	mul r14.xyz, r14.xyz, r6.x
 
-	mov r0, myconst.yxxx
+	mov r0, common_const.yxxx
 	add r4, ones, r14.z
 	mul r4, half, r4
 	cmp zeros, ge, ge, r4.x
@@ -81,7 +74,7 @@
 
 degenerate:
 	mov outnq, r0
-	mov outclr, ones
+	mul outclr, clrdiv, inclr
 
 	; We're finished
 	end
