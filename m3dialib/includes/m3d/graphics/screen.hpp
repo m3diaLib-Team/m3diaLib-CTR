@@ -65,14 +65,14 @@ namespace m3d {
          * @param t_color  The color to clear the screen with
          * @param t_target The screen to clear set the color for
          */
-        void setClearColor(m3d::Color t_color, m3d::RenderContext::ScreenTarget t_target);
+        void setClearColor(m3d::Color t_color, m3d::RenderContext::RenderTarget t_target);
 
         /**
          * @brief Returns the clear color for the given screen
          * @param  t_target The screen to get the color from
          * @return          The set clear color for the screen
          */
-        m3d::Color getClearColor(m3d::RenderContext::ScreenTarget t_target);
+        m3d::Color getClearColor(m3d::RenderContext::RenderTarget t_target);
 
         /**
          * @brief Draws something on the top screen
@@ -123,7 +123,7 @@ namespace m3d {
          * @param t_target The target screen
          * @return The width of the screen in pixels
          */
-        static int getScreenWidth(m3d::RenderContext::ScreenTarget t_target);
+        static int getScreenWidth(m3d::RenderContext::RenderTarget t_target);
 
         /**
          * @brief Returns the height of the screen
@@ -141,46 +141,46 @@ namespace m3d {
          * @param t_camera The camera
          * @param t_target The target
          */
-        void setCamera(m3d::Camera t_camera, m3d::RenderContext::ScreenTarget t_target);
+        void setCamera(m3d::Camera t_camera, m3d::RenderContext::RenderTarget t_target);
 
         /**
          * @brief Returns the camera of the given screen target
          * @param  t_target The target
          * @return          The camera
          */
-        m3d::Camera& getCamera(m3d::RenderContext::ScreenTarget t_target);
+        m3d::Camera& getCamera(m3d::RenderContext::RenderTarget t_target);
 
         /**
          * @brief Sets whether fog should be used for the given screen target
          * @param t_useFog `true` if fog should be used, `false` otherwise for the given screen target
          * @param t_target The target
          */
-        void useFog(bool t_useFog, m3d::RenderContext::ScreenTarget t_target);
+        void useFog(bool t_useFog, m3d::RenderContext::RenderTarget t_target);
 
         /**
          * @brief Returns whether or not fog is being used on the given screen target
          * @param t_target The target
          * @return        `true` if fog is being used, `false` otherwise on the given screen target
          */
-        bool getUseFog(m3d::RenderContext::ScreenTarget t_target);
+        bool getUseFog(m3d::RenderContext::RenderTarget t_target);
 
         /**
          * @brief Sets the fog density for the given screen target
          * @param t_density The fog density for the given screen target
          * @param t_target The target
          */
-        void setFogDensity(float t_density,m3d::RenderContext::ScreenTarget t_target);
+        void setFogDensity(float t_density,m3d::RenderContext::RenderTarget t_target);
 
         /**
          * @brief Returns the fog density of the given screen target
          * @param t_target The target
          * @return         The fog density of the given screen target
          */
-        float getFogDensity(m3d::RenderContext::ScreenTarget t_target);
+        float getFogDensity(m3d::RenderContext::RenderTarget t_target);
     private:
         void prepare();
-        void prepareFog(m3d::RenderContext::ScreenTarget t_target);
-        void prepareLights(m3d::RenderContext::ScreenTarget t_target);
+        void prepareFog(m3d::RenderContext::RenderTarget t_target);
+        void prepareLights(m3d::RenderContext::RenderTarget t_target);
 
         /* data */
         int m_projectionUniform, m_modelUniform, m_viewUniform;

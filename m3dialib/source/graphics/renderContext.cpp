@@ -6,7 +6,7 @@ namespace m3d {
         bool t_3dEnabled,
         m3d::RenderContext::Mode t_mode,
         m3d::RenderContext::Stereo3dSide t_side,
-        m3d::RenderContext::ScreenTarget t_target,
+        m3d::RenderContext::RenderTarget t_target,
         C3D_Mtx& t_model,
         C3D_LightEnv& t_lightEnv,
         C3D_Light& t_light,
@@ -38,7 +38,7 @@ namespace m3d {
         return m_side;
     }
 
-    m3d::RenderContext::ScreenTarget RenderContext::getScreenTarget() {
+    m3d::RenderContext::RenderTarget RenderContext::getRenderTarget() {
         return m_target;
     }
 

@@ -20,11 +20,13 @@ namespace m3d {
     friend class Screen;
     public:
         /**
-         * @brief Defines the screen targets (top/bottom)
+         * @brief Defines different possible render targets
          */
-        enum class ScreenTarget {
-            Top,     ///< Top screen
-            Bottom   ///< Bottom/touch screen
+        enum class RenderTarget {
+            Top,          ///< Top screen
+            Bottom,       ///< Bottom/touch screen#
+            RenderTarget, ///< A m3d::RenderTarget
+            Stencil       ///< The stencil buffer
         };
 
         /**
@@ -49,7 +51,7 @@ namespace m3d {
             bool t_3dEnabled,
             m3d::RenderContext::Mode t_mode,
             m3d::RenderContext::Stereo3dSide t_side,
-            m3d::RenderContext::ScreenTarget t_target,
+            m3d::RenderContext::RenderTarget t_target,
             C3D_Mtx& t_model,
             C3D_LightEnv& t_lightEnv,
             C3D_Light& t_light,
@@ -85,7 +87,7 @@ namespace m3d {
          * @brief Returns the current screen target
          * @return The current target
          */
-        m3d::RenderContext::ScreenTarget getScreenTarget();
+        m3d::RenderContext::RenderTarget getRenderTarget();
 
         /**
          * @brief Returns the model matrix
@@ -160,7 +162,7 @@ namespace m3d {
         bool m_3dEnabled;
         m3d::RenderContext::Mode m_mode;
         m3d::RenderContext::Stereo3dSide m_side;
-        m3d::RenderContext::ScreenTarget m_target;
+        m3d::RenderContext::RenderTarget m_target;
         C3D_Mtx &m_model;
         C3D_LightEnv& m_lightEnv;
         C3D_Light& m_light;

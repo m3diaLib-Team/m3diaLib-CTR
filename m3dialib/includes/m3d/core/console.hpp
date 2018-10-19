@@ -63,7 +63,7 @@ namespace m3d {
              */
             Console();
 
-            Console(m3d::RenderContext::ScreenTarget t_screen);
+            Console(m3d::RenderContext::RenderTarget t_screen);
 
             /**
              * @brief Returns the escape code to position the text at the given position
@@ -89,7 +89,7 @@ namespace m3d {
              * @return          An empty string. This is to make it possible to use this method in streams
              * @warning Once a screen was used for the console, it can't be used for normal rendering again
              */
-            const std::string useScreen(m3d::RenderContext::ScreenTarget t_target);
+            const std::string useScreen(m3d::RenderContext::RenderTarget t_target);
             void clear();
 
             /**

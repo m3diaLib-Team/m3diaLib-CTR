@@ -36,17 +36,17 @@ namespace m3d {
 
     }
 
-    Console::Console(m3d::RenderContext::ScreenTarget t_screen) {
+    Console::Console(m3d::RenderContext::RenderTarget t_screen) {
         Console::useScreen(t_screen);
     }
 
-    const std::string Console::useScreen(m3d::RenderContext::ScreenTarget t_target) {
+    const std::string Console::useScreen(m3d::RenderContext::RenderTarget t_target) {
         switch(t_target) {
-            case m3d::RenderContext::ScreenTarget::Top:
+            case m3d::RenderContext::RenderTarget::Top:
                 m3d::priv::core::consoleTop = true;
                 consoleInit(GFX_TOP, &m_console);
                 break;
-            case m3d::RenderContext::ScreenTarget::Bottom:
+            case m3d::RenderContext::RenderTarget::Bottom:
                 m3d::priv::core::consoleBottom = true;
                 consoleInit(GFX_BOTTOM, &m_console);
                 break;

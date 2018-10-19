@@ -102,8 +102,8 @@ namespace m3d {
         m_targetBottom->setClearColor(t_color.getRgb8());
     }
 
-    void Screen::setClearColor(m3d::Color t_color, m3d::RenderContext::ScreenTarget t_target) {
-        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
+    void Screen::setClearColor(m3d::Color t_color, m3d::RenderContext::RenderTarget t_target) {
+        if (t_target == m3d::RenderContext::RenderTarget::Top) {
             m_clearColorTop = t_color;
             m_targetTopLeft->setClearColor(t_color.getRgb8());
             m_targetTopRight->setClearColor(t_color.getRgb8());
@@ -113,8 +113,8 @@ namespace m3d {
         }
     }
 
-    m3d::Color Screen::getClearColor(m3d::RenderContext::ScreenTarget t_target) {
-        return t_target == m3d::RenderContext::ScreenTarget::Top ? m_clearColorTop : m_clearColorBottom;
+    m3d::Color Screen::getClearColor(m3d::RenderContext::RenderTarget t_target) {
+        return t_target == m3d::RenderContext::RenderTarget::Top ? m_clearColorTop : m_clearColorBottom;
     }
 
     void Screen::drawTop(m3d::Drawable& t_object, m3d::RenderContext::Mode t_mode, int t_layer) {
@@ -215,8 +215,8 @@ namespace m3d {
 
             if(m_drawStackBottom3d.size() > 0 && !priv::core::consoleBottom) {
                 C3D_FrameDrawOn(m_targetBottom->getRenderTarget());
-                prepareLights(m3d::RenderContext::ScreenTarget::Bottom);
-                if (m_useFogBottom) prepareFog(m3d::RenderContext::ScreenTarget::Bottom);
+                prepareLights(m3d::RenderContext::RenderTarget::Bottom);
+                if (m_useFogBottom) prepareFog(m3d::RenderContext::RenderTarget::Bottom);
 
                 for(const auto &entry : m_drawStackBottom3d) { // for every layer
                     for(const auto &drawable : entry.second) { // draw every object
@@ -226,7 +226,7 @@ namespace m3d {
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Spatial,        // mode
                                 m3d::RenderContext::Stereo3dSide::Left,   // side
-                                m3d::RenderContext::ScreenTarget::Bottom, // target
+                                m3d::RenderContext::RenderTarget::Bottom, // target
                                 m_model,  // model
                                 m_lightEnvBottom, // lightEnv
                                 m_lightBottom,    // light
@@ -241,8 +241,8 @@ namespace m3d {
 
             if (m_drawStackTop3d.size() > 0 && !priv::core::consoleTop) {
                 C3D_FrameDrawOn(m_targetTopLeft->getRenderTarget());
-                prepareLights(m3d::RenderContext::ScreenTarget::Top);
-                if (m_useFogTop) prepareFog(m3d::RenderContext::ScreenTarget::Top);
+                prepareLights(m3d::RenderContext::RenderTarget::Top);
+                if (m_useFogTop) prepareFog(m3d::RenderContext::RenderTarget::Top);
 
                 // tilt stereo perspective
                 if (m_3dEnabled) {
@@ -262,7 +262,7 @@ namespace m3d {
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Spatial,      // mode
                                 m3d::RenderContext::Stereo3dSide::Left, // side
-                                m3d::RenderContext::ScreenTarget::Top,  // target
+                                m3d::RenderContext::RenderTarget::Top,  // target
                                 m_model,  // model
                                 m_lightEnvTop, // lightEnv
                                 m_lightTop,    // light
@@ -292,7 +292,7 @@ namespace m3d {
                                     m_3dEnabled, // 3dEnabled
                                     m3d::RenderContext::Mode::Spatial,       // mode
                                     m3d::RenderContext::Stereo3dSide::Right, // side
-                                    m3d::RenderContext::ScreenTarget::Top,   // target
+                                    m3d::RenderContext::RenderTarget::Top,   // target
                                     m_model,  // model
                                     m_lightEnvTop, // lightEnv
                                     m_lightTop,    // light
@@ -323,7 +323,7 @@ namespace m3d {
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Flat,           // mode
                                 m3d::RenderContext::Stereo3dSide::Left,   // side
-                                m3d::RenderContext::ScreenTarget::Bottom, // target
+                                m3d::RenderContext::RenderTarget::Bottom, // target
                                 m_model,  // model
                                 m_lightEnvBottom, // lightEnv
                                 m_lightBottom,    // light
@@ -347,7 +347,7 @@ namespace m3d {
                                 m_3dEnabled, // 3dEnabled
                                 m3d::RenderContext::Mode::Flat,         // mode
                                 m3d::RenderContext::Stereo3dSide::Left, // side
-                                m3d::RenderContext::ScreenTarget::Top,  // target
+                                m3d::RenderContext::RenderTarget::Top,  // target
                                 m_model,  // model
                                 m_lightEnvTop, // lightEnv
                                 m_lightTop,    // light
@@ -368,7 +368,7 @@ namespace m3d {
                                     m_3dEnabled, // 3dEnabled
                                     m3d::RenderContext::Mode::Flat,          // mode
                                     m3d::RenderContext::Stereo3dSide::Right, // side
-                                    m3d::RenderContext::ScreenTarget::Top,   // target
+                                    m3d::RenderContext::RenderTarget::Top,   // target
                                     m_model,  // model
                                     m_lightEnvTop, // lightEnv
                                     m_lightTop,    // light
@@ -386,8 +386,8 @@ namespace m3d {
         C3D_FrameEnd(0);
     }
 
-    int Screen::getScreenWidth(m3d::RenderContext::ScreenTarget t_target) {
-        return t_target == m3d::RenderContext::ScreenTarget::Top ? 400 : 320;
+    int Screen::getScreenWidth(m3d::RenderContext::RenderTarget t_target) {
+        return t_target == m3d::RenderContext::RenderTarget::Top ? 400 : 320;
     }
 
     int Screen::getScreenHeight() {
@@ -408,9 +408,9 @@ namespace m3d {
         }
     }
 
-    void Screen::setCamera(m3d::Camera t_camera, m3d::RenderContext::ScreenTarget t_target) {
+    void Screen::setCamera(m3d::Camera t_camera, m3d::RenderContext::RenderTarget t_target) {
         switch (t_target) {
-            case m3d::RenderContext::ScreenTarget::Top:
+            case m3d::RenderContext::RenderTarget::Top:
                 m_cameraTop = t_camera;
                 break;
             default:
@@ -418,32 +418,32 @@ namespace m3d {
         }
     }
 
-    m3d::Camera& Screen::getCamera(m3d::RenderContext::ScreenTarget t_target) {
-        return (t_target == m3d::RenderContext::ScreenTarget::Top ? m_cameraTop : m_cameraBottom);
+    m3d::Camera& Screen::getCamera(m3d::RenderContext::RenderTarget t_target) {
+        return (t_target == m3d::RenderContext::RenderTarget::Top ? m_cameraTop : m_cameraBottom);
     }
 
-    void Screen::useFog(bool t_useFog, m3d::RenderContext::ScreenTarget t_target) {
-        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
+    void Screen::useFog(bool t_useFog, m3d::RenderContext::RenderTarget t_target) {
+        if (t_target == m3d::RenderContext::RenderTarget::Top) {
             m_useFogTop = t_useFog;
         } else {
             m_useFogBottom = t_useFog;
         }
     }
 
-    bool Screen::getUseFog(m3d::RenderContext::ScreenTarget t_target) {
-        return (t_target == m3d::RenderContext::ScreenTarget::Top ? m_useFogTop : m_useFogBottom);
+    bool Screen::getUseFog(m3d::RenderContext::RenderTarget t_target) {
+        return (t_target == m3d::RenderContext::RenderTarget::Top ? m_useFogTop : m_useFogBottom);
     }
 
-    void Screen::setFogDensity(float t_density, m3d::RenderContext::ScreenTarget t_target) {
-        if (t_target == m3d::RenderContext::ScreenTarget::Top) {
+    void Screen::setFogDensity(float t_density, m3d::RenderContext::RenderTarget t_target) {
+        if (t_target == m3d::RenderContext::RenderTarget::Top) {
             m_fogDensityTop = t_density;
         } else {
             m_fogDensityBottom = t_density;
         }
     }
 
-    float Screen::getFogDensity(m3d::RenderContext::ScreenTarget t_target) {
-        return (t_target == m3d::RenderContext::ScreenTarget::Top ? m_fogDensityTop : m_fogDensityBottom);
+    float Screen::getFogDensity(m3d::RenderContext::RenderTarget t_target) {
+        return (t_target == m3d::RenderContext::RenderTarget::Top ? m_fogDensityTop : m_fogDensityBottom);
     }
 
     // private methods
@@ -474,9 +474,9 @@ namespace m3d {
         C3D_CullFace(m_useCulling ? GPU_CULL_BACK_CCW : GPU_CULL_NONE);
     }
 
-    void Screen::prepareFog(m3d::RenderContext::ScreenTarget t_target) {
+    void Screen::prepareFog(m3d::RenderContext::RenderTarget t_target) {
         switch (t_target) {
-            case m3d::RenderContext::ScreenTarget::Bottom:
+            case m3d::RenderContext::RenderTarget::Bottom:
                 FogLut_Exp(&m_fogLutBottom, m_fogDensityBottom, 1.5f, 0.01f, 20.0f);
                 C3D_FogGasMode(GPU_FOG, GPU_PLAIN_DENSITY, false);
                 C3D_FogColor(m_clearColorTop.getRgb8());
@@ -490,9 +490,9 @@ namespace m3d {
         }
     }
 
-    void Screen::prepareLights(m3d::RenderContext::ScreenTarget t_target) {
+    void Screen::prepareLights(m3d::RenderContext::RenderTarget t_target) {
         switch (t_target) {
-            case m3d::RenderContext::ScreenTarget::Bottom:
+            case m3d::RenderContext::RenderTarget::Bottom:
                 C3D_LightEnvBind(&m_lightEnvBottom);
                 break;
             default:
