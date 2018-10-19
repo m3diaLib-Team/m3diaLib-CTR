@@ -9,10 +9,15 @@
 #include <citro3d.h>
 
 namespace m3d {
+    class Color;
+    class Screen;
+    class Texture;
+
     /**
      * @brief The RenderContext-class which holds information about the current rendering process
      */
     class RenderContext {
+    friend class Screen;
     public:
         /**
          * @brief Defines the screen targets (top/bottom)
@@ -38,18 +43,7 @@ namespace m3d {
             Spatial ///< 3D
         };
 
-        /**
-         * @brief Default constructor
-         * @param t_modelUniform  The location of the model uniform
-         * @param t_mode          The current rendering mode
-         * @param t_side          The current side for stereoscopic 3D
-         * @param t_target        The current screen target
-         * @param t_projection    The projection matrix
-         * @param t_model         The model matrix
-         * @param t_lightEnv      The light environment
-         * @param t_light         The light
-         * @param t_lightLut      The light LUT
-         */
+    private:
         RenderContext(
             int t_modelUniform,
             bool t_3dEnabled,
@@ -62,6 +56,7 @@ namespace m3d {
             C3D_LightLut& t_lightLut
         );
 
+    public:
         /**
          * @brief Returns the location of the model view uniform
          * @return The location of the uniform
@@ -117,10 +112,47 @@ namespace m3d {
         C3D_LightLut& getLightLut();
 
         /**
+         * @brief Adds a vertex to the current vertex buffer
+         * @param t_posX    The x-position
+         * @param t_posY    The y-position
+         * @param t_posZ    The z-position
+         * @param t_u       The u-value
+         * @param t_v       The v-value
+         * @param t_normalX The x-value of the normal
+         * @param t_normalY The y-value of the normal
+         * @param t_normalZ The z-value of the normal
+         * @param t_blend   The blend value (useless in 3D mode)
+         * @param t_color   The color (in 3D mode, onle the alpha-component will be used)
+         */
+        void addVertex(int t_posX, int t_posY, int t_posZ,
+                       int t_u, int t_v,
+                       int t_normalX, int t_normalY, int t_normalZ,
+                       float t_blend,
+                       m3d::Color t_color);
+
+        /**
+         * @brief Sets the rendering mode to use
+         * @param t_mode The rendering mode
+         */
+        void useMode(m3d::RenderContext::Mode t_mode);
+
+        /**
+         * @brief Binds a texture to use
+         * @param t_texture The texture
+         */
+        void bindTexture(const m3d::Texture& t_texture);
+
+        /**
+         * @brief Flushes the vertex buffer's content to the GPU (and thereby draws the vertices)
+         */
+        void flush();
+
+        /**
          * @brief Enables or disables textures
          * @param t_enable Whether or not to enable textures
+         * @deprecated This method is deprecated. Use m3d::RenderContext::bindTexture instead
          */
-        void enableTextures(bool t_enable);
+        [[deprecated]] void enableTextures(bool t_enable);
 
     private:
         /* data */
