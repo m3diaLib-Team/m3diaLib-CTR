@@ -1,5 +1,4 @@
-# m3diaLib 
-[![Build Status](https://travis-ci.org/m3diaLib-Team/m3diaLib-CTR.svg?branch=master)](https://travis-ci.org/StuntHacks/m3diaLib) [![CodeFactor](https://www.codefactor.io/repository/github/m3dialib-team/m3dialib-ctr/badge)](https://www.codefactor.io/repository/github/m3dialib-team/m3dialib-ctr)
+# m3diaLib [![Build Status](https://travis-ci.org/m3diaLib-Team/m3diaLib-CTR.svg?branch=master)](https://travis-ci.org/StuntHacks/m3diaLib) [![CodeFactor](https://www.codefactor.io/repository/github/m3dialib-team/m3dialib-ctr/badge)](https://www.codefactor.io/repository/github/m3dialib-team/m3dialib-ctr)
 A fast, extensive and powerful allround media and game library for the Nintendo 3DS, written in C++.
 
 #### Click [here](#installation) to get to the installation instructions.
