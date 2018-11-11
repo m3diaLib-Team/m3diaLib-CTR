@@ -160,6 +160,7 @@ namespace m3d {
         /* data */
         int m_modelUniformLocation;
         bool m_3dEnabled;
+        static bool m_texturesEnabled;
         m3d::RenderContext::Mode m_mode;
         m3d::RenderContext::Stereo3dSide m_side;
         m3d::RenderContext::RenderTarget m_target;
