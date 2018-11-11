@@ -349,7 +349,9 @@ namespace m3d {
     protected:
         /**
          * @brief Updates the vertex buffer
+         * @deprecated Updating the vertex buffer manually isn't needed any longer
          */
+        [[deprecated("Updating the vertex buffer manually isn't needed any longer")]]
         void updateVBO();
 
     private:
