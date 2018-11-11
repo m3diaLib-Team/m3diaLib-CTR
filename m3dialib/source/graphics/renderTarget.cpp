@@ -9,7 +9,7 @@ namespace m3d {
             m_target = C3D_RenderTargetCreate(t_height, t_width, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);
     }
 
-    C3D_RenderTarget* RenderTarget::getRenderTarget() {
+    C3D_RenderTarget* RenderTarget::getRenderTarget() const {
         return m_target;
     }
 

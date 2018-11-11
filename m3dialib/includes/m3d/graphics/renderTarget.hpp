@@ -26,7 +26,7 @@ namespace m3d {
          * @brief Returns the render target
          * @return The render target
          */
-        C3D_RenderTarget* getRenderTarget();
+        C3D_RenderTarget* getRenderTarget() const;
 
         /**
          * @brief Returns the width of this render target
