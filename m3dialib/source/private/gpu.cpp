@@ -15,7 +15,7 @@ namespace m3d {
             }
 
             void GPU::addVertex(Vertex t_vertex) {
-                if (m_vertexAmount < 4096 * 3) {
+                if (m_vertexAmount < maxFaces * 3) {
                     Vertex* vtx = &m_vertexBuffer[m_vertexAmount++];
 
                     vtx->pos[0]      = t_vertex.pos[0];

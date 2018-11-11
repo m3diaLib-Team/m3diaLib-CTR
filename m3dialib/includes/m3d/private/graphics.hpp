@@ -29,6 +29,7 @@ namespace m3d {
             };
 
             extern m3d::Camera defaultCamera0, defaultCamera1;
+            extern int maxFaces;
 
             class GPU {
             friend class m3d::Screen;
