@@ -141,8 +141,9 @@ namespace m3d {
         /**
          * @brief Binds a texture to use
          * @param t_texture The texture
+         * @param t_texEnv  The texture-environment to use
          */
-        void bindTexture(const m3d::Texture& t_texture);
+        void bindTexture(const m3d::Texture& t_texture, int t_texEnv = 0);
 
         /**
          * @brief Flushes the vertex buffer's content to the GPU (and thereby draws the vertices)
