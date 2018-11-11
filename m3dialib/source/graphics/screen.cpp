@@ -24,6 +24,10 @@ namespace m3d {
         priv::graphics::GPU::m_vertexBuffer = (priv::graphics::Vertex*) linearAlloc(3 * t_maxFaces * sizeof(priv::graphics::Vertex));
         priv::graphics::maxFaces = t_maxFaces;
 
+        C3D_BufInfo* bufInfo = C3D_GetBufInfo();
+        BufInfo_Init(bufInfo);
+        BufInfo_Add(bufInfo, priv::graphics::GPU::m_vertexBuffer, sizeof(priv::graphics::Vertex), 5, 0x43210);
+
         m_targetTopLeft  = new m3d::RenderTarget(400, 240);
         m_targetTopRight = new m3d::RenderTarget(400, 240);
         m_targetBottom   = new m3d::RenderTarget(320, 240);
@@ -68,7 +72,6 @@ namespace m3d {
         C3D_LightInit(&m_lightBottom, &m_lightEnvBottom);
         C3D_LightColor(&m_lightBottom, 1.0, 1.0, 1.0);
         C3D_LightPosition(&m_lightBottom, &lightVec);
-
         clear();
     }
 
@@ -384,6 +387,8 @@ namespace m3d {
         }
 
         C3D_FrameEnd(0);
+        m3d::priv::graphics::GPU::m_vertexAmount = 0;
+        m3d::priv::graphics::GPU::m_lastPos = 0;
     }
 
     int Screen::getScreenWidth(m3d::RenderContext::RenderTarget t_target) {
