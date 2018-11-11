@@ -72,12 +72,6 @@ namespace m3d {
         bool is3dEnabled();
 
         /**
-         * @brief Returns the current rendering mode (flat (2D) or spatial (3D))
-         * @return The current mode
-         */
-        m3d::RenderContext::Mode getMode();
-
-        /**
          * @brief Returns the current side for stereoscopic 3D
          * @return The current side
          */
@@ -131,6 +125,12 @@ namespace m3d {
                        int t_normalX, int t_normalY, int t_normalZ,
                        float t_blend,
                        m3d::Color t_color);
+
+        /**
+         * @brief Returns the current rendering mode (flat (2D) or spatial (3D))
+         * @return The current mode
+        */
+        m3d::RenderContext::Mode getMode();
 
         /**
          * @brief Sets the rendering mode to use
