@@ -246,6 +246,9 @@ namespace m3d {
             Mtx_RotateZ(&t_context.getModelMatrix(), m_rotationZ, true);
             Mtx_Scale(&t_context.getModelMatrix(), m_scaleX, m_scaleY, m_scaleZ);
 
+            // update the uniforms
+            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getModelUniform(),  &t_context.getModelMatrix());
+
             // set material
             C3D_LightEnvMaterial(&t_context.getLightEnvironment(), m_material.getMaterial());
 
@@ -261,35 +264,32 @@ namespace m3d {
                 t_context.enableTextures(false);
             }
 
-            // create buffer
-            C3D_BufInfo* bufInfo = C3D_GetBufInfo();
-            BufInfo_Init(bufInfo);
-            BufInfo_Add(bufInfo, m_vbo, sizeof(m3d::priv::graphics::Vertex), 5, 0x43210);
+            for (size_t i = 0; i < m_vertices.size(); i++) {
+                float x = m_vertices[i].position[0],
+                      y = m_vertices[i].position[1],
+                      z = m_vertices[i].position[2],
+                      u = m_vertices[i].texcoord[0],
+                      v = m_vertices[i].texcoord[1],
+                     nx = m_vertices[i].normal[0],
+                     ny = m_vertices[i].normal[1],
+                     nz = m_vertices[i].normal[2];
 
-            // update the uniforms
-            C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, t_context.getModelUniform(),  &t_context.getModelMatrix());
+                m3d::priv::graphics::GPU::addVertex((m3d::priv::graphics::Vertex) {
+                    { x, y, z },
+                    { u, v },
+                    { nx, ny, nz },
+                    { 0.0, 0.0 },
+                    m3d::Color::rgba8(0, 0, 0, m_opacity)
+                });
+            }
 
-            // draw the VBO
-            C3D_DrawArrays(GPU_TRIANGLES, 0, m_vertices.size());
+            // draw the vertices
+            m3d::priv::graphics::GPU::draw();
         }
     }
 
     // protected methods
     void Mesh::updateVBO() {
-        linearFree(m_vbo);
-        m_vbo = reinterpret_cast<priv::graphics::Vertex*>(linearAlloc(m_vertices.size() * sizeof(priv::graphics::Vertex)));
-
-        for (unsigned int i = 0; i < m_vertices.size(); i++) {
-            float x = m_vertices[i].position[0],
-                  y = m_vertices[i].position[1],
-                  z = m_vertices[i].position[2],
-                  u = m_vertices[i].texcoord[0],
-                  v = m_vertices[i].texcoord[1],
-                 nx = m_vertices[i].normal[0],
-                 ny = m_vertices[i].normal[1],
-                 nz = m_vertices[i].normal[2];
-
-            m_vbo[i] = (priv::graphics::Vertex) { { x, y, z }, { u, v }, { nx, ny, nz }, { 0.0, 0.0 }, m3d::Color::rgba8(0, 0, 0, m_opacity) };
-        }
+        /* only here for legacy reasons - will be removed */
     }
 } /* m3d */
