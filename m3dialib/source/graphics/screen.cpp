@@ -7,7 +7,7 @@
 #include "render3d_shbin.h"
 
 namespace m3d {
-    Screen::Screen(bool t_enable3d) :
+    Screen::Screen(bool t_enable3d, int t_maxFaces) :
             m_3dEnabled(t_enable3d),
             m_useCulling(true),
             m_clearColorTop(m3d::Color(0, 0, 0)),
@@ -21,8 +21,8 @@ namespace m3d {
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
         gfxSet3D(m_3dEnabled);
 
-        priv::graphics::vertexBuffer2d = (priv::graphics::Vertex*) linearAlloc(6 * 4096 * sizeof(priv::graphics::Vertex));
-        priv::graphics::vertexBuffer3d = (priv::graphics::Vertex*) linearAlloc(6 * 4096 * sizeof(priv::graphics::Vertex));
+        priv::graphics::GPU::m_vertexBuffer = (priv::graphics::Vertex*) linearAlloc(3 * t_maxFaces * sizeof(priv::graphics::Vertex));
+        priv::graphics::maxFaces = t_maxFaces;
 
         m_targetTopLeft  = new m3d::RenderTarget(400, 240);
         m_targetTopRight = new m3d::RenderTarget(400, 240);

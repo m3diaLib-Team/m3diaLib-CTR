@@ -27,8 +27,11 @@ namespace m3d {
         /**
          * @brief Initializes the m3d::Screen object
          * @param t_enable3d Whether to enable stereoscopic 3D by default
+         * @param t_maxFaces The maximum number of faces (polygons) to draw in one frame
+         *
+         * Setting `t_maxFaces` allows for drawing `t_maxFaces * 3` vertices per frame (since one polygon has to consist of 3 vertices). This number is limited by the 3DS's 32mb of linear memory.
          */
-        Screen(bool t_enable3d = true);
+        Screen(bool t_enable3d = true, int t_maxFaces = 4096);
 
         /**
          * @brief Destructs the screen object
