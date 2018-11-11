@@ -36,6 +36,7 @@ namespace m3d {
             friend class m3d::Mesh;
             public:
                 static void renderTo(const m3d::RenderTarget& t_target);
+                static void useMode(m3d::RenderContext::Mode t_mode);
                 static void addVertex(Vertex t_vertex);
                 static void bindTexture(int t_texEnv, const m3d::Texture& t_texture);
                 static void setMaterial(const m3d::Material& t_material);
