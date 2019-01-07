@@ -17,17 +17,10 @@ namespace m3d {
     class RenderTarget;
     class Screen;
     class Texture;
+    struct Vertex;
 
     namespace priv {
         namespace graphics {
-            struct Vertex {
-                float pos[3];
-                float texcoord[2];
-                float normals[3];
-                float blend[2];
-                u32 color;
-            };
-
             extern m3d::Camera defaultCamera0, defaultCamera1;
             extern int maxFaces;
 
