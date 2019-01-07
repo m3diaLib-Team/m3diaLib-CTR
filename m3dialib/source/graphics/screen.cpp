@@ -1,7 +1,8 @@
 #include <citro2d.h>
 #include "m3d/core/applet.hpp"
-#include "m3d/graphics/screen.hpp"
 #include "m3d/graphics/color.hpp"
+#include "m3d/graphics/screen.hpp"
+#include "m3d/graphics/vertex.hpp"
 #include "m3d/private/graphics.hpp"
 #include "m3d/private/core.hpp"
 #include "render3d_shbin.h"
@@ -21,12 +22,12 @@ namespace m3d {
         C2D_Init(C2D_DEFAULT_MAX_OBJECTS);
         gfxSet3D(m_3dEnabled);
 
-        priv::graphics::GPU::m_vertexBuffer = (priv::graphics::Vertex*) linearAlloc(3 * t_maxFaces * sizeof(priv::graphics::Vertex));
+        priv::graphics::GPU::m_vertexBuffer = (Vertex*) linearAlloc(3 * t_maxFaces * sizeof(Vertex));
         priv::graphics::maxFaces = t_maxFaces;
 
         C3D_BufInfo* bufInfo = C3D_GetBufInfo();
         BufInfo_Init(bufInfo);
-        BufInfo_Add(bufInfo, priv::graphics::GPU::m_vertexBuffer, sizeof(priv::graphics::Vertex), 5, 0x43210);
+        BufInfo_Add(bufInfo, priv::graphics::GPU::m_vertexBuffer, sizeof(Vertex), 5, 0x43210);
 
         m_targetTopLeft  = new m3d::RenderTarget(400, 240);
         m_targetTopRight = new m3d::RenderTarget(400, 240);
