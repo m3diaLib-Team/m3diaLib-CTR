@@ -1,4 +1,5 @@
 #include "m3d/graphics/renderContext.hpp"
+#include "m3d/private/graphics.hpp"
 
 namespace m3d {
     bool RenderContext::m_texturesEnabled = false;
