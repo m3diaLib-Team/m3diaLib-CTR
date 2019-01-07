@@ -1,7 +1,7 @@
 #include <citro3d.h>
 #include <cstring>
 #include "m3d/graphics/drawables/mesh.hpp"
-#include "m3d/private/graphics.hpp"
+#include "m3d/graphics/quickdraw.hpp"
 
 namespace m3d {
     Mesh::Mesh() :
@@ -254,14 +254,13 @@ namespace m3d {
 
             if (m_useTexture) {
                 // enable textures
-                t_context.enableTextures(true);
+                m3d::qdraw::prepareForTexture(true);
 
                 // bind the texture
-                C3D_TexSetFilter(m_texture.getTexture(), GPU_LINEAR, GPU_LINEAR);
-                C3D_TexBind(0, m_texture.getTexture());
+                m3d::qdraw::bindTexture(m_texture);
             } else {
                 // disable textures
-                t_context.enableTextures(false);
+                m3d::qdraw::prepareForTexture(false);
             }
 
             for (size_t i = 0; i < m_vertices.size(); i++) {
@@ -274,7 +273,7 @@ namespace m3d {
                      ny = m_vertices[i].normal[1],
                      nz = m_vertices[i].normal[2];
 
-                m3d::priv::graphics::GPU::addVertex((m3d::priv::graphics::Vertex) {
+                m3d::qdraw::addVertex((m3d::Vertex) {
                     { x, y, z },
                     { u, v },
                     { nx, ny, nz },
@@ -284,7 +283,7 @@ namespace m3d {
             }
 
             // draw the vertices
-            m3d::priv::graphics::GPU::draw();
+            m3d::qdraw::draw();
         }
     }
 
