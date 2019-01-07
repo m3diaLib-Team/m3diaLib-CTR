@@ -27,6 +27,17 @@ namespace m3d {
     };
 
     /**
+     * @brief Represents a vertex which can be sent to the GPU
+     */
+    struct Vertex {
+        float pos[3];      ///< The position
+        float texcoord[2]; ///< The texture coordinates
+        float normals[3];  ///< The normal vectors
+        float blend[2];    ///< The blend
+        u32 color;         ///< The color
+    };
+
+    /**
      * @brief Represents a vertex containing its position and its color
      */
     struct ColoredVertex {
