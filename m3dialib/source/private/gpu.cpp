@@ -1,5 +1,6 @@
 #include <citro3d.h>
 #include "m3d/graphics/renderTarget.hpp"
+#include "m3d/graphics/vertex.hpp"
 #include "m3d/private/graphics.hpp"
 
 namespace m3d {
