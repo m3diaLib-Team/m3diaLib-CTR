@@ -108,54 +108,10 @@ namespace m3d {
         C3D_LightLut& getLightLut();
 
         /**
-         * @brief Adds a vertex to the current vertex buffer
-         * @param t_posX    The x-position
-         * @param t_posY    The y-position
-         * @param t_posZ    The z-position
-         * @param t_u       The u-value
-         * @param t_v       The v-value
-         * @param t_normalX The x-value of the normal
-         * @param t_normalY The y-value of the normal
-         * @param t_normalZ The z-value of the normal
-         * @param t_blend   The blend value (useless in 3D mode)
-         * @param t_color   The color (in 3D mode, onle the alpha-component will be used)
-         */
-        void addVertex(int t_posX, int t_posY, int t_posZ,
-                       int t_u, int t_v,
-                       int t_normalX, int t_normalY, int t_normalZ,
-                       float t_blend,
-                       m3d::Color t_color);
-
-        /**
          * @brief Returns the current rendering mode (flat (2D) or spatial (3D))
          * @return The current mode
         */
         m3d::RenderContext::Mode getMode();
-
-        /**
-         * @brief Sets the rendering mode to use
-         * @param t_mode The rendering mode
-         */
-        void useMode(m3d::RenderContext::Mode t_mode);
-
-        /**
-         * @brief Binds a texture to use
-         * @param t_texture The texture
-         * @param t_texEnv  The texture-environment to use
-         */
-        void bindTexture(const m3d::Texture& t_texture, int t_texEnv = 0);
-
-        /**
-         * @brief Flushes the vertex buffer's content to the GPU (and thereby draws the vertices)
-         */
-        void flush();
-
-        /**
-         * @brief Enables or disables textures
-         * @param t_enable Whether or not to enable textures
-         * @deprecated This method is deprecated. Use m3d::RenderContext::bindTexture instead
-         */
-        [[deprecated]] void enableTextures(bool t_enable);
 
     private:
         /* data */
