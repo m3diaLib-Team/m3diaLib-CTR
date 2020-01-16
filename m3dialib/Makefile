@@ -9,8 +9,8 @@ endif
 include $(DEVKITARM)/3ds_rules
 
 export M3D_MAJOR	:= 0
-export M3D_MINOR	:= 1
-export M3D_PATCH	:= 0
+export M3D_MINOR	:= 2
+export M3D_PATCH	:= 2
 
 VERSION	:=	$(M3D_MAJOR).$(M3D_MINOR).$(M3D_PATCH)
 

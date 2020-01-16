@@ -52,7 +52,7 @@
 /**
  * @brief The current revision of the library
  */
-#define M3D_VERSION_REVISION 1
+#define M3D_VERSION_REVISION 2
 
 /**
  * @brief The current version of the library in the format MAJOR.MINOR.REVISION
