@@ -12,7 +12,7 @@ namespace m3d {
          m_currentFrame(0) {
             aptInit();
             cfguInit();
-            ptmuInit();
+            archiveMountSdmc();
             acInit();
             romfsInit();
             sdmcInit();
@@ -39,7 +39,7 @@ namespace m3d {
         if (m3d::priv::ndsp::initialized) ndspExit();
         C3D_Fini();
         gfxExit();
-        sdmcExit();
+        archiveUnmountAll();
         romfsExit();
         acExit();
         ptmuExit();
