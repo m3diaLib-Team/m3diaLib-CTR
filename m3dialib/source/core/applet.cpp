@@ -12,10 +12,10 @@ namespace m3d {
          m_currentFrame(0) {
             aptInit();
             cfguInit();
-            archiveMountSdmc();
+            ptmuInit();
             acInit();
             romfsInit();
-            sdmcInit();
+            archiveMountSdmc();
             gfxInitDefault();
             C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
 
