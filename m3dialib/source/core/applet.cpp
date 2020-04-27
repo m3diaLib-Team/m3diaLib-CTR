@@ -15,7 +15,7 @@ namespace m3d {
             ptmuInit();
             acInit();
             romfsInit();
-            sdmcInit();
+            archiveMountSdmc();
             gfxInitDefault();
             C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
 
@@ -39,7 +39,7 @@ namespace m3d {
         if (m3d::priv::ndsp::initialized) ndspExit();
         C3D_Fini();
         gfxExit();
-        sdmcExit();
+        archiveUnmountAll();
         romfsExit();
         acExit();
         ptmuExit();
