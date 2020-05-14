@@ -10,6 +10,7 @@
 #include <functional>
 #include <mpg123.h>
 #include <vector>
+#include <string>
 
 namespace m3d {
     /**
