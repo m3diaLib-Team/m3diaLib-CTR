@@ -139,10 +139,8 @@ namespace m3d {
         u32 aptbuf[0x400 / 4];
 
         memset(aptbuf, 0, sizeof(aptbuf));
-        if (!aptLaunchLibraryApplet(id, aptbuf, sizeof(aptbuf), 0))
-            return false;
-
-        return true;
+        aptLaunchLibraryApplet(id, aptbuf, sizeof(aptbuf), 0);
+        return aptIsActive();
     }
 
     m3d::Applet::ConsoleModel Applet::getConsoleModel() {
