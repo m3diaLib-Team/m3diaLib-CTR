@@ -1,6 +1,8 @@
 # m3diaLib [![Build Status](https://travis-ci.org/m3diaLib-Team/m3diaLib-CTR.svg?branch=master)](https://travis-ci.org/StuntHacks/m3diaLib) [![CodeFactor](https://www.codefactor.io/repository/github/m3dialib-team/m3dialib-ctr/badge)](https://www.codefactor.io/repository/github/m3dialib-team/m3dialib-ctr)
 A fast, extensive and powerful allround media and game library for the Nintendo 3DS, written in C++.
 
+# This library is deprecated. I will still merge PRs and fix critical bugs, but I'm not planning on adding any new features or doing major changes. You should use libctru and citro3d/2d directly, if possible.
+
 #### Click [here](#installation) to get to the installation instructions.
 
 #### This library is still in beta! If you have any issues or find any bugs, please report them!
